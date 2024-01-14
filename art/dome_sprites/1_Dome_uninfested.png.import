@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6ixffrhummso"
-path="res://.godot/imported/Dome_50_infested.png-eb541b4694e011ad463d1aa280b675f6.ctex"
+uid="uid://b1kqklqkhp1fe"
+path="res://.godot/imported/1_Dome_uninfested.png-9e22364072fdd5cce6f4c6475ade18bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Dome_50_infested.png"
-dest_files=["res://.godot/imported/Dome_50_infested.png-eb541b4694e011ad463d1aa280b675f6.ctex"]
+source_file="res://art/dome_sprites/1_Dome_uninfested.png"
+dest_files=["res://.godot/imported/1_Dome_uninfested.png-9e22364072fdd5cce6f4c6475ade18bd.ctex"]
 
 [params]
 

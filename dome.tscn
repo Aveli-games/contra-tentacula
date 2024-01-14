@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dc3j5h50tp0m2"]
 
-[ext_resource type="Texture2D" uid="uid://b1kqklqkhp1fe" path="res://art/Dome_uninfested.png" id="1_6jw02"]
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
+[ext_resource type="Texture2D" uid="uid://b1kqklqkhp1fe" path="res://art/dome_sprites/1_Dome_uninfested.png" id="2_yase3"]
 
 [node name="Dome" type="Node2D"]
 position = Vector2(547, 313)
@@ -25,7 +25,7 @@ one_shot = true
 
 [node name="BuildingSprite" type="Sprite2D" parent="Building"]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_6jw02")
+texture = ExtResource("2_yase3")
 
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
