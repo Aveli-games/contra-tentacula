@@ -6,6 +6,11 @@ const BASE_INFESTATION_CHANCE_PER_TICK = 0.05
 # TODO: I think everything should run on delta or a 1s tick, _process runs much more often
 func _process(delta):
 	for child in $Domes.get_children():
+		# feels wrong to do it like this, but it was fast to add to what was here
+		# how should the team fighting infestation be programmed?
+		#  - modifier on an infestation rate of the dome seems right to me
+		#  - then dome will just process infestation += rate
+		#  - How to register/de-register in sync with team location then?
 		if child.get_name() == $Team.location:
 			print(child.infestation_percentage)
 			child.add_infestation(-0.01)
