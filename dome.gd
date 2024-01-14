@@ -12,14 +12,6 @@ var connections: Dictionary = {}
 enum InfestationType {NONE, AIR, WATER, GROUND}
 enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_infestation_check_timer_timeout():
 	if infestation_percentage <= 0:
 		$Building/BuildingSprite.texture = load("res://art/Dome_uninfested.png")
@@ -36,11 +28,13 @@ func _on_infestation_check_timer_timeout():
 	elif infestation_percentage >= 1:
 		$Building/BuildingSprite.texture = load("res://art/Dome_infested.png")
 		$DomeStatus.text = "Fully infested: %s" % $DomeLostCountdownTimer.time_left
-		fully_infested.emit()
+		if $DomeLostCountdownTimer.is_stopped():
+			fully_infested.emit()
 		
 func add_infestation(infestation_value: float):
 	infestation_percentage += infestation_value
 
+# only called when becomes fully infested
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start()
 

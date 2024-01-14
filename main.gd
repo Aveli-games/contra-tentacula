@@ -1,12 +1,10 @@
 extends Node
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+const BASE_INFESTATION_RATE = 0.05
+const BASE_INFESTATION_CHANCE_PER_TICK = 0.05
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for child in $Domes.get_children():
-		if randf() > .95:
-			child.add_infestation(.05)
+		if randf() < BASE_INFESTATION_CHANCE_PER_TICK:
+			child.add_infestation(BASE_INFESTATION_RATE)
