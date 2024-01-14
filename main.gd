@@ -18,6 +18,10 @@ func _process(delta):
 			# modify infestation rate here
 			child.add_infestation(BASE_INFESTATION_RATE)
 			
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			$Team.position = event.position
 
 # this is just for debug, because I don't know how to detect clicks and have no internet!
 func _on_team_spawn_timer_timeout():

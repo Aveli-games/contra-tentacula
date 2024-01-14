@@ -59,7 +59,6 @@ position = Vector2(795, 389)
 position = Vector2(812, 589)
 
 [node name="TeamSpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 autostart = true
 

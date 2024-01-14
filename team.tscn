@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj33uhw0gf724"]
+[gd_scene load_steps=4 format=3 uid="uid://bj33uhw0gf724"]
 
 [ext_resource type="Script" path="res://team.gd" id="1_e8qmi"]
 [ext_resource type="Texture2D" uid="uid://bkndkwst8uhea" path="res://art/person.svg" id="1_k1g5t"]
 
-[node name="Team" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ruyph"]
+
+[node name="Team" type="Area2D"]
 script = ExtResource("1_e8qmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2, 1)
 scale = Vector2(0.740741, 0.676692)
 texture = ExtResource("1_k1g5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ruyph")

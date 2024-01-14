@@ -3,6 +3,7 @@ extends Node2D
 signal fully_infested
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
+const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
 var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
@@ -45,7 +46,7 @@ func _on_infestation_check_timer_timeout():
 	elif infestation_percentage >= 1:
 		infestation_stage = InfestationStage.FULL
 		if $DomeLostCountdownTimer.is_stopped():
-			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.wait_time)
+			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
 		else:
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
@@ -58,9 +59,13 @@ func add_infestation(infestation_value: float):
 
 # only called when becomes fully infested
 func _on_fully_infested():
-	$DomeLostCountdownTimer.start()
+	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
 
 func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()
 	infestation_stage = InfestationStage.LOST
 	$DomeStatus.text = "Lost"
+
+func _on_area_entered(area):
+	if area.name == "Team":
+		area.location = name
