@@ -22,7 +22,6 @@ wait_time = 30.0
 one_shot = true
 
 [node name="Building" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="BuildingSprite" type="Sprite2D" parent="Building"]
 scale = Vector2(0.2, 0.2)

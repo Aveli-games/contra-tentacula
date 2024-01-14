@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhkl3g2uli04h"]
+[gd_scene load_steps=4 format=3 uid="uid://dhkl3g2uli04h"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6j1u5"]
 [ext_resource type="PackedScene" uid="uid://dc3j5h50tp0m2" path="res://dome.tscn" id="1_o7dif"]
+[ext_resource type="PackedScene" uid="uid://bj33uhw0gf724" path="res://team.tscn" id="2_e070c"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6j1u5")
+
+[node name="Team" parent="." instance=ExtResource("2_e070c")]
+position = Vector2(-117, 103)
 
 [node name="Domes" type="Node2D" parent="."]
 metadata/_edit_group_ = true
@@ -53,3 +57,10 @@ position = Vector2(795, 389)
 
 [node name="Dome15" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(812, 589)
+
+[node name="TeamSpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="TeamSpawnTimer" to="." method="_on_team_spawn_timer_timeout"]
