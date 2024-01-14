@@ -56,6 +56,9 @@ func _on_infestation_check_timer_timeout():
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
 	
 	$Building/BuildingSprite.texture = dome_sprites[infestation_stage]
+	
+	if infestation_stage < InfestationStage.FULL:
+		$DomeLostCountdownTimer.stop()
 		
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
