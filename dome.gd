@@ -7,15 +7,14 @@ const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
 var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
-var infestation_type: InfestationType = InfestationType.NONE
-var resource_type: ResourceType = ResourceType.NONE
+var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
+var infestation_rate: float = Globals.base_infestation_rate
+var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 var connections: Dictionary = {}
 var dome_sprites = []
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
-enum InfestationType {NONE, AIR, WATER, GROUND}
-enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
 
 func _ready():
 	# Load the dme sprites into an array for easy access
@@ -29,11 +28,16 @@ func _ready():
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the dome sprites.")
+		
+func _process(delta):
+	add_infestation(infestation_rate * delta)
 
 func _on_infestation_check_timer_timeout():
 	if infestation_percentage <= 0:
 		infestation_stage = InfestationStage.UNINFESTED
 		$DomeStatus.text = "Safe"
+		if randf() < .1:
+				add_infestation(Globals.base_infestation_rate)
 	elif infestation_percentage <= .50:
 		infestation_stage = InfestationStage.MINOR
 		$DomeStatus.text = "Minor infestation"
