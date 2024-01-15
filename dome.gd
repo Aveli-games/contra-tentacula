@@ -13,22 +13,8 @@ var infestation_modifier: float = 0.0
 var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 var connections: Dictionary = {}
-var dome_sprites = []
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
-
-func _ready():
-	# Load the dome sprites into an array for easy access
-	var dir = DirAccess.open(DOME_SPRITES_PATH)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if not dir.current_is_dir() && not file_name.ends_with(".import"):
-				dome_sprites.append(load(DOME_SPRITES_PATH + "/" + file_name))
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the dome sprites.")
 
 func _on_infestation_check_timer_timeout():
 	# Process infestation progression inependently in dome's infestation check
@@ -64,7 +50,7 @@ func _on_infestation_check_timer_timeout():
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
 	
 	# Set sprite based on list of sprites
-	$Building/BuildingSprite.texture = dome_sprites[infestation_stage]
+	$Building/BuildingSprite.set_frame(infestation_stage)
 	
 	if infestation_stage < InfestationStage.FULL:
 		$DomeLostCountdownTimer.stop()

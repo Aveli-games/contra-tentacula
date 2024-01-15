@@ -1,7 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3j5h50tp0m2"]
+[gd_scene load_steps=9 format=3 uid="uid://dc3j5h50tp0m2"]
 
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
 [ext_resource type="Texture2D" uid="uid://b1kqklqkhp1fe" path="res://art/dome_sprites/1_Dome_uninfested.png" id="2_w57x8"]
+[ext_resource type="Texture2D" uid="uid://brbs8g8isverl" path="res://art/dome_sprites/2_Dome_25_infested.png" id="3_6hlwo"]
+[ext_resource type="Texture2D" uid="uid://6ixffrhummso" path="res://art/dome_sprites/3_Dome_50_infested.png" id="4_r3vx6"]
+[ext_resource type="Texture2D" uid="uid://defnf4shjnehq" path="res://art/dome_sprites/4_Dome_75_infested.png" id="5_w1t68"]
+[ext_resource type="Texture2D" uid="uid://cjls373yhpcsb" path="res://art/dome_sprites/5_Dome_100_infested.png" id="6_8wydr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nkhx6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w57x8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6hlwo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r3vx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w1t68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8wydr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2qfvj"]
 size = Vector2(97, 49)
@@ -11,11 +38,12 @@ position = Vector2(547, 313)
 script = ExtResource("1_n1lt3")
 
 [node name="DomeStatus" type="Label" parent="."]
-offset_left = -16.0
+offset_left = -49.0
 offset_top = -53.0
-offset_right = 24.0
+offset_right = 49.0
 offset_bottom = -30.0
 text = "Safe"
+horizontal_alignment = 1
 
 [node name="InfestationCheckTimer" type="Timer" parent="."]
 autostart = true
@@ -26,9 +54,10 @@ one_shot = true
 
 [node name="Building" type="Node2D" parent="."]
 
-[node name="BuildingSprite" type="Sprite2D" parent="Building"]
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="Building"]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_w57x8")
+sprite_frames = SubResource("SpriteFrames_nkhx6")
+frame_progress = 0.0841366
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)
