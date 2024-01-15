@@ -18,4 +18,3 @@ func _on_team_spawn_timer_timeout():
 	# maybe assigning this 'location" parameter makes sense, and then Team will display itself at that reference
 	$Teams/Team.location = $Domes/Dome2.get_name()
 	$Teams/Team.position = $Domes/Dome2.position
-
