@@ -7,9 +7,6 @@ func _ready():
 		child.location = $Domes/Dome
 		child.selected.connect(_on_squad_selected)
 
-func _process(delta):
-	pass
-
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and selected_squad:
