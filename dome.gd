@@ -8,7 +8,8 @@ const INFESTATION_COUNTDOWN = 30
 var infestation_percentage: float = 0.0
 var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
-var infestation_rate: float = Globals.base_infestation_rate
+var infestation_rate: float = 0.0
+var infestation_modifier: float = 0.0
 var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 var connections: Dictionary = {}
@@ -29,34 +30,40 @@ func _ready():
 	else:
 		print("An error occurred when trying to access the dome sprites.")
 
-func _process(delta):
-	# Process infestation progression inependently in dome's process function
-	if infestation_stage > InfestationStage.UNINFESTED && infestation_stage < InfestationStage.FULL:
-		add_infestation(infestation_rate * delta)
-
 func _on_infestation_check_timer_timeout():
+	# Process infestation progression inependently in dome's infestation check
+	add_infestation(infestation_rate + infestation_modifier)
+	
+	# Then determine infestation level
 	if infestation_percentage <= 0:
-		infestation_stage = InfestationStage.UNINFESTED
-		$DomeStatus.text = "Safe"
-		if randf() < .1: # Temp, infestation should be initiated by main eventually
-				add_infestation(Globals.base_infestation_rate)
+		if infestation_stage != InfestationStage.UNINFESTED:
+			infestation_stage = InfestationStage.UNINFESTED
+			$DomeStatus.text = "Safe"
+			infestation_rate = 0.0
+		if randf() < .1 && infestation_rate == 0: # Temp, infestation should be initiated by main eventually
+				infestation_rate += .1
 	elif infestation_percentage <= .50:
-		infestation_stage = InfestationStage.MINOR
-		$DomeStatus.text = "Minor infestation"
+		if infestation_stage != InfestationStage.MINOR:
+			infestation_stage = InfestationStage.MINOR
+			$DomeStatus.text = "Minor infestation"
 	elif infestation_percentage <= .75:
-		infestation_stage = InfestationStage.MODERATE
-		$DomeStatus.text = "Moderate infestiation!"
+		if infestation_stage != InfestationStage.MODERATE:
+			infestation_stage = InfestationStage.MODERATE
+			$DomeStatus.text = "Moderate infestiation!"
 	elif infestation_percentage < 1:
-		infestation_stage = InfestationStage.MAJOR
-		$DomeStatus.text = "Major infestation!"
+		if infestation_stage != InfestationStage.MAJOR:
+			infestation_stage = InfestationStage.MAJOR
+			$DomeStatus.text = "Major infestation!"
 	elif infestation_percentage >= 1:
-		infestation_stage = InfestationStage.FULL
+		if infestation_stage != InfestationStage.FULL:
+			infestation_stage = InfestationStage.FULL
 		if $DomeLostCountdownTimer.is_stopped():
 			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
 		else:
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
 	
+	# Set sprite based on list of sprites
 	$Building/BuildingSprite.texture = dome_sprites[infestation_stage]
 	
 	if infestation_stage < InfestationStage.FULL:
@@ -65,6 +72,9 @@ func _on_infestation_check_timer_timeout():
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
+		
+func add_infestation_modifier(change: float):
+	infestation_modifier += change
 
 # Only called when becomes fully infested
 func _on_fully_infested():
@@ -78,3 +88,9 @@ func _on_dome_lost_countdown_timer_timeout():
 func _on_area_entered(area):
 	if area.name == "Team":
 		area.location = name
+		add_infestation_modifier(-.15)
+
+
+func _on_area_exited(area):
+	if area.name == "Team":
+		add_infestation_modifier(.15)

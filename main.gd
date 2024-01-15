@@ -1,12 +1,5 @@
 extends Node
 
-func _process(delta):
-	for team in $Teams.get_children():
-		var team_location = $Domes.get_node(team.location)
-		
-		if team_location:
-			team_location.add_infestation(-.15 * delta)
-			
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
