@@ -29,8 +29,10 @@ func _ready():
 	else:
 		print("An error occurred when trying to access the dome sprites.")
 		
+# Process infestation progression inependently in dome's process function
 func _process(delta):
-	add_infestation(infestation_rate * delta)
+	if infestation_stage > InfestationStage.UNINFESTED && infestation_stage < InfestationStage.FULL:
+		add_infestation(infestation_rate * delta)
 
 func _on_infestation_check_timer_timeout():
 	if infestation_percentage <= 0:
