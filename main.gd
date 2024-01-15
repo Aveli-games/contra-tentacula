@@ -1,20 +1,19 @@
 extends Node
 
+var selected_squad
+
+func _ready():
+	for child in $Squads.get_children():
+		child.location = $Domes/Dome
+		child.selected.connect(_on_squad_selected)
+
 func _process(delta):
-	for team in $Teams.get_children():
-		var team_location = $Domes.get_node(team.location)
-		
-		if team_location:
-			team_location.add_infestation(-.15 * delta)
-			
+	pass
+
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			$Teams/Team.position = event.position
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and selected_squad:
+			selected_squad.position = event.position
 
-# this is just for debug, because I don't know how to detect clicks and have no internet!
-func _on_team_spawn_timer_timeout():
-	# TODO: how to better store the location of the team in data? and display it?
-	# maybe assigning this 'location" parameter makes sense, and then Team will display itself at that reference
-	$Teams/Team.location = $Domes/Dome2.get_name()
-	$Teams/Team.position = $Domes/Dome2.position
+func _on_squad_selected(squad_node):
+	selected_squad = squad_node

@@ -34,7 +34,6 @@ texture = ExtResource("2_w57x8")
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_2qfvj")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
 [connection signal="timeout" from="DomeLostCountdownTimer" to="." method="_on_dome_lost_countdown_timer_timeout"]

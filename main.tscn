@@ -2,15 +2,10 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_6j1u5"]
 [ext_resource type="PackedScene" uid="uid://dc3j5h50tp0m2" path="res://dome.tscn" id="1_o7dif"]
-[ext_resource type="PackedScene" uid="uid://bj33uhw0gf724" path="res://team.tscn" id="2_e070c"]
+[ext_resource type="PackedScene" uid="uid://bj33uhw0gf724" path="res://squad.tscn" id="2_e070c"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6j1u5")
-
-[node name="Teams" type="Node2D" parent="."]
-
-[node name="Team" parent="Teams" instance=ExtResource("2_e070c")]
-position = Vector2(-117, 103)
 
 [node name="Domes" type="Node2D" parent="."]
 metadata/_edit_group_ = true
@@ -60,9 +55,16 @@ position = Vector2(795, 389)
 [node name="Dome15" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(812, 589)
 
-[node name="TeamSpawnTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
+[node name="Squads" type="Node2D" parent="."]
 
-[connection signal="use_brute_force" from="Teams/Team" to="." method="_on_team_use_brute_force"]
-[connection signal="timeout" from="TeamSpawnTimer" to="." method="_on_team_spawn_timer_timeout"]
+[node name="Squad" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(103, 116)
+
+[node name="Squad2" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(125, 116)
+
+[node name="Squad3" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(151, 116)
+
+[node name="Squad4" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(176, 116)
