@@ -17,7 +17,7 @@ var dome_sprites = []
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
 func _ready():
-	# Load the dme sprites into an array for easy access
+	# Load the dome sprites into an array for easy access
 	var dir = DirAccess.open(DOME_SPRITES_PATH)
 	if dir:
 		dir.list_dir_begin()
@@ -28,9 +28,9 @@ func _ready():
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the dome sprites.")
-		
-# Process infestation progression inependently in dome's process function
+
 func _process(delta):
+	# Process infestation progression inependently in dome's process function
 	if infestation_stage > InfestationStage.UNINFESTED && infestation_stage < InfestationStage.FULL:
 		add_infestation(infestation_rate * delta)
 
@@ -38,7 +38,7 @@ func _on_infestation_check_timer_timeout():
 	if infestation_percentage <= 0:
 		infestation_stage = InfestationStage.UNINFESTED
 		$DomeStatus.text = "Safe"
-		if randf() < .1:
+		if randf() < .1: # Temp, infestation should be initiated by main eventually
 				add_infestation(Globals.base_infestation_rate)
 	elif infestation_percentage <= .50:
 		infestation_stage = InfestationStage.MINOR
@@ -61,12 +61,12 @@ func _on_infestation_check_timer_timeout():
 	
 	if infestation_stage < InfestationStage.FULL:
 		$DomeLostCountdownTimer.stop()
-		
+
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
 
-# only called when becomes fully infested
+# Only called when becomes fully infested
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
 
