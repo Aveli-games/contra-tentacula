@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhkl3g2uli04h"]
+[gd_scene load_steps=5 format=3 uid="uid://dhkl3g2uli04h"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6j1u5"]
 [ext_resource type="PackedScene" uid="uid://dc3j5h50tp0m2" path="res://dome.tscn" id="1_o7dif"]
 [ext_resource type="PackedScene" uid="uid://bj33uhw0gf724" path="res://squad.tscn" id="2_e070c"]
+[ext_resource type="PackedScene" uid="uid://1gp43cg7oef4" path="res://ui.tscn" id="4_6vko8"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6j1u5")
@@ -68,3 +69,5 @@ position = Vector2(151, 116)
 
 [node name="Squad4" parent="Squads" instance=ExtResource("2_e070c")]
 position = Vector2(176, 116)
+
+[node name="UI" parent="." instance=ExtResource("4_6vko8")]
