@@ -70,13 +70,3 @@ func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()
 	infestation_stage = InfestationStage.LOST
 	$DomeStatus.text = "Lost"
-
-func _on_area_entered(area):
-	if area.name == "Team":
-		area.location = name
-		add_infestation_modifier(-.15)
-
-
-func _on_area_exited(area):
-	if area.name == "Team":
-		add_infestation_modifier(.15)
