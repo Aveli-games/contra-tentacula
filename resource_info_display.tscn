@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce1jmy6wn14ce"]
+
+[ext_resource type="Script" path="res://resource_info_display.gd" id="1_2dqr8"]
+
+[sub_resource type="Theme" id="Theme_5uy0m"]
+default_font_size = 24
+
+[node name="ResourceInfoDisplay" type="HBoxContainer"]
+offset_left = 408.0
+offset_top = 168.0
+offset_right = 519.0
+offset_bottom = 208.0
+theme = SubResource("Theme_5uy0m")
+theme_override_constants/separation = 14
+alignment = 1
+script = ExtResource("1_2dqr8")
+
+[node name="ResourceName" type="Label" parent="."]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "RESOURCE
+"
+
+[node name="ResourceAmount" type="Label" parent="."]
+layout_mode = 2
+text = "0"
