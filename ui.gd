@@ -31,8 +31,3 @@ func _ready():
 	$RightSidebar/SquadDisplay/Engineers.set_text("Eng")
 	$RightSidebar/SquadDisplay/Engineers.set_tooltip("Engineers")
 	$RightSidebar/SquadDisplay/Engineers.set_icon("res://art/squad_sprites/GasmaskSanitation_128.png")
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
