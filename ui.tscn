@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
 [ext_resource type="PackedScene" uid="uid://buvr472mrq05r" path="res://squad_info_display.tscn" id="2_oxt2f"]
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://clickable_icon.tscn" id="3_u1dio"]
-[ext_resource type="Script" path="res://gobal_controls.gd" id="4_dw5pm"]
+[ext_resource type="Script" path="res://global_controls.gd" id="4_dw5pm"]
 [ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
 
 [node name="UI" type="CanvasLayer"]
