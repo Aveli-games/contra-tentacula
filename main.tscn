@@ -8,6 +8,12 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_6j1u5")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.713726, 0.45098, 0.184314, 1)
+
 [node name="Domes" type="Node2D" parent="."]
 metadata/_edit_group_ = true
 
@@ -58,16 +64,16 @@ position = Vector2(812, 589)
 
 [node name="Squads" type="Node2D" parent="."]
 
-[node name="Squad" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(103, 116)
+[node name="Scientists" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(64, 168)
 
-[node name="Squad2" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(125, 116)
+[node name="Pyros" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(48, 256)
 
-[node name="Squad3" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(151, 116)
+[node name="Botanists" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(104, 208)
 
-[node name="Squad4" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(176, 116)
+[node name="Engineers" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(64, 208)
 
 [node name="UI" parent="." instance=ExtResource("4_6vko8")]

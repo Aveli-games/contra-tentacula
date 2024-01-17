@@ -21,14 +21,13 @@ func _ready():
 	# Set up squad display
 	$RightSidebar/SquadDisplay/Scientists.set_text("Sci")
 	$RightSidebar/SquadDisplay/Scientists.set_tooltip("Scientists")
+	$RightSidebar/SquadDisplay/Scientists.set_icon("res://art/squad_sprites/GasMaskScientist_128.png")
 	$RightSidebar/SquadDisplay/Pyros.set_text("Pyr")
 	$RightSidebar/SquadDisplay/Pyros.set_tooltip("Pyros")
+	$RightSidebar/SquadDisplay/Pyros.set_icon("res://art/squad_sprites/GasmaskPyro_128.png")
 	$RightSidebar/SquadDisplay/Botanists.set_text("Bot")
 	$RightSidebar/SquadDisplay/Botanists.set_tooltip("Botanists")
+	$RightSidebar/SquadDisplay/Botanists.set_icon("res://art/squad_sprites/GasmaskBot_128.png")
 	$RightSidebar/SquadDisplay/Engineers.set_text("Eng")
 	$RightSidebar/SquadDisplay/Engineers.set_tooltip("Engineers")
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	$RightSidebar/SquadDisplay/Engineers.set_icon("res://art/squad_sprites/GasmaskSanitation_128.png")

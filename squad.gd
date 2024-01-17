@@ -7,6 +7,9 @@ const BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
 
 var location: Area2D
 
+func set_sprite(path: String):
+	$Sprite2D.texture = load(path)
+
 func _on_area_entered(area):
 	location = area
 	if location && location.has_method("add_infestation_modifier"):

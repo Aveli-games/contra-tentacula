@@ -16,9 +16,13 @@ var connections: Dictionary = {}
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
-func _on_infestation_check_timer_timeout():
+func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
-	add_infestation(infestation_rate + infestation_modifier)
+	add_infestation((infestation_rate + infestation_modifier) * delta)
+	
+	$Building/InfestationProgress.value = infestation_percentage * 100
+
+func _on_infestation_check_timer_timeout():
 	
 	# Then determine infestation level
 	if infestation_percentage <= 0:
@@ -49,9 +53,6 @@ func _on_infestation_check_timer_timeout():
 		else:
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
 	
-	# Set sprite based on list of sprites
-	$Building/BuildingSprite.set_frame(infestation_stage)
-	
 	if infestation_stage < InfestationStage.FULL:
 		$DomeLostCountdownTimer.stop()
 
@@ -61,6 +62,9 @@ func add_infestation(infestation_value: float):
 		
 func add_infestation_modifier(change: float):
 	infestation_modifier += change
+	
+func set_sprite(path: String):
+	$Building/BuildingSprite.texture = load(path)
 
 # Only called when becomes fully infested
 func _on_fully_infested():
@@ -70,3 +74,4 @@ func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()
 	infestation_stage = InfestationStage.LOST
 	$DomeStatus.text = "Lost"
+	$Building/BuildingSprite.modulate = Color.DIM_GRAY
