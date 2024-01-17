@@ -4,7 +4,7 @@ func set_text(text: String):
 	$Details/SquadAbbreviation.text = text
 	
 func set_tooltip(text: String):
-	$ClickableIcon.tooltip_text = text
+	$ClickableIcon/Button.tooltip_text = text
 
-func set_icon(icon_path: String):
-	$ClickableIcon.icon = load(icon_path)
+func set_icon(path: String):
+	$ClickableIcon.set_icon(path)
