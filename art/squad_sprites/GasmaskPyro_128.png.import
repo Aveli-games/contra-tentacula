@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sq0qgv176tfw"
-path="res://.godot/imported/GogglesPyro.png-42ad124430ad4d76cb3ab9a39f6c9918.ctex"
+uid="uid://eidtce1neyym"
+path="res://.godot/imported/GasmaskPyro_128.png-01665578550d36df265a8b1df8e9e6a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/GogglesPyro.png"
-dest_files=["res://.godot/imported/GogglesPyro.png-42ad124430ad4d76cb3ab9a39f6c9918.ctex"]
+source_file="res://art/squad_sprites/GasmaskPyro_128.png"
+dest_files=["res://.godot/imported/GasmaskPyro_128.png-01665578550d36df265a8b1df8e9e6a8.ctex"]
 
 [params]
 

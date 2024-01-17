@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=6 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
 [ext_resource type="PackedScene" uid="uid://buvr472mrq05r" path="res://squad_info_display.tscn" id="2_oxt2f"]
 [ext_resource type="PackedScene" uid="uid://bijbbgp8jusva" path="res://clickable_icon.tscn" id="3_u1dio"]
+[ext_resource type="Texture2D" uid="uid://bviytsxvrvum1" path="res://art/command_sprites/fight_sprite_placeholder.png" id="5_qj43l"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_wssrf")
@@ -96,14 +97,15 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="CommandButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="MoveButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Move"
 
-[node name="CommandButton2" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="SpecialButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Special"
 
-[node name="CommandButton3" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="FightButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Fight"
+icon = ExtResource("5_qj43l")

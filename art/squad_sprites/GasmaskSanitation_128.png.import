@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqqxwd7vj32aj"
-path="res://.godot/imported/GasmaskSanitation.png-6222d9c56920a85a1a2547cd1465688f.ctex"
+uid="uid://dgj4c4126bovq"
+path="res://.godot/imported/GasmaskSanitation_128.png-00aee6610c31923fa84607e836ca48e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/GasmaskSanitation.png"
-dest_files=["res://.godot/imported/GasmaskSanitation.png-6222d9c56920a85a1a2547cd1465688f.ctex"]
+source_file="res://art/squad_sprites/GasmaskSanitation_128.png"
+dest_files=["res://.godot/imported/GasmaskSanitation_128.png-00aee6610c31923fa84607e836ca48e4.ctex"]
 
 [params]
 

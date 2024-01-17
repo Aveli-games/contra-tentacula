@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfjx0em4m0p84"
-path="res://.godot/imported/DomeFood.png-ed24ca199da3dfc9ff0428c57ff0332c.ctex"
+uid="uid://bkmm8hlcchwon"
+path="res://.godot/imported/GogglesSanitaion.png-f21221a88f4f9031a2495b525e476e1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/DomeFood.png"
-dest_files=["res://.godot/imported/DomeFood.png-ed24ca199da3dfc9ff0428c57ff0332c.ctex"]
+source_file="res://art/misc_assets/GogglesSanitaion.png"
+dest_files=["res://.godot/imported/GogglesSanitaion.png-f21221a88f4f9031a2495b525e476e1e.ctex"]
 
 [params]
 

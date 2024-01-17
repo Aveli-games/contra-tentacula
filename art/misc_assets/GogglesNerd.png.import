@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7qsubb4ebnr1"
-path="res://.godot/imported/GogglesNerd.png-0197b4078f8469fd1f2dbc299e104f16.ctex"
+path="res://.godot/imported/GogglesNerd.png-ad25b0519355721f224cfca82e0f232e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/GogglesNerd.png"
-dest_files=["res://.godot/imported/GogglesNerd.png-0197b4078f8469fd1f2dbc299e104f16.ctex"]
+source_file="res://art/misc_assets/GogglesNerd.png"
+dest_files=["res://.godot/imported/GogglesNerd.png-ad25b0519355721f224cfca82e0f232e.ctex"]
 
 [params]
 

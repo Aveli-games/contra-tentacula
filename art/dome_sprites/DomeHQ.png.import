@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8ikghshq0tc3"
-path="res://.godot/imported/Gasmask.png-b259b45fe4506b5304633c5f43825782.ctex"
+uid="uid://c57mj0q81eypb"
+path="res://.godot/imported/DomeHQ.png-3ddb1736fe6b42a383e7295da5e9d32e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/Gasmask.png"
-dest_files=["res://.godot/imported/Gasmask.png-b259b45fe4506b5304633c5f43825782.ctex"]
+source_file="res://art/dome_sprites/DomeHQ.png"
+dest_files=["res://.godot/imported/DomeHQ.png-3ddb1736fe6b42a383e7295da5e9d32e.ctex"]
 
 [params]
 

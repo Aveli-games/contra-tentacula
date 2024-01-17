@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl6kicx4gfu81"
-path="res://.godot/imported/DomeFuel.png-4b2b13eace7782c9526cdb530423aab3.ctex"
+uid="uid://cfjx0em4m0p84"
+path="res://.godot/imported/DomeFood.png-4955346cf3e258d943b0638f47aa8b9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/DomeFuel.png"
-dest_files=["res://.godot/imported/DomeFuel.png-4b2b13eace7782c9526cdb530423aab3.ctex"]
+source_file="res://art/dome_sprites/DomeFood.png"
+dest_files=["res://.godot/imported/DomeFood.png-4955346cf3e258d943b0638f47aa8b9f.ctex"]
 
 [params]
 

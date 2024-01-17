@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkmm8hlcchwon"
-path="res://.godot/imported/GogglesSanitaion.png-32c66f0cd9df4cff37bd1d3cd322ad96.ctex"
+uid="uid://c7ektoa0lkq3k"
+path="res://.godot/imported/GasMaskScientist_128.png-fd7fb2d2fbca757aee75edf3583d65bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/ChyanneDoodle/GimpExports/GogglesSanitaion.png"
-dest_files=["res://.godot/imported/GogglesSanitaion.png-32c66f0cd9df4cff37bd1d3cd322ad96.ctex"]
+source_file="res://art/squad_sprites/GasMaskScientist_128.png"
+dest_files=["res://.godot/imported/GasMaskScientist_128.png-fd7fb2d2fbca757aee75edf3583d65bb.ctex"]
 
 [params]
 
