@@ -1,6 +1,13 @@
 extends Node
 
 var selected_squad
+var dome_type_limits = {
+	Globals.ResourceType.NONE: 0,
+	Globals.ResourceType.FOOD: 6,
+	Globals.ResourceType.FUEL: 3,
+	Globals.ResourceType.PARTS: 3,
+	Globals.ResourceType.RESEARCH: 3
+}
 
 func _ready():
 	for child in $Squads.get_children():
@@ -12,19 +19,19 @@ func _ready():
 	$Squads/Botanists.set_sprite("res://art/squad_sprites/GasmaskBot_128.png")
 	$Squads/Engineers.set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
 	
-	# TODO: Replace this sample with proper dome randomzing
 	for child in $Domes.get_children():
-		match randi_range(0, 3):
-			0:
-				child.set_sprite("res://art/dome_sprites/Dome_food_96.png")
-			1:
-				child.set_sprite("res://art/dome_sprites/Dome_fuel_96.png")
-			2:
-				child.set_sprite("res://art/dome_sprites/Dome_parts_96.png")
-			3:
-				child.set_sprite("res://art/dome_sprites/Dome_science_96.png")
-				
-	$Domes/Dome.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
+		if child == $Domes/Dome:
+			child.set_resource_type(Globals.ResourceType.FOOD)
+			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
+			dome_type_limits[Globals.ResourceType.FOOD] -= 1
+		else:
+			var randome = 0
+			
+			# Get random available resource type for this child
+			while dome_type_limits[randome] == 0:
+				randome = randi_range(0, Globals.ResourceType.size() - 1)
+			child.set_resource_type(randome)
+			dome_type_limits[randome] -= 1
 	
 	# try to put the lower number dome on the left to help prevent repeats, and sort ascending
 	var dome_connections = [

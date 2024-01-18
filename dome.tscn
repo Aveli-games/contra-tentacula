@@ -8,6 +8,8 @@
 position = Vector2(544, 312)
 script = ExtResource("1_n1lt3")
 
+[node name="ResourceGenerationTimer" type="Timer" parent="."]
+
 [node name="DomeStatus" type="Label" parent="."]
 offset_left = -51.0
 offset_top = 34.0
@@ -50,5 +52,6 @@ offset_right = 130.0
 offset_bottom = -1.0
 
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
+[connection signal="timeout" from="ResourceGenerationTimer" to="." method="_on_resource_generation_timer_timeout"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
 [connection signal="timeout" from="DomeLostCountdownTimer" to="." method="_on_dome_lost_countdown_timer_timeout"]
