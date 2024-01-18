@@ -36,6 +36,7 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != InfestationStage.MINOR:
 			infestation_stage = InfestationStage.MINOR
 			$DomeStatus.text = "Minor infestation"
+			infestation_rate = Globals.base_infestation_rate
 	elif infestation_percentage <= .75:
 		if infestation_stage != InfestationStage.MODERATE:
 			infestation_stage = InfestationStage.MODERATE
