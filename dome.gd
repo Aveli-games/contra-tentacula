@@ -18,6 +18,7 @@ enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
 func _ready():
 	infestation_rate = Globals.base_infestation_rate
+	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
 
 func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
