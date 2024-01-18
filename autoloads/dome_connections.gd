@@ -22,7 +22,7 @@ func instantiate_network(dome_connections, self_ref):
 		var dome_1 = pair[0]
 		var dome_2 = pair[1]
 		if !dome_1 || !dome_2:
-			# throw error
+			push_error("Null reference provided for Dome connection")
 			pass
 		DomeConnections.connect_domes(dome_1, dome_2)
 	
