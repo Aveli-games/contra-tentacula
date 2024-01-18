@@ -25,6 +25,33 @@ func _ready():
 				child.set_sprite("res://art/dome_sprites/Dome_science_96.png")
 				
 	$Domes/Dome.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
+	
+	# try to put the lower number dome on the left to help prevent repeats, and sort ascending
+	var dome_connections = [
+		[$Domes/Dome, $Domes/Dome2],
+		[$Domes/Dome, $Domes/Dome3],
+		[$Domes/Dome, $Domes/Dome4],
+		[$Domes/Dome2, $Domes/Dome4],
+		[$Domes/Dome2, $Domes/Dome9],
+		[$Domes/Dome2, $Domes/Dome5],
+		[$Domes/Dome3, $Domes/Dome9],
+		[$Domes/Dome4, $Domes/Dome5],
+		[$Domes/Dome4, $Domes/Dome6],
+		[$Domes/Dome5, $Domes/Dome7],
+		[$Domes/Dome5, $Domes/Dome11],
+		[$Domes/Dome6, $Domes/Dome7],
+		[$Domes/Dome6, $Domes/Dome8],
+		[$Domes/Dome7, $Domes/Dome11],
+		[$Domes/Dome7, $Domes/Dome12],
+		[$Domes/Dome9, $Domes/Dome13],
+		[$Domes/Dome10, $Domes/Dome11],
+		[$Domes/Dome10, $Domes/Dome14],
+		[$Domes/Dome11, $Domes/Dome12],
+		[$Domes/Dome11, $Domes/Dome15],
+		[$Domes/Dome13, $Domes/Dome14],
+		[$Domes/Dome14, $Domes/Dome15],
+	]
+	DomeConnections.instantiate_network(dome_connections, self)
 
 func _input(event):
 	if event is InputEventMouseButton:

@@ -43,6 +43,12 @@ visible = false
 position = Vector2(0, -24)
 polygon = PackedVector2Array(32, -0.5, 44, 13.6, 44, 15.8, 48, 23.8, 48, 36, 46.5, 36, 44.5, 39, 42.4, 39, 37.4, 43, 34.2, 43, 28.2, 46, 23.2, 46, 15.1, 48, -25.8, 48, -36, 45.8, -36, 44.7, -44, 41.7, -44, 40.5, -48, 37.5, -48, 23, -46.7, 23, -43.7, 14, -42.7, 14, -41.7, 11, -40.4, 11, -38, 8.6, -38, 6, -36.4, 6, -35, 4.6, -35, 2.8, -33.6, 0, -32.4, 0, -32, -0.400002, -32, -2, 32, -2)
 
+[node name="DomeName" type="Label" parent="."]
+offset_left = 57.0
+offset_top = -34.0
+offset_right = 130.0
+offset_bottom = -1.0
+
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
 [connection signal="timeout" from="DomeLostCountdownTimer" to="." method="_on_dome_lost_countdown_timer_timeout"]
