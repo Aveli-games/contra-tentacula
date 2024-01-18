@@ -13,7 +13,7 @@ func _process(delta):
 			c.infestation_progress += Globals.BASE_CONNECTOR_INFESTATION_RATE * delta
 		if c.infestation_progress > 1 && c.b.infestation_percentage == 0:
 			c.b.add_infestation(Globals.base_infestation_rate * delta)
-			print('spread infestation to: ', c.b.get_name())
+			print('CONNECTOR: spread infestation to ', c.b.get_name())
 		
 
 # dome_connections: Area2D[][]
@@ -50,6 +50,7 @@ func draw_connections():
 		var line = Line2D.new()
 		line.add_point(i.a.global_position)
 		line.add_point(i.b.global_position)
+		line.default_color = Color(1,1,1,0.2)
 		line_nodes.append(line)
 	return line_nodes
 
