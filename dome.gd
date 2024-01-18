@@ -16,9 +16,13 @@ var connections: Dictionary = {}
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
+func _ready():
+	infestation_rate = Globals.base_infestation_rate
+
 func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
-	add_infestation((infestation_rate + infestation_modifier) * delta)
+	if infestation_percentage > 0:
+		add_infestation((infestation_rate + infestation_modifier) * delta)
 	
 	$Building/InfestationProgress.value = infestation_percentage * 100
 
@@ -29,14 +33,14 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != InfestationStage.UNINFESTED:
 			infestation_stage = InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
-			infestation_rate = 0.0
-		#if randf() < .01 && infestation_rate == 0: # Temp, infestation should be initiated by main eventually
-				#infestation_rate += .1
+			#infestation_rate = 0.0
+		if randf() < .01 && infestation_rate == 0: # Temp, infestation should be initiated by main eventually
+				infestation_rate += .1
 	elif infestation_percentage <= .50:
 		if infestation_stage != InfestationStage.MINOR:
 			infestation_stage = InfestationStage.MINOR
 			$DomeStatus.text = "Minor infestation"
-			infestation_rate = Globals.base_infestation_rate
+			#infestation_rate = Globals.base_infestation_rate
 	elif infestation_percentage <= .75:
 		if infestation_stage != InfestationStage.MODERATE:
 			infestation_stage = InfestationStage.MODERATE
@@ -70,10 +74,8 @@ func set_sprite(path: String):
 # Only called when becomes fully infested
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
-	#var me = self
-	#print(self.get_property_list())
 	##TODO: use signal in DomeConnections instead?
-	#DomeConnections.dome_start_spread(self.child_node.owner)
+	DomeConnections.dome_start_spread(self as Variant as Area2D)
 
 func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()

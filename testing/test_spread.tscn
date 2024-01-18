@@ -20,3 +20,6 @@ position = Vector2(536, 588)
 
 [node name="Dome5" parent="." instance=ExtResource("1_tm6lj")]
 position = Vector2(547, 326)
+
+[node name="Dome6" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(283, 386)

@@ -11,11 +11,24 @@ func _process(delta):
 	for c in connections:
 		if c.infestation_progress > 0:
 			c.infestation_progress += Globals.BASE_CONNECTOR_INFESTATION_RATE * delta
-			print(c)
 		if c.infestation_progress > 1 && c.b.infestation_percentage == 0:
 			c.b.add_infestation(Globals.base_infestation_rate * delta)
 			print('spread infestation to: ', c.b.get_name())
 		
+
+# dome_connections: Area2D[][]
+func instantiate_network(dome_connections, self_ref):
+	for pair in dome_connections:
+		var dome_1 = pair[0]
+		var dome_2 = pair[1]
+		if !dome_1 || !dome_2:
+			# throw error
+			pass
+		DomeConnections.connect_domes(dome_1, dome_2)
+	
+	var line_nodes = DomeConnections.draw_connections()
+	for i in line_nodes:
+		self_ref.add_child(i)
 
 # dome_a, dome_b are references to dome nodes
 func connect_domes(dome_a: Area2D, dome_b: Area2D):
