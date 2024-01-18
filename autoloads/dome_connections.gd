@@ -3,7 +3,19 @@ extends Node
 # connections represented as a "directed graph", i.e. each connection is directional
 var connections = []
 # visual representation of each connection
+# TODO: how to texture programmatically? or can we texture a scene and instantiate that programatically?
 var line_nodes = []
+
+
+func _process(delta):
+	for c in connections:
+		if c.infestation_progress > 0:
+			c.infestation_progress += Globals.BASE_CONNECTOR_INFESTATION_RATE * delta
+			print(c)
+		if c.infestation_progress > 1 && c.b.infestation_percentage == 0:
+			c.b.add_infestation(Globals.base_infestation_rate * delta)
+			print('spread infestation to: ', c.b.get_name())
+		
 
 # dome_a, dome_b are references to dome nodes
 func connect_domes(dome_a: Area2D, dome_b: Area2D):
@@ -35,10 +47,9 @@ func dome_stop_spread(dome: Area2D):
 	var connected = get_dome_connections(dome)
 	for c in connected:
 		c.infestation_progress = 0
-		
+
 func dome_start_spread(dome: Area2D, infestation_type = null): 
 	var connected = get_dome_connections(dome)
 	for c in connected:
 		c.infestation_progress = Globals.BASE_CONNECTOR_INFESTATION_RATE
 		c.infestation_type = infestation_type  # TODO: use infestation types
-

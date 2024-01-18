@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://i4y5qoyv547g"]
+
+[ext_resource type="Script" path="res://testing/test_spread.gd" id="1_a4443"]
+[ext_resource type="PackedScene" uid="uid://dc3j5h50tp0m2" path="res://dome.tscn" id="1_tm6lj"]
+
+[node name="TestSpread" type="Node2D"]
+script = ExtResource("1_a4443")
+
+[node name="Dome2" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(1088, 347)
+
+[node name="Dome" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(829, 453)
+
+[node name="Dome3" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(1079, 593)
+
+[node name="Dome4" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(536, 588)
+
+[node name="Dome5" parent="." instance=ExtResource("1_tm6lj")]
+position = Vector2(547, 326)
