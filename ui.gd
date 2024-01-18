@@ -10,13 +10,13 @@ extends CanvasLayer
 func _ready():
 	# Set up resource display
 	$RightSidebar/ResourceDisplay/FoodInfo.set_text("Food")
-	$RightSidebar/ResourceDisplay/FoodInfo.set_amount(Globals.resources["food"])
+	$RightSidebar/ResourceDisplay/FoodInfo.set_amount(Globals.resources[Globals.ResourceType.FOOD])
 	$RightSidebar/ResourceDisplay/ResearchInfo.set_text("Research")
-	$RightSidebar/ResourceDisplay/ResearchInfo.set_amount(Globals.resources["research"])
+	$RightSidebar/ResourceDisplay/ResearchInfo.set_amount(Globals.resources[Globals.ResourceType.RESEARCH])
 	$RightSidebar/ResourceDisplay/FuelInfo.set_text("Fuel")
-	$RightSidebar/ResourceDisplay/FuelInfo.set_amount(Globals.resources["fuel"])
+	$RightSidebar/ResourceDisplay/FuelInfo.set_amount(Globals.resources[Globals.ResourceType.FUEL])
 	$RightSidebar/ResourceDisplay/PartsInfo.set_text("Parts")
-	$RightSidebar/ResourceDisplay/PartsInfo.set_amount(Globals.resources["parts"])
+	$RightSidebar/ResourceDisplay/PartsInfo.set_amount(Globals.resources[Globals.ResourceType.PARTS])
 	
 	# Set up squad display
 	$RightSidebar/SquadDisplay/Scientists.set_text("Sci")
