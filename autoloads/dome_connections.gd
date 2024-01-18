@@ -3,6 +3,7 @@ extends Node
 # connections represented as a "directed graph", i.e. each connection is directional
 var connections = []
 # visual representation of each connection
+# https://github.com/Aveli-games/infestation/issues/11
 # TODO: how to texture programmatically? or can we texture a scene and instantiate that programatically?
 var line_nodes = []
 
@@ -40,7 +41,7 @@ func _add_connection(dome_a: Area2D, dome_b: Area2D):
 		"a": dome_a,
 		"b": dome_b,
 		"infestation_progress": 0.00,
-		"infestation_type": null, # TODO: use types
+		"infestation_type": null, # TODO: use types https://github.com/Aveli-games/infestation/issues/17
 		# "distance": 100   # could use to determine squad travel time between domes
 	}
 	connections.append(new_connection)
@@ -66,4 +67,4 @@ func dome_start_spread(dome: Area2D, infestation_type = null):
 	var connected = get_dome_connections(dome)
 	for c in connected:
 		c.infestation_progress = Globals.BASE_CONNECTOR_INFESTATION_RATE
-		c.infestation_type = infestation_type  # TODO: use infestation types
+		c.infestation_type = infestation_type  # TODO: use infestation types https://github.com/Aveli-games/infestation/issues/17
