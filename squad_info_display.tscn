@@ -2,15 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://bviytsxvrvum1" path="res://art/command_sprites/fight_sprite_placeholder.png" id="1_xim44"]
 [ext_resource type="Script" path="res://squad_info_display.gd" id="1_xufqx"]
-[ext_resource type="PackedScene" uid="uid://bijbbgp8jusva" path="res://clickable_icon.tscn" id="2_e0ysf"]
+[ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://clickable_icon.tscn" id="2_e0ysf"]
 
 [node name="SquadInfoDisplay" type="VBoxContainer"]
 offset_left = 392.0
 offset_top = 160.0
-offset_right = 520.0
-offset_bottom = 288.0
+offset_right = 490.0
+offset_bottom = 262.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 10
 alignment = 2
 script = ExtResource("1_xufqx")
 

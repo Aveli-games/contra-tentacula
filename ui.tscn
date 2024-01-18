@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=7 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
 [ext_resource type="PackedScene" uid="uid://buvr472mrq05r" path="res://squad_info_display.tscn" id="2_oxt2f"]
-[ext_resource type="PackedScene" uid="uid://bijbbgp8jusva" path="res://clickable_icon.tscn" id="3_u1dio"]
+[ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://clickable_icon.tscn" id="3_u1dio"]
+[ext_resource type="Script" path="res://global_controls.gd" id="4_dw5pm"]
+[ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_wssrf")
@@ -70,6 +72,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
+script = ExtResource("4_dw5pm")
 
 [node name="ResearchMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
@@ -95,15 +98,16 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
+script = ExtResource("5_613uf")
 
-[node name="CommandButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="MoveButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Move"
 
-[node name="CommandButton2" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="SpecialButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Special"
 
-[node name="CommandButton3" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
+[node name="FightButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("3_u1dio")]
 layout_mode = 2
 tooltip_text = "Fight"
