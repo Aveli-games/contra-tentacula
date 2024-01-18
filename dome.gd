@@ -27,13 +27,11 @@ func _process(delta):
 	$Building/InfestationProgress.value = infestation_percentage * 100
 
 func _on_infestation_check_timer_timeout():
-	
-	# Then determine infestation level
+	# determine infestation level
 	if infestation_percentage <= 0:
 		if infestation_stage != InfestationStage.UNINFESTED:
 			infestation_stage = InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
-			#infestation_rate = 0.0
 		var random_roll = randf()
 		if random_roll < .01: # Temp, infestation should be initiated by main eventually
 				infestation_percentage += 0.01
@@ -41,7 +39,6 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != InfestationStage.MINOR:
 			infestation_stage = InfestationStage.MINOR
 			$DomeStatus.text = "Minor infestation"
-			#infestation_rate = Globals.base_infestation_rate
 	elif infestation_percentage <= .75:
 		if infestation_stage != InfestationStage.MODERATE:
 			infestation_stage = InfestationStage.MODERATE
