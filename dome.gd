@@ -31,14 +31,14 @@ func _on_infestation_check_timer_timeout():
 			$DomeStatus.text = "Safe"
 			infestation_rate = 0.0
 		if randf() < .1 && infestation_rate == 0: # Temp, infestation should be initiated by main eventually
-				infestation_rate += .1
-				$ResourceGenerationTimer.stop()
+			infestation_rate += .1
 		else:
 			$ResourceGenerationTimer.start(1)
 	elif infestation_percentage <= .50:
 		if infestation_stage != InfestationStage.MINOR:
 			infestation_stage = InfestationStage.MINOR
 			$DomeStatus.text = "Minor infestation"
+			$ResourceGenerationTimer.stop()
 	elif infestation_percentage <= .75:
 		if infestation_stage != InfestationStage.MODERATE:
 			infestation_stage = InfestationStage.MODERATE
@@ -78,11 +78,11 @@ func set_resource_type(type: Globals.ResourceType):
 	match resource_type:
 		Globals.ResourceType.FOOD:
 			set_sprite("res://art/dome_sprites/Dome_food_96.png")
-		Globals.ResourceType.RESEARCH:
+		Globals.ResourceType.FUEL:
 			set_sprite("res://art/dome_sprites/Dome_fuel_96.png")
 		Globals.ResourceType.PARTS:
 			set_sprite("res://art/dome_sprites/Dome_parts_96.png")
-		Globals.ResourceType.FUEL:
+		Globals.ResourceType.RESEARCH:
 			set_sprite("res://art/dome_sprites/Dome_science_96.png")
 
 # Only called when becomes fully infested
