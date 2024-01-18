@@ -1,6 +1,13 @@
 extends Node
 
 var selected_squad
+var dome_limits = {
+	Globals.ResourceType.NONE: 0,
+	Globals.ResourceType.FOOD: 6,
+	Globals.ResourceType.FUEL: 3,
+	Globals.ResourceType.PARTS: 3,
+	Globals.ResourceType.RESEARCH: 3
+}
 
 func _ready():
 	for child in $Squads.get_children():
@@ -14,16 +21,11 @@ func _ready():
 	
 	# TODO: Replace this sample with proper dome randomzing
 	for child in $Domes.get_children():
-		match randi_range(0, 3):
-			0:
-				child.set_sprite("res://art/dome_sprites/Dome_food_96.png")
-			1:
-				child.set_sprite("res://art/dome_sprites/Dome_fuel_96.png")
-			2:
-				child.set_sprite("res://art/dome_sprites/Dome_parts_96.png")
-			3:
-				child.set_sprite("res://art/dome_sprites/Dome_science_96.png")
-				
+		var randome = randi_range(0, Globals.ResourceType.size() - 1)
+		if dome_limits[randome] != 0:
+			child.set_resource_type(randome)
+			dome_limits[randome] -= 1
+			
 	$Domes/Dome.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
 
 func _input(event):

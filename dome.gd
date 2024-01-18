@@ -10,7 +10,7 @@ var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
 var infestation_rate: float = 0.0
 var infestation_modifier: float = 0.0
-var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
+@export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 var connections: Dictionary = {}
 
@@ -32,6 +32,9 @@ func _on_infestation_check_timer_timeout():
 			infestation_rate = 0.0
 		if randf() < .1 && infestation_rate == 0: # Temp, infestation should be initiated by main eventually
 				infestation_rate += .1
+				$ResourceGenerationTimer.stop()
+		else:
+			$ResourceGenerationTimer.start(1)
 	elif infestation_percentage <= .50:
 		if infestation_stage != InfestationStage.MINOR:
 			infestation_stage = InfestationStage.MINOR
@@ -66,6 +69,22 @@ func add_infestation_modifier(change: float):
 func set_sprite(path: String):
 	$Building/BuildingSprite.texture = load(path)
 
+func generate_resource():
+	if resource_type && resource_type != Globals.ResourceType.NONE:
+		Globals.add_resource(resource_type, 1)
+
+func set_resource_type(type: Globals.ResourceType):
+	resource_type = type
+	match resource_type:
+		Globals.ResourceType.FOOD:
+			set_sprite("res://art/dome_sprites/Dome_food_96.png")
+		Globals.ResourceType.RESEARCH:
+			set_sprite("res://art/dome_sprites/Dome_fuel_96.png")
+		Globals.ResourceType.PARTS:
+			set_sprite("res://art/dome_sprites/Dome_parts_96.png")
+		Globals.ResourceType.FUEL:
+			set_sprite("res://art/dome_sprites/Dome_science_96.png")
+
 # Only called when becomes fully infested
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
@@ -75,3 +94,7 @@ func _on_dome_lost_countdown_timer_timeout():
 	infestation_stage = InfestationStage.LOST
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
+
+func _on_resource_generation_timer_timeout():
+	if resource_type != Globals.ResourceType.RESEARCH:
+		generate_resource()
