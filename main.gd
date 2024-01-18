@@ -25,6 +25,12 @@ func _ready():
 				child.set_sprite("res://art/dome_sprites/Dome_science_96.png")
 				
 	$Domes/Dome.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
+	
+	# instantiate dome connections
+	DomeConnections.connect_domes($Domes/Dome, $Domes/Dome2)
+	var line_nodes = DomeConnections.draw_connections()
+	for i in line_nodes:
+		add_child(i)
 
 func _input(event):
 	if event is InputEventMouseButton:
