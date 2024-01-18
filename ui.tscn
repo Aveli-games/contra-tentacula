@@ -23,15 +23,19 @@ alignment = 1
 
 [node name="FoodInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
+resource_type = 1
 
 [node name="ResearchInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
+resource_type = 4
 
 [node name="FuelInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
+resource_type = 2
 
 [node name="PartsInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
+resource_type = 3
 
 [node name="SquadDisplay" type="GridContainer" parent="RightSidebar"]
 layout_mode = 2
