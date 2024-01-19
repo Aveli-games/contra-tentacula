@@ -45,6 +45,7 @@ func _add_connection(dome_a: Area2D, dome_b: Area2D):
 		# "distance": 100   # could use to determine squad travel time between domes
 	}
 	connections.append(new_connection)
+	dome_a.connections.append(dome_b)
 	
 func draw_connections():
 	for i in connections:
