@@ -67,15 +67,15 @@ position = Vector2(812, 589)
 [node name="Squads" type="Node2D" parent="."]
 
 [node name="Scientists" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(64, 168)
+position = Vector2(120, 96)
 
 [node name="Pyros" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(48, 256)
+position = Vector2(128, 120)
 
 [node name="Botanists" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(104, 208)
+position = Vector2(168, 96)
 
 [node name="Engineers" parent="Squads" instance=ExtResource("2_e070c")]
-position = Vector2(64, 208)
+position = Vector2(160, 120)
 
 [node name="UI" parent="." instance=ExtResource("4_6vko8")]

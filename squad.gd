@@ -8,9 +8,10 @@ const BASE_INFESTATION_FIGHT_RATE = -.05
 const BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
 
 var location: Dome
+var slot: BuildingSlot
 
 var target_position: Vector2
-var velocity = Vector2.ZERO
+var velocity: Vector2 = Vector2.ZERO
 
 func set_sprite(path: String):
 	$Sprite2D.texture = load(path)
@@ -25,14 +26,26 @@ func _physics_process(delta):
 		var direction = (target_position - position).normalized()
 		velocity = direction * BASE_MOVE_SPEED
 		position += velocity * delta
+	elif velocity != Vector2.ZERO:
+		velocity = Vector2.ZERO
 
 # TODO: Update this with respective squad actions
 func _on_area_entered(area: Dome):
+		area.enter(self)
 		area.add_infestation_modifier(BASE_INFESTATION_FIGHT_RATE * 3)
-		location = area
-		position = location.position
 
 # TODO: Update this with respective squad actions
 func _on_area_exited(area: Dome):
 		area.add_infestation_modifier(-BASE_INFESTATION_FIGHT_RATE * 3)
 		location = null
+	
+func move(target: Dome):
+	if velocity == Vector2.ZERO:
+		if location:
+			if location != target && location.connections.find(target) != -1:
+				position = location.position
+				if slot:
+					slot.empty(self)
+				target_position = target.position
+		else:
+			target_position = target.position

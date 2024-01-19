@@ -108,13 +108,14 @@ func _on_resource_generation_timer_timeout():
 	if resource_type != Globals.ResourceType.RESEARCH:
 		generate_resource()
 
-func _on_body_entered(body: Squad):
-	body.location = self
-
-func _on_body_exited(body):
-	body.location = null
-
 func _on_selection_area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			targeted.emit(self)
+
+func enter(squad: Squad):
+	squad.location = self
+	for slot in $Building/UnitSlots.get_children():
+		if not slot.unit:
+			slot.fill(squad)
+			break
