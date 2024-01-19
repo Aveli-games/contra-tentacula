@@ -7,11 +7,17 @@ signal selected
 const BASE_INFESTATION_FIGHT_RATE = -.05
 const BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
 
+signal movement_completed
+signal movement_started
+
+var target_location: Dome
 var location: Dome
 var slot: BuildingSlot
 
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
+
+var moving: bool = false
 
 func _ready():
 	set_highlight(false)
@@ -31,27 +37,39 @@ func _physics_process(delta):
 		position += velocity * delta
 	elif velocity != Vector2.ZERO:
 		velocity = Vector2.ZERO
+		
+		if target_location != location:
+			movement_completed.emit()
 
 # TODO: Update this with respective squad actions
-func _on_area_entered(area: Dome):
-		area.enter(self)
-		area.add_infestation_modifier(BASE_INFESTATION_FIGHT_RATE * 3)
+func _on_movement_completed():
+	if target_location:
+		target_location.enter(self)
+		target_location.add_infestation_modifier(BASE_INFESTATION_FIGHT_RATE * 3)
+		moving = false
 
 # TODO: Update this with respective squad actions
-func _on_area_exited(area: Dome):
-		area.add_infestation_modifier(-BASE_INFESTATION_FIGHT_RATE * 3)
+func _on_movement_started():
+	if location:
+		location.add_infestation_modifier(-BASE_INFESTATION_FIGHT_RATE * 3)
 		location = null
+		moving = true
 	
 func move(target: Dome):
-	if velocity == Vector2.ZERO:
+	if not moving:
 		if location:
 			if location != target && location.connections.find(target) != -1:
 				position = location.position
 				if slot:
 					slot.empty(self)
-				target_position = target.position
+				set_target(target)
 		else:
-			target_position = target.position
+			set_target(target)
+
+func set_target(target: Dome):
+	target_position = target.position
+	target_location = target
+	movement_started.emit()
 
 func set_highlight(is_enable: bool):
 	$Sprite2D.material.set_shader_parameter("on", is_enable)

@@ -12,7 +12,7 @@ var dome_type_limits = {
 
 func _ready():
 	for child in $Squads.get_children():
-		child.location = $Domes/Dome
+		$Domes/Dome.enter(child)
 		child.selected.connect(_on_squad_selected)
 		
 	$Squads/Scientists.set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
