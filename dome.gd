@@ -122,6 +122,6 @@ func enter(squad: Squad):
 func get_connections():
 	var connections = []
 	for conneciton in DomeConnections.get_dome_connections(self):
-		connections.append(conneciton.b)
+		connections.append(conneciton.dome_b)
 		
 	return connections

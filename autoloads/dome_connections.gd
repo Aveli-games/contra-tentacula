@@ -57,6 +57,7 @@ func draw_connections():
 		line_nodes.append(line)
 	return line_nodes
 
+# get connections that originate from the given dome
 func get_dome_connections(dome):
 	return connections.filter(func(c): return c.dome_a == dome)
 
