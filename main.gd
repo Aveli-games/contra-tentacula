@@ -66,4 +66,6 @@ func _on_squad_selected(squad_node: Squad):
 	selected_squad = squad_node
 	
 func _on_dome_targeted(dome_node: Dome):
+	if selected_squad.location:
+		selected_squad.position = selected_squad.location.position
 	selected_squad.target_position = dome_node.position
