@@ -37,3 +37,11 @@ func _physics_process(delta):
 		var direction = (target_position - position).normalized()
 		velocity = direction * BASE_MOVE_SPEED
 		move_and_slide()
+
+# TODO: Update this with respective squad actions
+func _on_area_2d_area_entered(area: Dome):
+		area.add_infestation_modifier(BASE_INFESTATION_FIGHT_RATE * 3)
+
+# TODO: Update this with respective squad actions
+func _on_area_2d_area_exited(area):
+		area.add_infestation_modifier(-BASE_INFESTATION_FIGHT_RATE * 3)
