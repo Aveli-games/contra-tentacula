@@ -58,7 +58,8 @@ func _on_movement_started():
 func move(target: Dome):
 	if not moving:
 		if location:
-			if location != target && location.connections.find(target) != -1:
+			var location_connections = location.get_connections()
+			if location != target && location_connections.find(target) != -1:
 				position = location.position
 				if slot:
 					slot.empty(self)
