@@ -11,14 +11,18 @@ var dome_type_limits = {
 }
 
 func _ready():
+	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
+	$Squads/Pyros.set_type(Globals.SquadType.PYRO)
+	$Squads/Botanists.set_type(Globals.SquadType.BOTANIST)
+	$Squads/Engineers.set_type(Globals.SquadType.ENGINEER)
+	
 	for child in $Squads.get_children():
 		child.move($Domes/Dome)
 		child.selected.connect(_on_squad_selected)
-		
-	$Squads/Scientists.set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
-	$Squads/Pyros.set_sprite("res://art/squad_sprites/GasmaskPyro_128.png")
-	$Squads/Botanists.set_sprite("res://art/squad_sprites/GasmaskBot_128.png")
-	$Squads/Engineers.set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
+		for squad_button in $UI/RightSidebar/SquadDisplay.get_children():
+			if not squad_button.squad_link:
+				squad_button.set_squad(child)
+				break
 	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)

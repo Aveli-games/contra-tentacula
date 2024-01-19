@@ -4,6 +4,7 @@ signal resource_updated
 
 enum InfestationType {NONE, AIR, WATER, GROUND}
 enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
+enum SquadType {NONE, SCIENTIST, PYRO, BOTANIST, ENGINEER}
 
 var base_infestation_rate = .1
 var BASE_CONNECTOR_INFESTATION_RATE = 0.1
