@@ -3,8 +3,6 @@ extends Node
 # connections represented as a "directed graph", i.e. each connection is directional
 var connections = []
 # visual representation of each connection
-# https://github.com/Aveli-games/infestation/issues/11
-# TODO: how to texture programmatically? or can we texture a scene and instantiate that programatically?
 var line_nodes = []
 
 
@@ -27,8 +25,8 @@ func instantiate_network(dome_connections, self_ref):
 			pass
 		DomeConnections.connect_domes(dome_1, dome_2)
 	
-	var line_nodes = DomeConnections.draw_connections()
-	for i in line_nodes:
+	var new_line_nodes = DomeConnections.draw_connections()
+	for i in new_line_nodes:
 		self_ref.add_child(i)
 
 # dome_a, dome_b are references to dome nodes
@@ -51,8 +49,11 @@ func draw_connections():
 		var line = Line2D.new()
 		line.add_point(i.a.global_position)
 		line.add_point(i.b.global_position)
-		line.default_color = Color(1,1,1,0.2)
 		line.z_index=-1
+		# TODO: get proper texture
+		line.texture = load("res://art/squad_sprites/botanist_icon_placeholder.png")
+		line.texture_mode = Line2D.LINE_TEXTURE_TILE
+		line.texture_repeat = Line2D.TEXTURE_REPEAT_ENABLED
 		line_nodes.append(line)
 	return line_nodes
 
