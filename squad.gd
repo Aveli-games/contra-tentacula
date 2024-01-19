@@ -44,10 +44,10 @@ func _on_input_event(viewport, event, shape_idx):
 			selected.emit(self)
 
 func _physics_process(delta):
-	if target_position && position.distance_to(target_position) > 3:
-		var direction = (target_position - position).normalized()
+	if target_position && global_position.distance_to(target_position) > 3:
+		var direction = (target_position - global_position).normalized()
 		velocity = direction * BASE_MOVE_SPEED
-		position += velocity * delta
+		global_position += velocity * delta
 	elif velocity != Vector2.ZERO:
 		velocity = Vector2.ZERO
 		
@@ -71,8 +71,9 @@ func _on_movement_started():
 func move(target: Dome):
 	if not moving:
 		if location:
-			if location != target && location.connections.find(target) != -1:
-				position = location.position
+			var location_connections = location.get_connections()
+			if location != target && location_connections.find(target) != -1:
+				global_position = location.global_position
 				if slot:
 					slot.empty(self)
 				set_target(target)
@@ -80,7 +81,7 @@ func move(target: Dome):
 			set_target(target)
 
 func set_target(target: Dome):
-	target_position = target.position
+	target_position = target.global_position
 	target_location = target
 	movement_started.emit()
 

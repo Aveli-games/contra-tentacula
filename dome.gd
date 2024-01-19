@@ -15,7 +15,6 @@ var infestation_rate: float = 0.0
 var infestation_modifier: float = 0.0
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
-var connections: Array = []
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
@@ -119,3 +118,10 @@ func enter(squad: Squad):
 		if not slot.unit:
 			slot.fill(squad)
 			break
+
+func get_connections():
+	var connections = []
+	for conneciton in DomeConnections.get_dome_connections(self):
+		connections.append(conneciton.b)
+		
+	return connections
