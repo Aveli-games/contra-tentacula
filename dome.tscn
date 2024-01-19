@@ -1,12 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3j5h50tp0m2"]
+[gd_scene load_steps=6 format=3 uid="uid://dc3j5h50tp0m2"]
 
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
-[ext_resource type="Texture2D" uid="uid://be0sefnhug70t" path="res://art/dome_sprites/Dome_base_96.png" id="2_6x60u"]
+[ext_resource type="Texture2D" uid="uid://be0sefnhug70t" path="res://art/dome_sprites/Dome_base_96.png" id="2_s0vf2"]
 [ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="3_1jsn0"]
+[ext_resource type="PackedScene" uid="uid://djyatif2t3g15" path="res://building_slot.tscn" id="4_vpp8u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypw7x"]
+size = Vector2(82, 95)
 
 [node name="Dome" type="Area2D"]
-position = Vector2(544, 312)
+position = Vector2(593, 342)
 script = ExtResource("1_n1lt3")
+
+[node name="SelectionArea" type="Area2D" parent="."]
+
+[node name="SelectionHitBox" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(-1, -24.5)
+shape = SubResource("RectangleShape2D_ypw7x")
 
 [node name="ResourceGenerationTimer" type="Timer" parent="."]
 
@@ -29,7 +39,8 @@ one_shot = true
 
 [node name="BuildingSprite" type="Sprite2D" parent="Building"]
 position = Vector2(0, -24)
-texture = ExtResource("2_6x60u")
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_s0vf2")
 
 [node name="InfestationProgress" type="TextureProgressBar" parent="Building"]
 offset_left = -47.0
@@ -37,13 +48,28 @@ offset_top = -45.0
 offset_right = 49.0
 offset_bottom = 51.0
 scale = Vector2(0.9, 0.9)
+value = 100.0
 fill_mode = 3
 texture_progress = ExtResource("3_1jsn0")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
+[node name="UnitSlots" type="Node2D" parent="Building"]
+
+[node name="BuildingSlot" parent="Building/UnitSlots" instance=ExtResource("4_vpp8u")]
+position = Vector2(-33, 0)
+
+[node name="BuildingSlot2" parent="Building/UnitSlots" instance=ExtResource("4_vpp8u")]
+position = Vector2(-14, 0)
+
+[node name="BuildingSlot3" parent="Building/UnitSlots" instance=ExtResource("4_vpp8u")]
+position = Vector2(14, 0)
+
+[node name="BuildingSlot4" parent="Building/UnitSlots" instance=ExtResource("4_vpp8u")]
+position = Vector2(34, 0)
+
+[node name="CollisionPolygonHitBox" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -24)
-polygon = PackedVector2Array(32, -0.5, 44, 13.6, 44, 15.8, 48, 23.8, 48, 36, 46.5, 36, 44.5, 39, 42.4, 39, 37.4, 43, 34.2, 43, 28.2, 46, 23.2, 46, 15.1, 48, -25.8, 48, -36, 45.8, -36, 44.7, -44, 41.7, -44, 40.5, -48, 37.5, -48, 23, -46.7, 23, -43.7, 14, -42.7, 14, -41.7, 11, -40.4, 11, -38, 8.6, -38, 6, -36.4, 6, -35, 4.6, -35, 2.8, -33.6, 0, -32.4, 0, -32, -0.400002, -32, -2, 32, -2)
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(31, 1.6, 42, 13.6, 42, 15.8, 47, 25.8, 47, 34, 45.7, 34, 44.7, 37, 42.4, 37, 37.4, 41, 34.2, 41, 28.2, 44, 23.2, 44, 11.1, 47, -1.9, 47, -11.1, 48, -12, 48, -12, 47, -22, 47, -22, 45.9, -36, 43.9, -36, 42.6, -46, 37.6, -46, 23, -44.7, 23, -41.7, 14, -40.7, 14, -39.7, 11, -38.5, 11, -32, 2.7, -32, 0, 31, 0)
 
 [node name="DomeName" type="Label" parent="."]
 offset_left = 57.0
@@ -51,7 +77,12 @@ offset_top = -34.0
 offset_right = 130.0
 offset_bottom = -1.0
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
+[connection signal="mouse_entered" from="SelectionArea" to="." method="_on_selection_area_mouse_entered"]
+[connection signal="mouse_exited" from="SelectionArea" to="." method="_on_selection_area_mouse_exited"]
 [connection signal="timeout" from="ResourceGenerationTimer" to="." method="_on_resource_generation_timer_timeout"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
 [connection signal="timeout" from="DomeLostCountdownTimer" to="." method="_on_dome_lost_countdown_timer_timeout"]

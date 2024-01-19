@@ -1,6 +1,9 @@
-extends Node2D
+extends Area2D
+
+class_name Dome
 
 signal fully_infested
+signal targeted
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
 const INFESTATION_COUNTDOWN = 30
@@ -12,7 +15,6 @@ var infestation_rate: float = 0.0
 var infestation_modifier: float = 0.0
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
-var connections: Dictionary = {}
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
@@ -104,3 +106,22 @@ func _on_dome_lost_countdown_timer_timeout():
 func _on_resource_generation_timer_timeout():
 	if resource_type != Globals.ResourceType.RESEARCH:
 		generate_resource()
+
+func _on_selection_area_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			targeted.emit(self)
+
+func enter(squad: Squad):
+	squad.location = self
+	for slot in $Building/UnitSlots.get_children():
+		if not slot.unit:
+			slot.fill(squad)
+			break
+
+func get_connections():
+	var connections = []
+	for conneciton in DomeConnections.get_dome_connections(self):
+		connections.append(conneciton.b)
+		
+	return connections

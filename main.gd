@@ -1,6 +1,7 @@
 extends Node
 
-var selected_squad
+var selected_squad: Squad
+
 var dome_type_limits = {
 	Globals.ResourceType.NONE: 0,
 	Globals.ResourceType.FOOD: 6,
@@ -11,7 +12,7 @@ var dome_type_limits = {
 
 func _ready():
 	for child in $Squads.get_children():
-		child.location = $Domes/Dome
+		child.move($Domes/Dome)
 		child.selected.connect(_on_squad_selected)
 		
 	$Squads/Scientists.set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
@@ -20,6 +21,7 @@ func _ready():
 	$Squads/Engineers.set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
 	
 	for child in $Domes.get_children():
+		child.targeted.connect(_on_dome_targeted)
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
@@ -60,10 +62,12 @@ func _ready():
 	]
 	DomeConnections.instantiate_network(dome_connections, self)
 
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and selected_squad:
-			selected_squad.position = event.position
-
-func _on_squad_selected(squad_node):
+func _on_squad_selected(squad_node: Squad):
+	if selected_squad:
+		selected_squad.set_highlight(false)
+	squad_node.set_highlight(true)
 	selected_squad = squad_node
+	
+func _on_dome_targeted(target_dome: Dome):
+	if selected_squad:
+		selected_squad.move(target_dome)
