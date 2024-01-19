@@ -20,6 +20,7 @@ func _ready():
 		child.move($Domes/Dome)
 		child.selected.connect(_on_squad_selected)
 		for squad_button in $UI/RightSidebar/SquadDisplay.get_children():
+			squad_button.selected.connect(_on_control_selected)
 			if not squad_button.squad_link:
 				squad_button.set_squad(child)
 				break
@@ -71,6 +72,10 @@ func _on_squad_selected(squad_node: Squad):
 		selected_squad.set_highlight(false)
 	squad_node.set_highlight(true)
 	selected_squad = squad_node
+	
+func _on_control_selected(node: Control):
+	if node is SquadInfoDisplay:
+		_on_squad_selected(node.squad_link)
 	
 func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:

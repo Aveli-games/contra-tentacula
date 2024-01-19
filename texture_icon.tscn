@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba0a03ibw3jqe"]
+
+[ext_resource type="Script" path="res://texture_icon.gd" id="1_3h52m"]
+[ext_resource type="Texture2D" uid="uid://clrcel841ts6e" path="res://art/squad_sprites/botanist_icon_placeholder.png" id="2_tnj14"]
+
+[node name="TextureIcon" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 384.0
+offset_top = 136.0
+offset_right = 448.0
+offset_bottom = 200.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_3h52m")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.133333, 0.439216, 0.505882, 1)
+
+[node name="IconTexture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("2_tnj14")
+expand_mode = 2

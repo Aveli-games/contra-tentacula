@@ -2,10 +2,12 @@ extends VBoxContainer
 
 class_name SquadInfoDisplay
 
+signal selected
+
 var squad_link: Squad
 
 func set_highlight(is_enable: bool):
-	$ClickableIcon.set_highlight(is_enable)
+	$TextureIcon.set_highlight(is_enable)
 
 func set_squad(squad: Squad):
 	squad_link = squad
@@ -32,7 +34,15 @@ func set_text(text: String):
 	$Details/SquadAbbreviation.text = text
 	
 func set_tooltip(text: String):
-	$ClickableIcon.set_tooltip(text)
+	$TextureIcon.set_tooltip(text)
 
 func set_icon(path: String):
-	$ClickableIcon.set_icon(path)
+	$TextureIcon.set_icon(path)
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selected.emit(self)
+
+func _on_texture_icon_gui_input(event):
+	_on_gui_input(event)

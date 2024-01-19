@@ -8,12 +8,12 @@ func _ready():
 
 func set_highlight(is_enable: bool):
 	if is_enable:
-		$ColorRect.color = HIGHLIGHT_COLOR
+		$Background.color = HIGHLIGHT_COLOR
 	else:
-		$ColorRect.color = BACKGROUND_COLOR
+		$Background.color = BACKGROUND_COLOR
 
 func set_icon(path: String):
-	$Button.icon = load(path)
+	$IconTexture.texture = load(path)
 	
 func set_tooltip(text: String):
-	$Button.tooltip_text = text
+	$IconTexture.tooltip_text = text
