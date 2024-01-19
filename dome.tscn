@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3j5h50tp0m2"]
+[gd_scene load_steps=5 format=3 uid="uid://dc3j5h50tp0m2"]
 
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
-[ext_resource type="Texture2D" uid="uid://be0sefnhug70t" path="res://art/dome_sprites/Dome_base_96.png" id="2_6x60u"]
+[ext_resource type="Texture2D" uid="uid://4hr5ufqb61s6" path="res://art/dome_sprites/Dome_hq_96.png" id="2_rbnta"]
 [ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="3_1jsn0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypw7x"]
+size = Vector2(82, 95)
 
 [node name="Dome" type="Area2D"]
 position = Vector2(544, 312)
@@ -29,7 +32,7 @@ one_shot = true
 
 [node name="BuildingSprite" type="Sprite2D" parent="Building"]
 position = Vector2(0, -24)
-texture = ExtResource("2_6x60u")
+texture = ExtResource("2_rbnta")
 
 [node name="InfestationProgress" type="TextureProgressBar" parent="Building"]
 offset_left = -47.0
@@ -37,13 +40,13 @@ offset_top = -45.0
 offset_right = 49.0
 offset_bottom = 51.0
 scale = Vector2(0.9, 0.9)
+value = 100.0
 fill_mode = 3
 texture_progress = ExtResource("3_1jsn0")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-position = Vector2(0, -24)
-polygon = PackedVector2Array(32, -0.5, 44, 13.6, 44, 15.8, 48, 23.8, 48, 36, 46.5, 36, 44.5, 39, 42.4, 39, 37.4, 43, 34.2, 43, 28.2, 46, 23.2, 46, 15.1, 48, -25.8, 48, -36, 45.8, -36, 44.7, -44, 41.7, -44, 40.5, -48, 37.5, -48, 23, -46.7, 23, -43.7, 14, -42.7, 14, -41.7, 11, -40.4, 11, -38, 8.6, -38, 6, -36.4, 6, -35, 4.6, -35, 2.8, -33.6, 0, -32.4, 0, -32, -0.400002, -32, -2, 32, -2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -24.5)
+shape = SubResource("RectangleShape2D_ypw7x")
 
 [node name="DomeName" type="Label" parent="."]
 offset_left = 57.0
@@ -51,6 +54,8 @@ offset_top = -34.0
 offset_right = 130.0
 offset_bottom = -1.0
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="fully_infested" from="." to="." method="_on_fully_infested"]
 [connection signal="timeout" from="ResourceGenerationTimer" to="." method="_on_resource_generation_timer_timeout"]
 [connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]

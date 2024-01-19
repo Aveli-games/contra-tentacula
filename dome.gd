@@ -1,4 +1,6 @@
-extends Node2D
+extends Area2D
+
+class_name Dome
 
 signal fully_infested
 
@@ -104,3 +106,9 @@ func _on_dome_lost_countdown_timer_timeout():
 func _on_resource_generation_timer_timeout():
 	if resource_type != Globals.ResourceType.RESEARCH:
 		generate_resource()
+
+func _on_body_entered(body: Squad):
+	body.location = self
+
+func _on_body_exited(body):
+	body.location = null

@@ -1,6 +1,7 @@
 extends Node
 
-var selected_squad
+var selected_squad: Squad
+
 var dome_type_limits = {
 	Globals.ResourceType.NONE: 0,
 	Globals.ResourceType.FOOD: 6,
@@ -63,7 +64,7 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and selected_squad:
-			selected_squad.position = event.position
+			selected_squad.target_position = event.position
 
-func _on_squad_selected(squad_node):
+func _on_squad_selected(squad_node: Squad):
 	selected_squad = squad_node
