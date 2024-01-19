@@ -3,6 +3,7 @@ extends Area2D
 class_name Dome
 
 signal fully_infested
+signal targeted
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
 const INFESTATION_COUNTDOWN = 30
@@ -15,6 +16,7 @@ var infestation_modifier: float = 0.0
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 var connections: Dictionary = {}
+var mouseover: bool = false
 
 enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 
@@ -112,3 +114,14 @@ func _on_body_entered(body: Squad):
 
 func _on_body_exited(body):
 	body.location = null
+
+func _on_mouse_entered():
+	mouseover = true
+
+func _on_mouse_exited():
+	mouseover = false
+
+func _on_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			targeted.emit(self)
