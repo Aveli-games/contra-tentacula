@@ -63,6 +63,9 @@ func _ready():
 	DomeConnections.instantiate_network(dome_connections, self)
 
 func _on_squad_selected(squad_node: Squad):
+	if selected_squad:
+		selected_squad.set_highlight(false)
+	squad_node.set_highlight(true)
 	selected_squad = squad_node
 	
 func _on_dome_targeted(target_dome: Dome):

@@ -13,6 +13,9 @@ var slot: BuildingSlot
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
 
+func _ready():
+	set_highlight(false)
+
 func set_sprite(path: String):
 	$Sprite2D.texture = load(path)
 
@@ -49,3 +52,6 @@ func move(target: Dome):
 				target_position = target.position
 		else:
 			target_position = target.position
+
+func set_highlight(is_enable: bool):
+	$Sprite2D.material.set_shader_parameter("on", is_enable)
