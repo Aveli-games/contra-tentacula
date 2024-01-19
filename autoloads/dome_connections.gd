@@ -52,6 +52,7 @@ func draw_connections():
 		line.add_point(i.a.global_position)
 		line.add_point(i.b.global_position)
 		line.default_color = Color(1,1,1,0.2)
+		line.z_index=-1
 		line_nodes.append(line)
 	return line_nodes
 
