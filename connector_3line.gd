@@ -3,9 +3,10 @@ extends Node2D
 
 @export var tool_forward = 0
 
-#func _ready():
-	#if Engine.is_editor_hint():
-		#tool_forward = 0.5
+func _ready():
+	if not Engine.is_editor_hint():
+		set_forward_progress(0)
+		set_reverse_progress(0)
 
 func _process(_delta):
 	if Engine.is_editor_hint():
@@ -50,3 +51,6 @@ func _get_perpendicular(vector: Vector2):
 	var crossed = vectorAs3d.cross(zUnitVector)
 	# TODO: normalize and set our own length
 	return Vector2(crossed.x, crossed.y).normalized()*5
+	
+func get_mainline():
+	return $MainLine
