@@ -113,6 +113,6 @@ layout_mode = 2
 [node name="FightButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
 layout_mode = 2
 
-[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_gui_input"]
-[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_gui_input"]
-[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/FightButton" to="." method="_on_fight_button_gui_input"]
+[connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_selected"]
+[connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_selected"]
+[connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/FightButton" to="." method="_on_fight_button_selected"]

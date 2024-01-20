@@ -82,6 +82,7 @@ func move(target: Dome):
 					if slot:
 						slot.empty(self)
 					set_target(target)
+					return true
 				else: # Target is not connected to current location
 					return false
 			else: # Target is current location
@@ -94,11 +95,13 @@ func move(target: Dome):
 
 func command_move(target: Dome):
 	if move(target):
+		current_action = Globals.ActionType.MOVE
 		if display_link:
 			display_link.set_action(Globals.ActionType.MOVE)
 
 func command_special(target: Dome):
 	if move(target):
+		current_action = Globals.ActionType.SPECIAL
 		if display_link:
 			display_link.set_action(Globals.ActionType.SPECIAL)
 		
@@ -108,6 +111,7 @@ func command_special(target: Dome):
 
 func command_fight(target: Dome):
 	if move(target):
+		current_action = Globals.ActionType.FIGHT
 		if display_link:
 			display_link.set_action(Globals.ActionType.FIGHT)
 		

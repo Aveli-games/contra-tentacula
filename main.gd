@@ -1,6 +1,7 @@
 extends Node
 
 var selected_squad: Squad
+var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 var dome_type_limits = {
 	Globals.ResourceType.NONE: 0,
@@ -39,6 +40,8 @@ func _ready():
 				randome = randi_range(0, Globals.ResourceType.size() - 1)
 			child.set_resource_type(randome)
 			dome_type_limits[randome] -= 1
+			
+			$UI.action_selected.connect(_on_action_selected)
 	
 	# try to put the lower number dome on the left to help prevent repeats, and sort ascending
 	var dome_connections = [
@@ -76,7 +79,18 @@ func _on_squad_selected(squad_node: Squad):
 func _on_control_selected(node: Control):
 	if node is SquadInfoDisplay:
 		_on_squad_selected(node.squad_link)
+		
+func _on_action_selected(action: Globals.ActionType):
+	selected_action = action
 	
 func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:
-		selected_squad.move(target_dome)
+		match selected_action:
+			Globals.ActionType.NONE:
+				selected_squad.command_move(target_dome)
+			Globals.ActionType.MOVE:
+				selected_squad.command_move(target_dome)
+			Globals.ActionType.SPECIAL:
+				selected_squad.command_special(target_dome)
+			Globals.ActionType.FIGHT:
+				selected_squad.command_fight(target_dome)

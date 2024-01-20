@@ -81,3 +81,5 @@ position = Vector2(168, 96)
 position = Vector2(160, 120)
 
 [node name="UI" parent="." instance=ExtResource("4_6vko8")]
+
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
