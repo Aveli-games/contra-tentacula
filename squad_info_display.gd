@@ -7,7 +7,7 @@ signal selected
 var squad_link: Squad
 
 func set_highlight(is_enable: bool):
-	$TextureIcon.set_highlight(is_enable)
+	$TextureIcon.set_highlight(is_enable, is_enable)
 
 func set_squad(squad: Squad):
 	squad_link = squad
@@ -38,6 +38,17 @@ func set_tooltip(text: String):
 
 func set_icon(path: String):
 	$TextureIcon.set_icon(path)
+	
+func set_action(action: Globals.ActionType):
+	match action:
+		Globals.ActionType.NONE:
+			$Details/CurrentAction.texture = "res://art/command_sprites/move_sprite_placeholder.png"
+		Globals.ActionType.MOVE:
+			$Details/CurrentAction.texture = "res://art/command_sprites/move_sprite_placeholder.png"
+		Globals.ActionType.SPECIAL:
+			$Details/CurrentAction.texture = "res://art/command_sprites/special_sprite_placeholder.png"
+		Globals.ActionType.FIGHT:
+			$Details/CurrentAction.texture = "res://art/command_sprites/fight_sprite_placeholder.png"
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:

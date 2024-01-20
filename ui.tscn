@@ -106,12 +106,13 @@ script = ExtResource("5_613uf")
 
 [node name="MoveButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
 layout_mode = 2
-tooltip_text = "Move"
 
 [node name="SpecialButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
 layout_mode = 2
-tooltip_text = "Special"
 
 [node name="FightButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
 layout_mode = 2
-tooltip_text = "Fight"
+
+[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_gui_input"]
+[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_gui_input"]
+[connection signal="gui_input" from="RightSidebar/ControlsDisplay/SquadControls/FightButton" to="." method="_on_fight_button_gui_input"]

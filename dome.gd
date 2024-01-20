@@ -125,3 +125,14 @@ func get_connections():
 		connections.append(conneciton.b)
 		
 	return connections
+	
+func set_highlight(is_enable: bool):
+	$Building/BuildingSprite.material.set_shader_parameter("on", is_enable)
+
+
+func _on_selection_area_mouse_entered():
+	set_highlight(true)
+
+
+func _on_selection_area_mouse_exited():
+	set_highlight(false)

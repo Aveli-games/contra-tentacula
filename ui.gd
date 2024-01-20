@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal selected
+
 # Setting up the UI is a bit static at this point. I think UI work is where I could
 #    use the most improvement, but will leave polish on it for if we have time
 
@@ -17,3 +19,18 @@ func _ready():
 	$RightSidebar/ResourceDisplay/FuelInfo.set_amount(Globals.resources[Globals.ResourceType.FUEL])
 	$RightSidebar/ResourceDisplay/PartsInfo.set_text("Parts")
 	$RightSidebar/ResourceDisplay/PartsInfo.set_amount(Globals.resources[Globals.ResourceType.PARTS])
+
+func _on_move_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selected.emit($RightSidebar/ControlsDisplay/SquadControls/MoveButton)
+
+func _on_special_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selected.emit($RightSidebar/ControlsDisplay/SquadControls/SpecialButton)
+
+func _on_fight_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selected.emit($RightSidebar/ControlsDisplay/SquadControls/SpecialButton)

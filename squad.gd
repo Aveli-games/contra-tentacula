@@ -14,9 +14,12 @@ var location: Dome
 var slot: BuildingSlot
 var squad_type: Globals.SquadType = Globals.SquadType.NONE
 var display_link: SquadInfoDisplay
+var mouseover: bool = false
+var is_selected: bool = false
 
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
+var current_action: Globals.ActionType = Globals.ActionType.NONE
 
 var moving: bool = false
 
@@ -68,17 +71,49 @@ func _on_movement_started():
 		location = null
 		moving = true
 	
+# Returns true if valid move target, false if not
 func move(target: Dome):
 	if not moving:
 		if location:
-			var location_connections = location.get_connections()
-			if location != target && location_connections.find(target) != -1:
-				global_position = location.global_position
-				if slot:
-					slot.empty(self)
-				set_target(target)
-		else:
+			if location != target:
+				var location_connections = location.get_connections()
+				if location != target && location_connections.find(target) != -1:
+					global_position = location.global_position
+					if slot:
+						slot.empty(self)
+					set_target(target)
+				else: # Target is not connected to current location
+					return false
+			else: # Target is current location
+				return true
+		else: # We don't have a current location, move to get one
 			set_target(target)
+			return true
+	else: # We are moving, no moving action allowed
+		return false
+
+func command_move(target: Dome):
+	if move(target):
+		if display_link:
+			display_link.set_action(Globals.ActionType.MOVE)
+
+func command_special(target: Dome):
+	if move(target):
+		if display_link:
+			display_link.set_action(Globals.ActionType.SPECIAL)
+		
+		if moving:
+			await movement_completed
+			print("Do the special")
+
+func command_fight(target: Dome):
+	if move(target):
+		if display_link:
+			display_link.set_action(Globals.ActionType.FIGHT)
+		
+		if moving:
+			await movement_completed
+			print("Do the fight")
 
 func set_target(target: Dome):
 	target_position = target.global_position
@@ -86,6 +121,26 @@ func set_target(target: Dome):
 	movement_started.emit()
 
 func set_highlight(is_enable: bool):
+	is_selected = is_enable
+	$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
 	$Sprite2D.material.set_shader_parameter("on", is_enable)
 	if display_link:
 		display_link.set_highlight(is_enable)
+
+func set_mouseover():
+	if mouseover && not is_selected:
+		$Sprite2D.material.set_shader_parameter("line_color", Color.CYAN)
+		$Sprite2D.material.set_shader_parameter("on", mouseover)
+	elif is_selected:
+		$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
+		$Sprite2D.material.set_shader_parameter("on", true)
+	else:
+		$Sprite2D.material.set_shader_parameter("on", mouseover)
+	
+func _on_mouse_entered():
+	mouseover = true
+	set_mouseover()
+
+func _on_mouse_exited():
+	mouseover = false
+	set_mouseover()
