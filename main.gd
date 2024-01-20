@@ -87,7 +87,7 @@ func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:
 		match selected_action:
 			Globals.ActionType.NONE:
-				selected_squad.command_move(target_dome)
+				selected_squad.command_fight(target_dome)
 			Globals.ActionType.MOVE:
 				selected_squad.command_move(target_dome)
 			Globals.ActionType.SPECIAL:
