@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk10qs4awue4m"]
+
+[ext_resource type="Script" path="res://connector_3line.gd" id="1_8cegv"]
+[ext_resource type="Texture2D" uid="uid://plb4ecr4ho6o" path="res://icon.svg" id="2_06tgu"]
+
+[node name="Connector" type="Node2D"]
+script = ExtResource("1_8cegv")
+
+[node name="MainLine" type="Line2D" parent="."]
+points = PackedVector2Array(27, 30, 196, 106)
+default_color = Color(1, 0.337255, 1, 0.439216)
+
+[node name="ForwardLine" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(31.1014, 20.8798, 200.101, 96.8798)
+texture = ExtResource("2_06tgu")
+texture_mode = 1
+
+[node name="ReverseLine" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(191.899, 115.12, 22.8986, 39.1202)
+default_color = Color(0, 1, 1, 1)
+texture = ExtResource("2_06tgu")
+texture_mode = 1
