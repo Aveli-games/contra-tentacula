@@ -10,14 +10,13 @@ const ConnectorScene = preload("res://connector_3line.tscn")
 func _process(delta):
 	for c in connections:
 		if c.infestation_progress > 0:
-			#TODO: clamp 0 to 1
-			c.infestation_progress += Globals.BASE_CONNECTOR_INFESTATION_RATE * delta
+			c.infestation_progress = min(1, c.infestation_progress + Globals.BASE_CONNECTOR_INFESTATION_RATE * delta)
 			if c.display.forward:
 				c.display.scene_ref.set_forward_progress(c.infestation_progress)
 			else:
 				c.display.scene_ref.set_reverse_progress(c.infestation_progress)
 			
-		if c.infestation_progress > 1 && c.dome_b.infestation_percentage == 0:
+		if c.infestation_progress >= 1 && c.dome_b.infestation_percentage == 0:
 			c.dome_b.add_infestation(Globals.base_infestation_rate * delta)
 			print('CONNECTOR: spread infestation to ', c.dome_b.get_name())
 		
