@@ -94,3 +94,6 @@ func _on_dome_targeted(target_dome: Dome):
 				selected_squad.command_special(target_dome)
 			Globals.ActionType.FIGHT:
 				selected_squad.command_fight(target_dome)
+		
+		selected_action = Globals.ActionType.NONE
+		Input.set_custom_mouse_cursor(null)
