@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0sw4pcwti6wb"]
+
+[ext_resource type="Script" path="res://testing/connector_infestation_level.gd" id="1_5qc6y"]
+[ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="2_3rcdh"]
+
+[node name="ConnectorInfestationLevel" type="Node2D"]
+script = ExtResource("1_5qc6y")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 6.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(3, 27)
+
+[node name="ConnectorInfestation" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(25, 56, 75, 14)
+texture = ExtResource("2_3rcdh")
+texture_mode = 1

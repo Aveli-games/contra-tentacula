@@ -1,12 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0xddacbd70e1"]
+[gd_scene load_steps=4 format=3 uid="uid://d0xddacbd70e1"]
 
 [ext_resource type="Texture2D" uid="uid://plb4ecr4ho6o" path="res://icon.svg" id="1_afkgh"]
 [ext_resource type="Script" path="res://testing/test_connector_bar.gd" id="1_x87qp"]
 [ext_resource type="Texture2D" uid="uid://clrcel841ts6e" path="res://art/squad_sprites/botanist_icon_placeholder.png" id="2_y3tgr"]
-[ext_resource type="Texture2D" uid="uid://bkndkwst8uhea" path="res://art/person.svg" id="4_u2x5u"]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(298, 464)
+position = Vector2(193, 446)
 script = ExtResource("1_x87qp")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
@@ -26,13 +25,12 @@ value = 30.0
 fill_mode = 2
 nine_patch_stretch = true
 texture_under = ExtResource("1_afkgh")
-texture_progress = ExtResource("2_y3tgr")
 
 [node name="TextureRect" type="TextureRect" parent="TextureProgressBar"]
-offset_left = -53.0
-offset_top = -19.0
-offset_right = 163.0
-offset_bottom = 247.0
-texture = ExtResource("4_u2x5u")
+offset_left = -2.0
+offset_top = 4.0
+offset_right = 107.0
+offset_bottom = 270.0
+texture = ExtResource("2_y3tgr")
 expand_mode = 1
 stretch_mode = 1
