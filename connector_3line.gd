@@ -1,11 +1,18 @@
 @tool
 extends Node2D
 
-var reverse_length
+@export var tool_forward = 0
+
+#func _ready():
+	#if Engine.is_editor_hint():
+		#tool_forward = 0.5
 
 func _process(_delta):
 	if Engine.is_editor_hint():
-		set_forward_progress(0.5)
+		set_forward_progress(tool_forward)
+		tool_forward += _delta * 0.2
+		if tool_forward > 1:
+			tool_forward = 0
 		set_reverse_progress(0.75)
 	
 func get_progress_line(percent: float, forward: bool):
@@ -26,6 +33,7 @@ func set_reverse_progress(percent):
 func set_forward_progress(percent):
 	var perpendicular_vector = _get_perpendicular(get_mainline_vector())
 	var new_forward = get_progress_line(percent, true)
+
 	$ForwardLine.points[0] = new_forward[0] + perpendicular_vector
 	$ForwardLine.points[1] = new_forward[1] + perpendicular_vector
 	

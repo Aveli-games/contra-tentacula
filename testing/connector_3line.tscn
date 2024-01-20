@@ -6,21 +6,22 @@
 
 [node name="Connector" type="Node2D"]
 script = ExtResource("1_8cegv")
+tool_forward = 0.0487512
 
 [node name="MainLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(27, 30, 118, 105)
+points = PackedVector2Array(27, 30, 172, 89)
 texture = ExtResource("2_06tgu")
 texture_mode = 1
 
 [node name="ForwardLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(30.18, 26.1416, 75.68, 63.6416)
+points = PackedVector2Array(28.8845, 25.3687, 35.2841, 27.9727)
 texture = ExtResource("3_1f7g7")
 texture_mode = 1
 
 [node name="ReverseLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(114.82, 108.858, 46.57, 52.6084)
+points = PackedVector2Array(170.116, 93.6313, 61.3656, 49.3813)
 texture = ExtResource("3_1f7g7")
 texture_mode = 1
