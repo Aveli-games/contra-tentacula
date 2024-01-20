@@ -1,24 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk10qs4awue4m"]
+[gd_scene load_steps=4 format=3 uid="uid://dk10qs4awue4m"]
 
 [ext_resource type="Script" path="res://connector_3line.gd" id="1_8cegv"]
 [ext_resource type="Texture2D" uid="uid://plb4ecr4ho6o" path="res://icon.svg" id="2_06tgu"]
+[ext_resource type="Texture2D" uid="uid://qijqlc5ujg5j" path="res://art/dome_sprites/infestation_96_rotated.png" id="3_1f7g7"]
 
 [node name="Connector" type="Node2D"]
 script = ExtResource("1_8cegv")
 
 [node name="MainLine" type="Line2D" parent="."]
-points = PackedVector2Array(27, 30, 196, 106)
-default_color = Color(1, 0.337255, 1, 0.439216)
+texture_repeat = 2
+points = PackedVector2Array(27, 30, 118, 105)
+texture = ExtResource("2_06tgu")
+texture_mode = 1
 
 [node name="ForwardLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(31.1014, 20.8798, 200.101, 96.8798)
-texture = ExtResource("2_06tgu")
+points = PackedVector2Array(30.18, 26.1416, 75.68, 63.6416)
+texture = ExtResource("3_1f7g7")
 texture_mode = 1
 
 [node name="ReverseLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(191.899, 115.12, 22.8986, 39.1202)
-default_color = Color(0, 1, 1, 1)
-texture = ExtResource("2_06tgu")
+points = PackedVector2Array(114.82, 108.858, 46.57, 52.6084)
+texture = ExtResource("3_1f7g7")
 texture_mode = 1
