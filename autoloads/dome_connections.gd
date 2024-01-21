@@ -14,11 +14,11 @@ func _process(delta):
 		
 		if c.infestation_progress >= 1 && c.dome_b.infestation_percentage == 0:
 			# TODO: this causes a Safe, "camped" dome to be considered instantly cleansed
-			  # maybe do an "occupied" check here and don't infest?
-			c.dome_b.add_infestation(.0001)
+			if !c.dome_b.is_occupied():
+				c.dome_b.add_infestation(.0001)
 			# this gets spammed when a squad is sitting on a safe dome
 			print('CONNECTOR: spread infestation to ', c.dome_b.get_name())
-			
+			# NOOOOTE: if fully infested while roots going out, will resey current progress
 			# TEST MECHANIC -- after seeding new infestation, "root" recedes almost all the way
 			c.infestation_progress = 0.001
 			

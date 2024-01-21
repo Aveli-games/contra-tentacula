@@ -133,3 +133,8 @@ func get_connections():
 		connections.append(conneciton.dome_b)
 		
 	return connections
+	
+func is_occupied():
+	var unit_slots = $Building/UnitSlots.get_children()
+	return unit_slots.any(func(slot): return slot.unit)
+	
