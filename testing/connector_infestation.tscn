@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bff8u854g61jx"]
+
+[ext_resource type="Texture2D" uid="uid://qijqlc5ujg5j" path="res://art/dome_sprites/infestation_96_rotated.png" id="1_7dpt7"]
+[ext_resource type="Script" path="res://testing/connector_infestation.gd" id="2_f7p84"]
+
+[node name="ConnectorInfestation" type="Line2D"]
+texture_repeat = 2
+points = PackedVector2Array(25, 56, 75, 14)
+texture = ExtResource("1_7dpt7")
+texture_mode = 1
+script = ExtResource("2_f7p84")
