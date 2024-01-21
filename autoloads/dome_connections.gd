@@ -11,6 +11,7 @@ const ConnectorScene = preload("res://connector_3line.tscn")
 
 func _process(delta):
 	for c in connections:
+		# increase progress if started
 		if c.infestation_progress > 0:
 			c.infestation_progress = min(1, c.infestation_progress + Globals.BASE_CONNECTOR_INFESTATION_RATE * delta)
 		
