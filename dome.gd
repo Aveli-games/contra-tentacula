@@ -68,8 +68,11 @@ func _on_infestation_check_timer_timeout():
 
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
+		var old_infestation_percentage = infestation_percentage
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
-		if infestation_percentage == 0:
+		
+		# when the dome is cleansed
+		if old_infestation_percentage > 0 && infestation_value < 0 && infestation_percentage == 0:
 			infestation_removed.emit()
 			##TODO: use signal in DomeConnections instead?
 			DomeConnections.dome_stop_spread(self)
