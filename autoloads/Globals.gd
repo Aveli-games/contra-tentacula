@@ -3,9 +3,12 @@ extends Node
 signal resource_updated
 
 enum InfestationType {NONE, AIR, WATER, GROUND}
+enum InfestationStage {UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
+enum SquadType {NONE, SCIENTIST, PYRO, BOTANIST, ENGINEER}
+enum ActionType {NONE, MOVE, SPECIAL, FIGHT}
 
-var base_infestation_rate = .1
+var BASE_DOME_INFESTATION_RATE = .1
 var BASE_CONNECTOR_INFESTATION_RATE = 0.1
 var BASE_INFESTATION_CHANCE = 0.012
 
