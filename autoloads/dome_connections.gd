@@ -5,20 +5,28 @@ var connections = []
 # visual representation of each connection
 var line_nodes = []
 
+const INFESTATION_CHANCE_MODIFIER_ID = 'root_connected'
+const INFESTATION_CHANCE_MODIFIER = 0.10
 const ConnectorScene = preload("res://connector_3line.tscn")
 
 func _process(delta):
 	for c in connections:
+		# increase progress if started
 		if c.infestation_progress > 0:
 			c.infestation_progress = min(1, c.infestation_progress + Globals.BASE_CONNECTOR_INFESTATION_RATE * delta)
-			if c.display.forward:
-				c.display.scene_ref.set_forward_progress(c.infestation_progress)
-			else:
-				c.display.scene_ref.set_reverse_progress(c.infestation_progress)
+		
+		if c.infestation_progress >= 1:
+			# this prevents a Safe, occupied dome from being considered instantly cleansed
+			if !c.dome_b.is_occupied():
+				# TODO can this be called less often? can I check only when progress reaches 1
+				c.dome_b.add_infestation_chance_modifier(INFESTATION_CHANCE_MODIFIER_ID, INFESTATION_CHANCE_MODIFIER)
 			
-		if c.infestation_progress >= 1 && c.dome_b.infestation_percentage == 0:
-			c.dome_b.add_infestation(Globals.base_infestation_rate * delta)
-			print('CONNECTOR: spread infestation to ', c.dome_b.get_name())
+		# sync progress to display nodes
+		if c.display.forward:
+			c.display.scene_ref.set_forward_progress(c.infestation_progress)
+		else:
+			c.display.scene_ref.set_reverse_progress(c.infestation_progress)
+			
 		
 
 # dome_connections: Dome[][]
@@ -71,13 +79,13 @@ func draw_connection(connection):
 func get_dome_connections(dome):
 	return connections.filter(func(c): return c.dome_a == dome)
 
-func dome_stop_spread(dome: Area2D):
+func dome_stop_spread(dome: Dome):
 	var connected = get_dome_connections(dome)
 	for c in connected:
 		c.infestation_progress = 0
 
-func dome_start_spread(dome: Area2D, infestation_type = null): 
+func dome_start_spread(dome: Dome, infestation_type = null): 
 	var connected = get_dome_connections(dome)
 	for c in connected:
-		c.infestation_progress = Globals.BASE_CONNECTOR_INFESTATION_RATE
+		c.infestation_progress = max(Globals.BASE_CONNECTOR_INFESTATION_RATE, c.infestation_progress)
 		c.infestation_type = infestation_type  # TODO: use infestation types https://github.com/Aveli-games/infestation/issues/17
