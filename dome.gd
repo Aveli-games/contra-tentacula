@@ -3,6 +3,7 @@ extends Area2D
 class_name Dome
 
 signal fully_infested
+signal infestation_removed
 signal targeted
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
@@ -68,6 +69,10 @@ func _on_infestation_check_timer_timeout():
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
+		if infestation_percentage == 0:
+			infestation_removed.emit()
+			##TODO: use signal in DomeConnections instead?
+			DomeConnections.dome_stop_spread(self)
 		
 func add_infestation_modifier(change: float):
 	infestation_modifier += change
@@ -95,7 +100,7 @@ func set_resource_type(type: Globals.ResourceType):
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
 	##TODO: use signal in DomeConnections instead?
-	DomeConnections.dome_start_spread(self as Variant as Area2D)
+	DomeConnections.dome_start_spread(self)
 
 func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()
