@@ -6,7 +6,7 @@ signal selected
 signal movement_completed
 signal movement_started
 
-var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE / 2
+var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE
 var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
 
 var target_location: Dome
@@ -94,7 +94,7 @@ func special(target: Dome):
 	if location:
 		if Globals.resources[Globals.ResourceType.FOOD] >= 2:
 			Globals.add_resource(Globals.ResourceType.FOOD, -2)
-			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 3 * $ActionTimer.wait_time)
+			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 		else:
 			fight(target)
 
