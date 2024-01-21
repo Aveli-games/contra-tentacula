@@ -3,6 +3,7 @@ extends Area2D
 class_name Dome
 
 signal fully_infested
+signal infestation_removed
 signal targeted
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
@@ -13,6 +14,8 @@ var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
 var infestation_rate: float = 0.0
 var infestation_modifier: float = 0.0
+var infestation_chance = Globals.BASE_INFESTATION_CHANCE
+var infestation_chance_modifiers = {}
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 
@@ -37,7 +40,7 @@ func _on_infestation_check_timer_timeout():
 			$DomeStatus.text = "Safe"
 			$ResourceGenerationTimer.start(1)
 		var random_roll = randf()
-		if random_roll < .01: # Temp, infestation should be initiated by main eventually
+		if random_roll < get_modified_infestation_chance():
 			infestation_percentage += 0.01
 			$ResourceGenerationTimer.stop()
 	elif infestation_percentage <= .50:
@@ -67,11 +70,37 @@ func _on_infestation_check_timer_timeout():
 
 func add_infestation(infestation_value: float):
 	if infestation_stage != InfestationStage.LOST:
+		var old_infestation_percentage = infestation_percentage
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
+		
+		# when the dome is cleansed
+		if old_infestation_percentage > 0 && infestation_value < 0 && infestation_percentage == 0:
+			infestation_removed.emit()
+			##TODO: use signal in DomeConnections instead?
+			DomeConnections.dome_stop_spread(self)
 		
 func add_infestation_modifier(change: float):
 	infestation_modifier += change
 	
+func add_infestation_chance_modifier(modifier_id, chance):
+	if !infestation_chance_modifiers.has(modifier_id):
+		infestation_chance_modifiers[modifier_id] = chance
+	
+func remove_infestation_chance_modifier(modifier_id):
+	if infestation_chance_modifiers.has(modifier_id):
+		infestation_chance_modifiers.remove(modifier_id)
+	else:
+		push_warning('Tried to remove missing modifier: ', modifier_id)
+
+func get_modified_infestation_chance():
+	if infestation_chance_modifiers.is_empty():
+		return infestation_chance
+	var total_modifiers = infestation_chance_modifiers.values().reduce(sum) 
+	return infestation_chance + total_modifiers
+
+func sum(accum, number):
+	return accum + number
+
 func set_sprite(path: String):
 	$Building/BuildingSprite.texture = load(path)
 
@@ -95,7 +124,7 @@ func set_resource_type(type: Globals.ResourceType):
 func _on_fully_infested():
 	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
 	##TODO: use signal in DomeConnections instead?
-	DomeConnections.dome_start_spread(self as Variant as Area2D)
+	DomeConnections.dome_start_spread(self)
 
 func _on_dome_lost_countdown_timer_timeout():
 	$InfestationCheckTimer.stop()
@@ -122,6 +151,11 @@ func enter(squad: Squad):
 func get_connections():
 	var connections = []
 	for conneciton in DomeConnections.get_dome_connections(self):
-		connections.append(conneciton.b)
+		connections.append(conneciton.dome_b)
 		
 	return connections
+	
+func is_occupied():
+	var unit_slots = $Building/UnitSlots.get_children()
+	return unit_slots.any(func(slot): return slot.unit)
+	
