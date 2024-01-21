@@ -85,6 +85,8 @@ func _on_action_selected(action: Globals.ActionType):
 	
 func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:
+		if selected_action == Globals.ActionType.NONE:
+			selected_action = Globals.ActionType.FIGHT
 		selected_squad.command(selected_action, target_dome)
 		
 		selected_action = Globals.ActionType.NONE

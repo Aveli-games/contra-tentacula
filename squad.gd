@@ -90,56 +90,25 @@ func move(target: Dome):
 	else: # We are moving, no moving action allowed
 		return false
 
-func special():
+func special(target: Dome):
 	if location:
-		location.add_infestation_rate_modifier(self.get_instance_id(), 3 * BASE_INFESTATION_FIGHT_RATE)
+		if Globals.resources[Globals.ResourceType.FOOD] >= 2:
+			Globals.add_resource(Globals.ResourceType.FOOD, -2)
+			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 3 * $ActionTimer.wait_time)
+		else:
+			fight(target)
 
-func fight():
+func fight(target: Dome):
 	if location:
-		location.add_infestation_rate_modifier(self.get_instance_id(), BASE_INFESTATION_FIGHT_RATE)
-
-func command_move(target: Dome):
-	if move(target):
-		current_action = Globals.ActionType.MOVE
-		if display_link:
-			display_link.set_action(Globals.ActionType.MOVE)
-
-func command_special(target: Dome):
-	if move(target):
-		current_action = Globals.ActionType.SPECIAL
-		if display_link:
-			display_link.set_action(Globals.ActionType.SPECIAL)
-		
-		if moving:
-			await movement_completed
-		
-		special()
-
-func command_fight(target: Dome):
-	if move(target):
-		current_action = Globals.ActionType.FIGHT
-		if display_link:
-			display_link.set_action(Globals.ActionType.FIGHT)
-		
-		if moving:
-			await movement_completed
-		
-		fight()
+		if Globals.resources[Globals.ResourceType.FOOD] >= 1:
+			Globals.add_resource(Globals.ResourceType.FOOD, -1)
+			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
 
 func command(action: Globals.ActionType, target: Dome):
-	# Cancel any current modifier
-	if location:
-		location.remove_infestation_rate_modifier(self.get_instance_id())
-	
-	match action:
-		Globals.ActionType.NONE:
-			command_fight(target)
-		Globals.ActionType.MOVE:
-			command_move(target)
-		Globals.ActionType.SPECIAL:
-			command_special(target)
-		Globals.ActionType.FIGHT:
-			command_fight(target)
+	if move(target):
+		current_action = action
+		if display_link:
+			display_link.set_action(action)
 
 func set_target(target: Dome):
 	target_position = target.global_position
@@ -170,3 +139,11 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	mouseover = false
 	set_mouseover()
+
+func _on_action_timer_timeout():
+	if target_location == location && location.infestation_percentage > 0 && location.infestation_stage != Globals.InfestationStage.LOST:
+		match current_action:
+			Globals.ActionType.SPECIAL:
+				special(target_location)
+			Globals.ActionType.FIGHT:
+				fight(target_location)
