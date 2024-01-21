@@ -5,6 +5,8 @@ var connections = []
 # visual representation of each connection
 var line_nodes = []
 
+const INFESTATION_CHANCE_MODIFIER_ID = 'root_connected'
+const INFESTATION_CHANCE_MODIFIER = 0.10
 const ConnectorScene = preload("res://connector_3line.tscn")
 
 func _process(delta):
@@ -12,15 +14,11 @@ func _process(delta):
 		if c.infestation_progress > 0:
 			c.infestation_progress = min(1, c.infestation_progress + Globals.BASE_CONNECTOR_INFESTATION_RATE * delta)
 		
-		if c.infestation_progress >= 1 && c.dome_b.infestation_percentage == 0:
-			# TODO: this causes a Safe, "camped" dome to be considered instantly cleansed
+		if c.infestation_progress >= 1:
+			# this prevents a Safe, occupied dome from being considered instantly cleansed
 			if !c.dome_b.is_occupied():
-				c.dome_b.add_infestation(.0001)
-			# this gets spammed when a squad is sitting on a safe dome
-			print('CONNECTOR: spread infestation to ', c.dome_b.get_name())
-			# NOOOOTE: if fully infested while roots going out, will resey current progress
-			# TEST MECHANIC -- after seeding new infestation, "root" recedes almost all the way
-			c.infestation_progress = 0.001
+				# TODO can this be called less often? can I check only when progress reaches 1
+				c.dome_b.add_infestation_chance_modifier(INFESTATION_CHANCE_MODIFIER_ID, INFESTATION_CHANCE_MODIFIER)
 			
 		# sync progress to display nodes
 		if c.display.forward:
@@ -88,5 +86,5 @@ func dome_stop_spread(dome: Dome):
 func dome_start_spread(dome: Dome, infestation_type = null): 
 	var connected = get_dome_connections(dome)
 	for c in connected:
-		c.infestation_progress = Globals.BASE_CONNECTOR_INFESTATION_RATE
+		c.infestation_progress = max(Globals.BASE_CONNECTOR_INFESTATION_RATE, c.infestation_progress)
 		c.infestation_type = infestation_type  # TODO: use infestation types https://github.com/Aveli-games/infestation/issues/17

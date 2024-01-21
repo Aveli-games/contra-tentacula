@@ -22,48 +22,63 @@ metadata/_edit_group_ = true
 
 [node name="Dome" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(144, 109)
+resource_type = 0
 
 [node name="Dome2" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(366, 203)
+resource_type = 0
 
 [node name="Dome3" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(388, 70)
+resource_type = 0
 
 [node name="Dome4" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(163, 322)
+resource_type = 0
 
 [node name="Dome5" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(414, 395)
+resource_type = 0
 
 [node name="Dome6" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(129, 484)
+resource_type = 0
 
 [node name="Dome7" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(333, 554)
+resource_type = 0
 
 [node name="Dome8" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(109, 650)
+resource_type = 0
 
 [node name="Dome9" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(609, 143)
+resource_type = 0
 
 [node name="Dome10" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(622, 292)
+resource_type = 0
 
 [node name="Dome11" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(622, 493)
+resource_type = 0
 
 [node name="Dome12" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(548, 617)
+resource_type = 0
 
 [node name="Dome13" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(804, 210)
+resource_type = 0
 
 [node name="Dome14" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(795, 389)
+resource_type = 0
 
 [node name="Dome15" parent="Domes" instance=ExtResource("1_o7dif")]
 position = Vector2(812, 589)
+resource_type = 0
 
 [node name="Squads" type="Node2D" parent="."]
 

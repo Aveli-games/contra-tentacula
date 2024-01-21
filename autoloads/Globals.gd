@@ -7,6 +7,7 @@ enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
 
 var base_infestation_rate = .1
 var BASE_CONNECTOR_INFESTATION_RATE = 0.1
+var BASE_INFESTATION_CHANCE = 0.012
 
 var resources = {
 	ResourceType.FOOD: 0,

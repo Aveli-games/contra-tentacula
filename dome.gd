@@ -14,6 +14,8 @@ var infestation_stage: InfestationStage = InfestationStage.UNINFESTED
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
 var infestation_rate: float = 0.0
 var infestation_modifier: float = 0.0
+var infestation_chance = Globals.BASE_INFESTATION_CHANCE
+var infestation_chance_modifiers = {}
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
 
@@ -38,7 +40,7 @@ func _on_infestation_check_timer_timeout():
 			$DomeStatus.text = "Safe"
 			$ResourceGenerationTimer.start(1)
 		var random_roll = randf()
-		if random_roll < .01: # Temp, infestation should be initiated by main eventually
+		if random_roll < get_modified_infestation_chance():
 			infestation_percentage += 0.01
 			$ResourceGenerationTimer.stop()
 	elif infestation_percentage <= .50:
@@ -80,6 +82,25 @@ func add_infestation(infestation_value: float):
 func add_infestation_modifier(change: float):
 	infestation_modifier += change
 	
+func add_infestation_chance_modifier(modifier_id, chance):
+	if !infestation_chance_modifiers.has(modifier_id):
+		infestation_chance_modifiers[modifier_id] = chance
+	
+func remove_infestation_chance_modifier(modifier_id):
+	if infestation_chance_modifiers.has(modifier_id):
+		infestation_chance_modifiers.remove(modifier_id)
+	else:
+		push_warning('Tried to remove missing modifier: ', modifier_id)
+
+func get_modified_infestation_chance():
+	if infestation_chance_modifiers.is_empty():
+		return infestation_chance
+	var total_modifiers = infestation_chance_modifiers.values().reduce(sum) 
+	return infestation_chance + total_modifiers
+
+func sum(accum, number):
+	return accum + number
+
 func set_sprite(path: String):
 	$Building/BuildingSprite.texture = load(path)
 
