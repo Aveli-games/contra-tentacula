@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4olr3wpp0aiy"
-path="res://.godot/imported/MaskButton.png-ee3ebd8062e87e92e022b547bcb7971b.ctex"
+uid="uid://5x10wensvpyo"
+path="res://.godot/imported/infestation_root.png-78bf8627b61b1f07939b2c2192a5ed5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/command_sprites/MaskButton.png"
-dest_files=["res://.godot/imported/MaskButton.png-ee3ebd8062e87e92e022b547bcb7971b.ctex"]
+source_file="res://art/dome_sprites/infestation_root.png"
+dest_files=["res://.godot/imported/infestation_root.png-78bf8627b61b1f07939b2c2192a5ed5e.ctex"]
 
 [params]
 

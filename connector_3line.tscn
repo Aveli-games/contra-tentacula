@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://connector_3line.gd" id="1_8cegv"]
 [ext_resource type="Texture2D" uid="uid://2brbj2utwiva" path="res://art/dome_sprites/ConnectorSprite.png" id="2_pnlfw"]
-[ext_resource type="Texture2D" uid="uid://qijqlc5ujg5j" path="res://art/dome_sprites/infestation_96_rotated.png" id="3_1f7g7"]
+[ext_resource type="Texture2D" uid="uid://5x10wensvpyo" path="res://art/dome_sprites/infestation_root.png" id="3_vr0e3"]
 
 [node name="Connector" type="Node2D"]
 script = ExtResource("1_8cegv")
-tool_forward = 0.200501
+tool_forward = 0.699865
 
 [node name="MainLine" type="Line2D" parent="."]
 texture_repeat = 2
@@ -17,12 +17,14 @@ texture_mode = 1
 
 [node name="ForwardLine" type="Line2D" parent="."]
 texture_repeat = 2
-points = PackedVector2Array(28.8845, 25.3687, 57.2321, 36.9033)
-texture = ExtResource("3_1f7g7")
+points = PackedVector2Array(28.8845, 25.3687, 129.882, 66.4641)
+width = 15.0
+texture = ExtResource("3_vr0e3")
 texture_mode = 1
 
 [node name="ReverseLine" type="Line2D" parent="."]
 texture_repeat = 2
 points = PackedVector2Array(170.116, 93.6313, 61.3656, 49.3813)
-texture = ExtResource("3_1f7g7")
+width = 15.0
+texture = ExtResource("3_vr0e3")
 texture_mode = 1
