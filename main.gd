@@ -85,15 +85,7 @@ func _on_action_selected(action: Globals.ActionType):
 	
 func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:
-		match selected_action:
-			Globals.ActionType.NONE:
-				selected_squad.command_fight(target_dome)
-			Globals.ActionType.MOVE:
-				selected_squad.command_move(target_dome)
-			Globals.ActionType.SPECIAL:
-				selected_squad.command_special(target_dome)
-			Globals.ActionType.FIGHT:
-				selected_squad.command_fight(target_dome)
+		selected_squad.command(selected_action, target_dome)
 		
 		selected_action = Globals.ActionType.NONE
 		Input.set_custom_mouse_cursor(null)

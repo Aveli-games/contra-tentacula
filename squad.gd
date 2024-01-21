@@ -6,8 +6,8 @@ signal selected
 signal movement_completed
 signal movement_started
 
-const BASE_INFESTATION_FIGHT_RATE = -.05
-const BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
+var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE / 2
+var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
 
 var target_location: Dome
 var location: Dome
@@ -61,13 +61,10 @@ func _physics_process(delta):
 func _on_movement_completed():
 	if target_location:
 		target_location.enter(self)
-		target_location.add_infestation_modifier(BASE_INFESTATION_FIGHT_RATE * 3)
 		moving = false
 
-# TODO: Update this with respective squad actions
 func _on_movement_started():
 	if location:
-		location.add_infestation_modifier(-BASE_INFESTATION_FIGHT_RATE * 3)
 		location = null
 		moving = true
 	
@@ -93,6 +90,14 @@ func move(target: Dome):
 	else: # We are moving, no moving action allowed
 		return false
 
+func special():
+	if location:
+		location.add_infestation_rate_modifier(self.get_instance_id(), 3 * BASE_INFESTATION_FIGHT_RATE)
+
+func fight():
+	if location:
+		location.add_infestation_rate_modifier(self.get_instance_id(), BASE_INFESTATION_FIGHT_RATE)
+
 func command_move(target: Dome):
 	if move(target):
 		current_action = Globals.ActionType.MOVE
@@ -107,7 +112,8 @@ func command_special(target: Dome):
 		
 		if moving:
 			await movement_completed
-			print("Do the special")
+		
+		special()
 
 func command_fight(target: Dome):
 	if move(target):
@@ -117,7 +123,23 @@ func command_fight(target: Dome):
 		
 		if moving:
 			await movement_completed
-			print("Do the fight")
+		
+		fight()
+
+func command(action: Globals.ActionType, target: Dome):
+	# Cancel any current modifier
+	if location:
+		location.remove_infestation_rate_modifier(self.get_instance_id())
+	
+	match action:
+		Globals.ActionType.NONE:
+			command_fight(target)
+		Globals.ActionType.MOVE:
+			command_move(target)
+		Globals.ActionType.SPECIAL:
+			command_special(target)
+		Globals.ActionType.FIGHT:
+			command_fight(target)
 
 func set_target(target: Dome):
 	target_position = target.global_position
