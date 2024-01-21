@@ -1,6 +1,7 @@
 extends Node
 
 var selected_squad: Squad
+var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 var dome_type_limits = {
 	Globals.ResourceType.NONE: 0,
@@ -11,14 +12,19 @@ var dome_type_limits = {
 }
 
 func _ready():
+	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
+	$Squads/Pyros.set_type(Globals.SquadType.PYRO)
+	$Squads/Botanists.set_type(Globals.SquadType.BOTANIST)
+	$Squads/Engineers.set_type(Globals.SquadType.ENGINEER)
+	
 	for child in $Squads.get_children():
 		child.move($Domes/Dome)
 		child.selected.connect(_on_squad_selected)
-		
-	$Squads/Scientists.set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
-	$Squads/Pyros.set_sprite("res://art/squad_sprites/GasmaskPyro_128.png")
-	$Squads/Botanists.set_sprite("res://art/squad_sprites/GasmaskBot_128.png")
-	$Squads/Engineers.set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
+		for squad_button in $UI/RightSidebar/SquadDisplay.get_children():
+			squad_button.selected.connect(_on_control_selected)
+			if not squad_button.squad_link:
+				squad_button.set_squad(child)
+				break
 	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
@@ -34,6 +40,8 @@ func _ready():
 				randome = randi_range(0, Globals.ResourceType.size() - 1)
 			child.set_resource_type(randome)
 			dome_type_limits[randome] -= 1
+			
+			$UI.action_selected.connect(_on_action_selected)
 	
 	# try to put the lower number dome on the left to help prevent repeats, and sort ascending
 	var dome_connections = [
@@ -68,6 +76,18 @@ func _on_squad_selected(squad_node: Squad):
 	squad_node.set_highlight(true)
 	selected_squad = squad_node
 	
+func _on_control_selected(node: Control):
+	if node is SquadInfoDisplay:
+		_on_squad_selected(node.squad_link)
+		
+func _on_action_selected(action: Globals.ActionType):
+	selected_action = action
+	
 func _on_dome_targeted(target_dome: Dome):
 	if selected_squad:
-		selected_squad.move(target_dome)
+		if selected_action == Globals.ActionType.NONE:
+			selected_action = Globals.ActionType.FIGHT
+		selected_squad.command(selected_action, target_dome)
+		
+		selected_action = Globals.ActionType.NONE
+		Input.set_custom_mouse_cursor(null)

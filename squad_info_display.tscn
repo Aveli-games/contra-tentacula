@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bviytsxvrvum1" path="res://art/command_sprites/fight_sprite_placeholder.png" id="1_xim44"]
 [ext_resource type="Script" path="res://squad_info_display.gd" id="1_xufqx"]
-[ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://clickable_icon.tscn" id="2_e0ysf"]
+[ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="3_4n2j5"]
 
 [node name="SquadInfoDisplay" type="VBoxContainer"]
 offset_left = 392.0
@@ -30,5 +30,8 @@ layout_mode = 2
 texture = ExtResource("1_xim44")
 expand_mode = 3
 
-[node name="ClickableIcon" parent="." instance=ExtResource("2_e0ysf")]
+[node name="TextureIcon" parent="." instance=ExtResource("3_4n2j5")]
 layout_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="TextureIcon" to="." method="_on_texture_icon_gui_input"]
