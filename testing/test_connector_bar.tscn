@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0xddacbd70e1"]
+
+[ext_resource type="Texture2D" uid="uid://plb4ecr4ho6o" path="res://icon.svg" id="1_afkgh"]
+[ext_resource type="Script" path="res://testing/test_connector_bar.gd" id="1_x87qp"]
+[ext_resource type="Texture2D" uid="uid://clrcel841ts6e" path="res://art/squad_sprites/botanist_icon_placeholder.png" id="2_y3tgr"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(193, 446)
+script = ExtResource("1_x87qp")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+texture_repeat = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 111.0
+offset_bottom = 443.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 3.14159
+step = 0.1
+value = 30.0
+fill_mode = 2
+nine_patch_stretch = true
+texture_under = ExtResource("1_afkgh")
+
+[node name="TextureRect" type="TextureRect" parent="TextureProgressBar"]
+offset_left = -2.0
+offset_top = 4.0
+offset_right = 107.0
+offset_bottom = 270.0
+texture = ExtResource("2_y3tgr")
+expand_mode = 1
+stretch_mode = 1
