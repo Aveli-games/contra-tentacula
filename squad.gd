@@ -19,13 +19,27 @@ var is_selected: bool = false
 
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
-var current_action: Globals.ActionType = Globals.ActionType.NONE
+var current_action = {'type': Globals.ActionType.NONE}
 var action_queue = []
 
 var moving: bool = false
 
 func _ready():
 	set_highlight(false)
+	
+# call when queue changes or action finished
+func _start_next_action():
+	var next_action = action_queue.pop_front()
+	if next_action:
+		print(self.name, next_action)
+		current_action = next_action
+		if current_action.type == Globals.ActionType.MOVE:
+			set_target(current_action.target)
+		
+func _set_action_queue(new_queue):
+	action_queue = new_queue
+	print('action_queue: ', action_queue)
+	_start_next_action()
 
 func set_sprite(path: String):
 	$Sprite2D.texture = load(path)
@@ -63,6 +77,7 @@ func _on_movement_completed():
 	if target_location:
 		target_location.enter(self)
 		moving = false
+		_start_next_action()
 
 func _on_movement_started():
 	if location:
@@ -75,7 +90,7 @@ func move(target: Dome):
 		return false
 	if !location: # We don't have a current location, move to get one
 		print_debug("We don't have a current location, move to target: ", target)
-		action_queue = _create_move_action(target)
+		_set_action_queue([_create_action(Globals.ActionType.MOVE, target)])
 		return true
 	if location == target: # Target is current location ==> already there?
 		return true
@@ -92,14 +107,20 @@ func move(target: Dome):
 		# fill action queue with move actions
 		# first element is current location
 		path_to_target.pop_front()
+		print('PATH: ', path_to_target)
 		var move_actions = path_to_target.map(_create_move_action)
-		action_queue = move_actions
+		print(move_actions)
+		_set_action_queue(move_actions)
 		return true
 	else: # Target is not connected to current location
 		return false
 		
+func _create_action(type: Globals.ActionType, target: Dome):
+	print('new action:', {'type': type, 'target': target})
+	return {'type': type, 'target': target}
+	
 func _create_move_action(target: Dome):
-	return {'action': Globals.ActionType.MOVE, 'target': target}
+	return _create_action(Globals.ActionType.MOVE, target)
 	
 func special(target: Dome):
 	if location:
@@ -115,9 +136,9 @@ func fight(target: Dome):
 			Globals.add_resource(Globals.ResourceType.FOOD, -1)
 			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
 
+# called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
 	if move(target):
-		current_action = action
 		if display_link:
 			display_link.set_action(action)
 
