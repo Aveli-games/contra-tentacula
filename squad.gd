@@ -20,6 +20,7 @@ var is_selected: bool = false
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
 var current_action: Globals.ActionType = Globals.ActionType.NONE
+var action_queue = []
 
 var moving: bool = false
 
@@ -70,26 +71,24 @@ func _on_movement_started():
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
-	if not moving:
-		if location:
-			if location != target:
-				var location_connections = location.get_connections()
-				if location != target && location_connections.find(target) != -1:
-					global_position = location.global_position
-					if slot:
-						slot.empty(self)
-					set_target(target)
-					return true
-				else: # Target is not connected to current location
-					return false
-			else: # Target is current location
-				return true
-		else: # We don't have a current location, move to get one
+	if moving: # We are moving, no moving action allowed
+		return false
+	if !location: # We don't have a current location, move to get one
+		set_target(target)
+		return true
+	if location == target: # Target is current location
+		return true
+	else: 
+		var location_connections = location.get_connections()
+		if location != target && location_connections.find(target) != -1:
+			global_position = location.global_position
+			if slot:
+				slot.empty(self)
 			set_target(target)
 			return true
-	else: # We are moving, no moving action allowed
-		return false
-
+		else: # Target is not connected to current location
+			return false
+	
 func special(target: Dome):
 	if location:
 		if Globals.resources[Globals.ResourceType.FOOD] >= 2:

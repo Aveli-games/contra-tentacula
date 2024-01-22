@@ -3,7 +3,7 @@ extends Node
 class_name Pather
 
 # start, finish are Domes
-# start can be mid-connector
+##TODO: make it so start can be mid-connector
 func find_path(start, finish):
 	# if start is connection
 	# new path = []
