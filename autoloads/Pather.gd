@@ -4,7 +4,7 @@ class_name Pather
 
 # start, finish are Domes
 ##TODO: make it so start can be mid-connector
-func find_path(start, finish):
+func find_path(start, finish) -> Array[Dome]:
 	# if start is connection
 	# new path = []
 	# connections = [start.dome_a, start.dome_b]
