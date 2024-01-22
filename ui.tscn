@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=16 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="5_35yct"]
 [ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
 [ext_resource type="Shader" path="res://squad.gdshader" id="6_mlemw"]
+[ext_resource type="Script" path="res://main_menu.gd" id="8_6vtd7"]
+[ext_resource type="Texture2D" uid="uid://bsqp4wpjgrl2o" path="res://art/Contra_Tentacula_Cover_Art.png" id="9_rnwqd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w124o"]
 resource_local_to_scene = true
@@ -163,6 +165,25 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_621vm")
 layout_mode = 2
 
+[node name="MainMenu" type="TextureProgressBar" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.667, 0.667)
+value = 100.0
+fill_mode = 2
+texture_progress = ExtResource("9_rnwqd")
+script = ExtResource("8_6vtd7")
+
+[node name="Button" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 815.592
+offset_top = 803.598
+offset_right = 1111.59
+offset_bottom = 939.598
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_selected"]
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_selected"]
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/FightButton" to="." method="_on_fight_button_selected"]
+[connection signal="pressed" from="MainMenu/Button" to="MainMenu" method="_on_button_pressed"]

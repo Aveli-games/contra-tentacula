@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://buvr472mrq05r"]
+[gd_scene load_steps=6 format=3 uid="uid://buvr472mrq05r"]
 
 [ext_resource type="Texture2D" uid="uid://bviytsxvrvum1" path="res://art/command_sprites/fight_sprite_placeholder.png" id="1_xim44"]
 [ext_resource type="Script" path="res://squad_info_display.gd" id="1_xufqx"]
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="3_4n2j5"]
+[ext_resource type="Shader" path="res://squad.gdshader" id="4_05km1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_turom"]
+resource_local_to_scene = true
+shader = ExtResource("4_05km1")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
 
 [node name="SquadInfoDisplay" type="VBoxContainer"]
 offset_left = 392.0
@@ -31,6 +39,7 @@ texture = ExtResource("1_xim44")
 expand_mode = 3
 
 [node name="TextureIcon" parent="." instance=ExtResource("3_4n2j5")]
+material = SubResource("ShaderMaterial_turom")
 layout_mode = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
