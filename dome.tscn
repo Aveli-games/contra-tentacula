@@ -19,7 +19,6 @@ shader_parameter/on = false
 [node name="Dome" type="Area2D"]
 position = Vector2(593, 342)
 script = ExtResource("1_n1lt3")
-resource_type = null
 
 [node name="SelectionArea" type="Area2D" parent="."]
 
