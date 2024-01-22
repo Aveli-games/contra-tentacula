@@ -1,7 +1,10 @@
 extends Node2D
 
+@export var value = 0
+var y_height = 80
+
 func _ready():
-	$Polygon2D/Sprite2D.position.y += 100
+	$Sprite2D.position.y += y_height
 
 func _process(delta):
-	$Polygon2D/Sprite2D.position.y = max( 0, $Polygon2D/Sprite2D.position.y - 1)
+	$Sprite2D.position.y = max( 0, $Sprite2D.position.y - 1)
