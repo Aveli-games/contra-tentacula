@@ -52,7 +52,9 @@ shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 4.567
 shader_parameter/on = null
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_wssrf")
 
 [node name="RightSidebar" type="VBoxContainer" parent="."]
@@ -166,15 +168,16 @@ material = SubResource("ShaderMaterial_621vm")
 layout_mode = 2
 
 [node name="MainMenu" type="TextureProgressBar" parent="."]
+visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(0.667, 0.667)
-value = 100.0
 fill_mode = 2
 texture_progress = ExtResource("9_rnwqd")
 script = ExtResource("8_6vtd7")
 
 [node name="Button" type="Button" parent="MainMenu"]
+visible = false
 layout_mode = 0
 offset_left = 815.592
 offset_top = 803.598

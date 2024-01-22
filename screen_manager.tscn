@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://2fitupawuuuo"]
+
+[ext_resource type="PackedScene" uid="uid://dhkl3g2uli04h" path="res://game_board.tscn" id="1_iodqc"]
+[ext_resource type="Script" path="res://screen_manager.gd" id="1_sjfhd"]
+[ext_resource type="Texture2D" uid="uid://bsqp4wpjgrl2o" path="res://art/Contra_Tentacula_Cover_Art.png" id="2_dulct"]
+
+[sub_resource type="Animation" id="Animation_abod3"]
+resource_name = "new_animation"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.1, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4q7wx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7hwye"]
+resource_name = "new_animation_2"
+
+[sub_resource type="Animation" id="Animation_v7y7u"]
+resource_name = "new_animation_3"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ffkn0"]
+_data = {
+"RESET": SubResource("Animation_4q7wx"),
+"new_animation": SubResource("Animation_abod3"),
+"new_animation_2": SubResource("Animation_7hwye"),
+"new_animation_3": SubResource("Animation_v7y7u")
+}
+
+[node name="ScreenManager" type="Node"]
+script = ExtResource("1_sjfhd")
+
+[node name="GameBoard" parent="." instance=ExtResource("1_iodqc")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_ffkn0")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+process_mode = 3
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("2_dulct")
