@@ -78,16 +78,16 @@ func move(target: Dome):
 		return true
 	if location == target: # Target is current location
 		return true
-	else: 
-		var location_connections = location.get_connections()
-		if location != target && location_connections.find(target) != -1:
-			global_position = location.global_position
-			if slot:
-				slot.empty(self)
-			set_target(target)
-			return true
-		else: # Target is not connected to current location
-			return false
+	
+	var location_connections = location.get_connections()
+	if location_connections.find(target) != -1:
+		global_position = location.global_position
+		if slot:
+			slot.empty(self)
+		set_target(target)
+		return true
+	else: # Target is not connected to current location
+		return false
 	
 func special(target: Dome):
 	if location:
