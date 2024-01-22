@@ -81,11 +81,11 @@ func add_infestation(infestation_value: float):
 			##TODO: use signal in DomeConnections instead?
 			DomeConnections.dome_stop_spread(self)
 
-func add_infestation_rate_modifier(modifier_id, chance):
+func add_infestation_rate_modifier(modifier_id, rate):
 	# Replace/override current matching modifier, if present
 	if infestation_rate_modifiers.has(modifier_id):
 		remove_infestation_rate_modifier(modifier_id)
-	infestation_rate_modifiers[modifier_id] = chance
+	infestation_rate_modifiers[modifier_id] = rate
 
 func remove_infestation_rate_modifier(modifier_id):
 	if infestation_rate_modifiers.has(modifier_id):

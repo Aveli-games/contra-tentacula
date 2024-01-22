@@ -7,7 +7,8 @@ signal movement_completed
 signal movement_started
 
 var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE
-var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this constant
+var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this
+var SCIENTIST_PASSIVE_RATE_MODIFIER = -.075
 
 var target_location: Dome
 var location: Dome
@@ -57,16 +58,17 @@ func _physics_process(delta):
 		if target_location != location:
 			movement_completed.emit()
 
-# TODO: Update this with respective squad actions
 func _on_movement_completed():
 	if target_location:
 		target_location.enter(self)
 		moving = false
+		apply_passive(location)
 
 func _on_movement_started():
 	if location:
 		location = null
 		moving = true
+		remove_passive(location)
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
@@ -109,6 +111,18 @@ func command(action: Globals.ActionType, target: Dome):
 		current_action = action
 		if display_link:
 			display_link.set_action(action)
+			
+func apply_passive(target: Dome):
+	if location:
+		match squad_type:
+			Globals.SquadType.SCIENTIST:
+				location.add_infestation_rate_modifier(self.get_instance_id(), SCIENTIST_PASSIVE_RATE_MODIFIER)
+
+func remove_passive(target: Dome):
+	if location:
+		match squad_type:
+			Globals.SquadType.SCIENTIST:
+				location.remove_infestation_rate_modifier(self.get_instance_id())
 
 func set_target(target: Dome):
 	target_position = target.global_position
