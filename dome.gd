@@ -12,6 +12,8 @@ const INFESTATION_COUNTDOWN = 30
 var infestation_percentage: float = 0.0
 var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.UNINFESTED
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
+var infestation_rate = Globals.BASE_DOME_INFESTATION_RATE
+var infestation_rate_modifiers = {}
 var infestation_chance = Globals.BASE_INFESTATION_CHANCE
 var infestation_chance_modifiers = {}
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
@@ -24,7 +26,7 @@ func _ready():
 func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
 	if infestation_percentage > 0:
-		add_infestation(Globals.BASE_DOME_INFESTATION_RATE * delta)
+		add_infestation((get_modified_infestation_rate())* delta)
 	
 	var progress_diff = infestation_percentage - %PopupInfestation.value/100
 	var progress_max_speed = 0.01
@@ -78,6 +80,24 @@ func add_infestation(infestation_value: float):
 			infestation_removed.emit()
 			##TODO: use signal in DomeConnections instead?
 			DomeConnections.dome_stop_spread(self)
+
+func add_infestation_rate_modifier(modifier_id, chance):
+	# Replace/override current matching modifier, if present
+	if infestation_rate_modifiers.has(modifier_id):
+		remove_infestation_rate_modifier(modifier_id)
+	infestation_rate_modifiers[modifier_id] = chance
+
+func remove_infestation_rate_modifier(modifier_id):
+	if infestation_rate_modifiers.has(modifier_id):
+		infestation_rate_modifiers.erase(modifier_id)
+	else:
+		push_warning('Tried to remove missing rate modifier: ', modifier_id)
+
+func get_modified_infestation_rate():
+	if infestation_rate_modifiers.is_empty():
+		return Globals.BASE_DOME_INFESTATION_RATE
+	var total_modifiers = infestation_rate_modifiers.values().reduce(sum) 
+	return Globals.BASE_DOME_INFESTATION_RATE + total_modifiers
 
 func add_infestation_chance_modifier(modifier_id, chance):
 	if !infestation_chance_modifiers.has(modifier_id):
