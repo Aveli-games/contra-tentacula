@@ -69,10 +69,6 @@ func _ready():
 		[$Domes/Dome14, $Domes/Dome15],
 	]
 	DomeConnections.instantiate_network(dome_connections, self)
-	var pather = Pather.new()
-	print_debug('PATHER DEBUG', pather.find_path($Domes/Dome2, $Domes/Dome5))
-	# should be direct path
-	
 
 func _on_squad_selected(squad_node: Squad):
 	if selected_squad:
