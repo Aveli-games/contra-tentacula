@@ -20,21 +20,6 @@ func _ready():
 	$RightSidebar/ResourceDisplay/PartsInfo.set_text("Parts")
 	$RightSidebar/ResourceDisplay/PartsInfo.set_amount(Globals.resources[Globals.ResourceType.PARTS])
 
-func _on_move_button_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			action_selected.emit(Globals.ActionType.MOVE)
-
-func _on_special_button_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			action_selected.emit(Globals.ActionType.SPECIAL)
-
-func _on_fight_button_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			action_selected.emit(Globals.ActionType.FIGHT)
-
 func _on_move_button_selected(button: TextureIcon):
 	Input.set_custom_mouse_cursor(button.get_icon())
 	action_selected.emit(Globals.ActionType.MOVE)

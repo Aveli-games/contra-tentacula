@@ -18,6 +18,8 @@ var infestation_chance = Globals.BASE_INFESTATION_CHANCE
 var infestation_chance_modifiers = {}
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
+var present_squads = []
+var researching: bool = false
 
 func _ready():
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
@@ -53,7 +55,6 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != Globals.InfestationStage.MODERATE:
 			infestation_stage = Globals.InfestationStage.MODERATE
 			$DomeStatus.text = "Moderate infestation!"
-			$ResourceGenerationTimer.stop()
 	elif infestation_percentage < 1:
 		if infestation_stage != Globals.InfestationStage.MAJOR:
 			infestation_stage = Globals.InfestationStage.MAJOR
@@ -61,6 +62,7 @@ func _on_infestation_check_timer_timeout():
 	elif infestation_percentage >= 1:
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
+			$ResourceGenerationTimer.stop()
 		if $DomeLostCountdownTimer.is_stopped():
 			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
@@ -105,7 +107,7 @@ func add_infestation_chance_modifier(modifier_id, chance):
 	
 func remove_infestation_chance_modifier(modifier_id):
 	if infestation_chance_modifiers.has(modifier_id):
-		infestation_chance_modifiers.remove(modifier_id)
+		infestation_chance_modifiers.erase(modifier_id)
 	else:
 		push_warning('Tried to remove missing chance modifier: ', modifier_id)
 
@@ -124,6 +126,10 @@ func set_sprite(path: String):
 func generate_resource():
 	if resource_type && resource_type != Globals.ResourceType.NONE:
 		Globals.add_resource(resource_type, 1)
+		
+func toggle_research(is_enable: bool):
+	if resource_type == Globals.ResourceType.RESEARCH:
+		researching = is_enable
 
 func set_resource_type(type: Globals.ResourceType):
 	resource_type = type
@@ -151,7 +157,7 @@ func _on_dome_lost_countdown_timer_timeout():
 	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
-	if resource_type != Globals.ResourceType.RESEARCH:
+	if resource_type != Globals.ResourceType.RESEARCH || researching:
 		generate_resource()
 
 func _on_selection_area_input_event(viewport, event, shape_idx):

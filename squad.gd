@@ -5,6 +5,7 @@ class_name Squad
 signal selected
 signal movement_completed
 signal movement_started
+signal research_toggled
 
 var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE
 var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this
@@ -17,6 +18,7 @@ var squad_type: Globals.SquadType = Globals.SquadType.NONE
 var display_link: SquadInfoDisplay
 var mouseover: bool = false
 var is_selected: bool = false
+var researching: bool = false
 
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
@@ -66,9 +68,9 @@ func _on_movement_completed():
 
 func _on_movement_started():
 	if location:
+		remove_passive(location)
 		location = null
 		moving = true
-		remove_passive(location)
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
@@ -93,15 +95,46 @@ func move(target: Dome):
 		return false
 
 func special(target: Dome):
-	if location:
-		if Globals.resources[Globals.ResourceType.FOOD] >= 2:
-			Globals.add_resource(Globals.ResourceType.FOOD, -2)
-			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
-		else:
-			fight(target)
+	if location && location == target:
+		match squad_type:
+			Globals.SquadType.NONE, Globals.SquadType.BOTANIST:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 2:
+					Globals.add_resource(Globals.ResourceType.FOOD, -2)
+					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+				else:
+					fight(target)
+			Globals.SquadType.PYRO:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= 1:
+					Globals.add_resource(Globals.ResourceType.FOOD, -1)
+					Globals.add_resource(Globals.ResourceType.FUEL, -1)
+					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+				else:
+					fight(target)
+			Globals.SquadType.ENGINEER:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= 1:
+					Globals.add_resource(Globals.ResourceType.FOOD, -1)
+					Globals.add_resource(Globals.ResourceType.PARTS, -1)
+					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+				else:
+					fight(target)
+			Globals.SquadType.SCIENTIST:
+				var old_state = researching
+				var new_state = true
+				
+				for squad in location.present_squads:
+					if squad.squad_type != Globals.SquadType.SCIENTIST:
+						if squad.current_action > Globals.ActionType.MOVE:
+							new_state = false
+							break
+							
+				if old_state != new_state: # I.e. state has changed
+					toggle_research(new_state)
+	else:
+		if squad_type == Globals.SquadType.SCIENTIST:
+			toggle_research(false)
 
 func fight(target: Dome):
-	if location:
+	if location && location == target:
 		if Globals.resources[Globals.ResourceType.FOOD] >= 1:
 			Globals.add_resource(Globals.ResourceType.FOOD, -1)
 			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
@@ -109,6 +142,8 @@ func fight(target: Dome):
 func command(action: Globals.ActionType, target: Dome):
 	if move(target):
 		current_action = action
+		if squad_type == Globals.SquadType.SCIENTIST && current_action != Globals.ActionType.SPECIAL:
+			toggle_research(false)
 		if display_link:
 			display_link.set_action(action)
 			
@@ -123,6 +158,11 @@ func remove_passive(target: Dome):
 		match squad_type:
 			Globals.SquadType.SCIENTIST:
 				location.remove_infestation_rate_modifier(self.get_instance_id())
+
+func toggle_research(is_enable: bool):
+	if is_enable != researching:
+		researching = is_enable
+		research_toggled.emit(researching)
 
 func set_target(target: Dome):
 	target_position = target.global_position
