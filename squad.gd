@@ -31,7 +31,7 @@ func _ready():
 func _start_next_action():
 	var next_action = action_queue.pop_front()
 	if next_action:
-		print(self.name, next_action)
+		print_debug(self.name, next_action)
 		current_action = next_action
 		if current_action.type == Globals.ActionType.MOVE:
 			set_target(current_action.target)
@@ -109,14 +109,13 @@ func move(target: Dome):
 		path_to_target.pop_front()
 		print('PATH: ', path_to_target)
 		var move_actions = path_to_target.map(_create_move_action)
-		print(move_actions)
 		_set_action_queue(move_actions)
 		return true
 	else: # Target is not connected to current location
 		return false
 		
 func _create_action(type: Globals.ActionType, target: Dome):
-	print('new action:', {'type': type, 'target': target})
+	print('action created: ', {'type': type, 'target': target})
 	return {'type': type, 'target': target}
 	
 func _create_move_action(target: Dome):
