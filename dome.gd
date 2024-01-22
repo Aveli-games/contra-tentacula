@@ -21,6 +21,7 @@ var infestation_chance_modifiers = {}
 var is_hidden: bool = false
 var present_squads = []
 var researching: bool = false
+var producing: bool = false
 
 func _ready():
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
@@ -45,7 +46,9 @@ func _on_infestation_check_timer_timeout():
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
 			$ResourceGenerationTimer.start(1)
-			production_changed.emit(self, true)
+			if not producing:
+				producing = true
+				production_changed.emit(self, producing)
 		var random_roll = randf()
 		if random_roll < get_modified_infestation_chance():
 			infestation_percentage += 0.01
@@ -65,7 +68,9 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
 			$ResourceGenerationTimer.stop()
-			production_changed.emit(self, false)
+			if producing:
+				producing = false
+				production_changed.emit(self, producing)
 		if $DomeLostCountdownTimer.is_stopped():
 			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
