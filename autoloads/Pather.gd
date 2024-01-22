@@ -3,7 +3,7 @@ extends Node
 class_name Pather
 
 # start, finish are Domes
-##TODO: make it so start can be mid-connector
+##TODO: make it so start can be mid-connector, for canceling movement
 func find_path(start: Dome, finish: Dome):
 	# if start is connection
 	# new path = []

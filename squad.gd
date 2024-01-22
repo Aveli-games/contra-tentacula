@@ -115,7 +115,7 @@ func move(target: Dome):
 		return false
 		
 func _create_action(type: Globals.ActionType, target: Dome):
-	print('action created: ', {'type': type, 'target': target})
+	print_debug('action created: ', {'type': type, 'target': target})
 	return {'type': type, 'target': target}
 	
 func _create_move_action(target: Dome):
