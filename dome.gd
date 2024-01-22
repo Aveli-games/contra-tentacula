@@ -122,6 +122,7 @@ func _on_dome_lost_countdown_timer_timeout():
 	infestation_stage = Globals.InfestationStage.LOST
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
+	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
 	if resource_type != Globals.ResourceType.RESEARCH:

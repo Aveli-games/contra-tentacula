@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=14 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
@@ -6,6 +6,49 @@
 [ext_resource type="Script" path="res://global_controls.gd" id="4_dw5pm"]
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="5_35yct"]
 [ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
+[ext_resource type="Shader" path="res://squad.gdshader" id="6_mlemw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w124o"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r74e1"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nynn"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bykak"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xq87"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_621vm"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_wssrf")
@@ -63,6 +106,7 @@ alignment = 1
 
 [node name="ControlsDisplay" type="VBoxContainer" parent="RightSidebar"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="GlobalControlLabel" type="Label" parent="RightSidebar/ControlsDisplay"]
 layout_mode = 2
@@ -79,14 +123,17 @@ alignment = 1
 script = ExtResource("4_dw5pm")
 
 [node name="ResearchMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_w124o")
 layout_mode = 2
 tooltip_text = "Research"
 
 [node name="PlayPauseButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_r74e1")
 layout_mode = 2
 tooltip_text = "Pause"
 
 [node name="MainMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_4nynn")
 layout_mode = 2
 tooltip_text = "Main Menu"
 
@@ -105,12 +152,15 @@ alignment = 1
 script = ExtResource("5_613uf")
 
 [node name="MoveButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_bykak")
 layout_mode = 2
 
 [node name="SpecialButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_2xq87")
 layout_mode = 2
 
 [node name="FightButton" parent="RightSidebar/ControlsDisplay/SquadControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_621vm")
 layout_mode = 2
 
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_selected"]

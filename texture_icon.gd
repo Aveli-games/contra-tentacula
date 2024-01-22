@@ -18,11 +18,10 @@ func set_highlight(is_enable: bool, icon_selected: bool):
 	is_selected = icon_selected
 	if is_enable:
 		if mouseover && not is_selected:
-			$Background.color = MOUSEOVER_COLOR
+			$Background.material.set_shader_parameter("line_color", MOUSEOVER_COLOR)
 		else:
-			$Background.color = HIGHLIGHT_COLOR
-	else:
-		$Background.color = BACKGROUND_COLOR
+			$Background.material.set_shader_parameter("line_color", HIGHLIGHT_COLOR)
+	$Background.material.set_shader_parameter("on", is_enable)
 
 func set_icon(path: String):
 	$IconTexture.texture = load(path)
