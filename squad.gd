@@ -40,6 +40,12 @@ func _set_action_queue(new_queue):
 	action_queue = new_queue
 	print('action_queue: ', action_queue)
 	_start_next_action()
+	
+func _add_to_action_queue(new_action):
+	var queue_empty = action_queue.size() == 0
+	action_queue.append(new_action)
+	if queue_empty:
+		_start_next_action()
 
 func set_sprite(path: String):
 	$Sprite2D.texture = load(path)
@@ -137,7 +143,9 @@ func fight(target: Dome):
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
+	print_debug('command issued: ', action, target)
 	if move(target):
+		_add_to_action_queue(_create_action(action, target))
 		if display_link:
 			display_link.set_action(action)
 
@@ -173,7 +181,7 @@ func _on_mouse_exited():
 
 func _on_action_timer_timeout():
 	if target_location == location && location.infestation_percentage > 0 && location.infestation_stage != Globals.InfestationStage.LOST:
-		match current_action:
+		match current_action.type:
 			Globals.ActionType.SPECIAL:
 				special(target_location)
 			Globals.ActionType.FIGHT:
