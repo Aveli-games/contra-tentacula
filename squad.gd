@@ -74,20 +74,32 @@ func move(target: Dome):
 	if moving: # We are moving, no moving action allowed
 		return false
 	if !location: # We don't have a current location, move to get one
-		set_target(target)
+		print_debug("We don't have a current location, move to target: ", target)
+		action_queue = _create_move_action(target)
 		return true
-	if location == target: # Target is current location
+	if location == target: # Target is current location ==> already there?
 		return true
 	
-	var location_connections = location.get_connections()
-	if location_connections.find(target) != -1:
+	var pather = Pather.new()
+	var path_to_target = pather.find_path(location, target)
+	if path_to_target:
+		# dome/slot management
 		global_position = location.global_position
 		if slot:
 			slot.empty(self)
-		set_target(target)
+			
+		# movement
+		# fill action queue with move actions
+		# first element is current location
+		path_to_target.pop_front()
+		var move_actions = path_to_target.map(_create_move_action)
+		action_queue = move_actions
 		return true
 	else: # Target is not connected to current location
 		return false
+		
+func _create_move_action(target: Dome):
+	return {'action': Globals.ActionType.MOVE, 'target': target}
 	
 func special(target: Dome):
 	if location:
