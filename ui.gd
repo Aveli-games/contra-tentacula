@@ -8,6 +8,13 @@ signal action_selected
 # TODO: Dynamically populate icons, primarily squad commands, based on available
 #    squad properties
 
+var resource_producers = {
+	Globals.ResourceType.FOOD: 0,
+	Globals.ResourceType.FUEL: 0,
+	Globals.ResourceType.PARTS: 0,
+	Globals.ResourceType.RESEARCH: 0
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set up resource display
@@ -31,3 +38,15 @@ func _on_special_button_selected(button: TextureIcon):
 func _on_fight_button_selected(button: TextureIcon):
 	Input.set_custom_mouse_cursor(button.get_icon())
 	action_selected.emit(Globals.ActionType.FIGHT)
+
+func add_resource_producer(resource_type, change):
+	resource_producers[resource_type] += change
+	match resource_type:
+		Globals.ResourceType.FOOD:
+			$RightSidebar/ResourceDisplay/FoodInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
+		Globals.ResourceType.FUEL:
+			$RightSidebar/ResourceDisplay/FuelInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
+		Globals.ResourceType.PARTS:
+			$RightSidebar/ResourceDisplay/PartsInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
+		Globals.ResourceType.RESEARCH:
+			$RightSidebar/ResourceDisplay/ResearchInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]

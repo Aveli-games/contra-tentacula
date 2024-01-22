@@ -30,6 +30,7 @@ func _ready():
 	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
+		child.production_changed.connect(_on_dome_production_changed)
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
@@ -97,3 +98,9 @@ func _on_dome_targeted(target_dome: Dome):
 func _on_research_toggled(is_enabled: bool):
 	for dome in $Domes.get_children():
 		dome.toggle_research(is_enabled)
+
+func _on_dome_production_changed(dome: Dome, is_producing: bool):
+	if is_producing:
+		$UI.add_resource_producer(dome.resource_type, 1)
+	else:
+		$UI.add_resource_producer(dome.resource_type, -1)

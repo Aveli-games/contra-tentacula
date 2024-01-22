@@ -5,12 +5,13 @@ class_name Dome
 signal fully_infested
 signal infestation_removed
 signal targeted
+signal production_changed
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
 const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
-var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.UNINFESTED
+var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.NONE
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
 var infestation_rate = Globals.BASE_DOME_INFESTATION_RATE
 var infestation_rate_modifiers = {}
@@ -44,6 +45,7 @@ func _on_infestation_check_timer_timeout():
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
 			$ResourceGenerationTimer.start(1)
+			production_changed.emit(self, true)
 		var random_roll = randf()
 		if random_roll < get_modified_infestation_chance():
 			infestation_percentage += 0.01
@@ -63,6 +65,7 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
 			$ResourceGenerationTimer.stop()
+			production_changed.emit(self, false)
 		if $DomeLostCountdownTimer.is_stopped():
 			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
