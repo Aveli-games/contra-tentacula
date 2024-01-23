@@ -9,7 +9,6 @@ signal production_changed
 signal lost
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
-const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
 var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.NONE
@@ -74,7 +73,7 @@ func _on_infestation_check_timer_timeout():
 				producing = false
 				production_changed.emit(self, producing)
 		if $DomeLostCountdownTimer.is_stopped():
-			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
+			$DomeStatus.text = "Fully infested: %s" % Globals.INFESTATION_COUNTDOWN
 			fully_infested.emit()
 		else:
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
@@ -154,7 +153,7 @@ func set_resource_type(type: Globals.ResourceType):
 
 # Only called when becomes fully infested
 func _on_fully_infested():
-	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
+	$DomeLostCountdownTimer.start(Globals.INFESTATION_COUNTDOWN)
 	##TODO: use signal in DomeConnections instead?
 	DomeConnections.dome_start_spread(self)
 
