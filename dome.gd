@@ -9,7 +9,6 @@ signal production_changed
 signal lost
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
-const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
 var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.NONE
@@ -29,7 +28,7 @@ func _ready():
 	# Await timer as quick workaround to domes loading and singalling before game board is ready
 	await get_tree().create_timer(.5).timeout 
 	_check_infestation()
-	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
+	$ResourceGenerationTimer.start(Globals.RESOUCE_TIMER_DURATION) # TODO: Have timer start on game start, not dome spawn
 	%PopupInfestation.value = 0
 
 func _process(delta):
@@ -78,7 +77,7 @@ func _check_infestation():
 				producing = false
 				production_changed.emit(self, producing)
 		if $DomeLostCountdownTimer.is_stopped():
-			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
+			$DomeStatus.text = "Fully infested: %s" % Globals.INFESTATION_COUNTDOWN
 			fully_infested.emit()
 		else:
 			$DomeStatus.text = "Fully infested: %s" % int($DomeLostCountdownTimer.time_left)
@@ -108,7 +107,7 @@ func get_modified_infestation_rate():
 	if infestation_rate_modifiers.is_empty():
 		return Globals.BASE_DOME_INFESTATION_RATE
 	var total_modifiers = infestation_rate_modifiers.values().reduce(sum) 
-	return Globals.BASE_DOME_INFESTATION_RATE + total_modifiers
+	return Globals.BASE_DOME_INFESTATION_RATE * (1 + total_modifiers)
 
 func add_infestation_chance_modifier(modifier_id, chance):
 	if !infestation_chance_modifiers.has(modifier_id):
@@ -144,6 +143,8 @@ func toggle_research(is_enable: bool):
 func set_resource_type(type: Globals.ResourceType):
 	resource_type = type
 	match resource_type:
+		Globals.ResourceType.NONE:
+			set_sprite("res://art/dome_sprites/Dome_base_96.png")
 		Globals.ResourceType.FOOD:
 			set_sprite("res://art/dome_sprites/Dome_food_96.png")
 		Globals.ResourceType.FUEL:
@@ -155,7 +156,7 @@ func set_resource_type(type: Globals.ResourceType):
 
 # Only called when becomes fully infested
 func _on_fully_infested():
-	$DomeLostCountdownTimer.start(INFESTATION_COUNTDOWN)
+	$DomeLostCountdownTimer.start(Globals.INFESTATION_COUNTDOWN)
 	##TODO: use signal in DomeConnections instead?
 	DomeConnections.dome_start_spread(self)
 

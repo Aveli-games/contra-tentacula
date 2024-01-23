@@ -48,6 +48,8 @@ func _input(event):
 		_on_fight_button_selected($RightSidebar/ControlsDisplay/SquadControls/FightButton)
 
 func add_resource_producer(resource_type, change):
+	if resource_type == Globals.ResourceType.NONE:
+		return
 	resource_producers[resource_type] += change
 	match resource_type:
 		Globals.ResourceType.FOOD:
@@ -58,3 +60,4 @@ func add_resource_producer(resource_type, change):
 			$RightSidebar/ResourceDisplay/PartsInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
 		Globals.ResourceType.RESEARCH:
 			$RightSidebar/ResourceDisplay/ResearchInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
+		
