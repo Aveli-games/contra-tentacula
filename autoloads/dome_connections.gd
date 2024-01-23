@@ -6,7 +6,6 @@ var connections = []
 var line_nodes = []
 
 const INFESTATION_CHANCE_MODIFIER_PREFIX = 'rooted'
-const INFESTATION_CHANCE_MODIFIER = 0.10
 const ConnectorScene = preload("res://connector_3line.tscn")
 
 func _process(delta):
@@ -19,7 +18,7 @@ func _process(delta):
 			# this prevents a Safe, occupied dome from being considered instantly cleansed
 			if !c.dome_b.is_occupied():
 				# TODO can this be called less often? can I check only when progress reaches 1
-				c.dome_b.add_infestation_chance_modifier(get_spread_modifier_id(c.dome_a), INFESTATION_CHANCE_MODIFIER)
+				c.dome_b.add_infestation_chance_modifier(get_spread_modifier_id(c.dome_a), Globals.ROOTED_INFESTATION_CHANCE_MODIFIER)
 			
 		# sync progress to display nodes
 		if c.display.forward:

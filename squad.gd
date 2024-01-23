@@ -7,10 +7,7 @@ signal movement_completed
 signal movement_started
 signal research_toggled
 
-var BASE_INFESTATION_FIGHT_RATE = -Globals.BASE_DOME_INFESTATION_RATE
-var BASE_MOVE_SPEED = 100 # TODO: Determine best value for this
-var SCIENTIST_PASSIVE_RATE_MODIFIER = -.075
-
+var SCIENTIST_PASSIVE_RATE_MODIFIER = -.5
 var target_location: Dome
 var location: Dome
 var slot: BuildingSlot
@@ -88,7 +85,7 @@ func _input(event):
 func _physics_process(delta):
 	if target_position && global_position.distance_to(target_position) > 3:
 		var direction = (target_position - global_position).normalized()
-		velocity = direction * BASE_MOVE_SPEED
+		velocity = direction * Globals.BASE_MOVE_SPEED
 		global_position += velocity * delta
 	elif velocity != Vector2.ZERO:
 		velocity = Vector2.ZERO
@@ -152,21 +149,21 @@ func special(target: Dome):
 			Globals.SquadType.NONE, Globals.SquadType.BOTANIST:
 				if Globals.resources[Globals.ResourceType.FOOD] >= 2:
 					Globals.add_resource(Globals.ResourceType.FOOD, -2)
-					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.PYRO:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= 1:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= Globals.PYRO_SPECIAL_FUEL_USAGE:
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
-					Globals.add_resource(Globals.ResourceType.FUEL, -1)
-					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					Globals.add_resource(Globals.ResourceType.FUEL, Globals.PYRO_SPECIAL_FUEL_USAGE)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.ENGINEER:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= 1:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= Globals.ENGI_SPECIAL_PARTS_USAGE:
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
-					Globals.add_resource(Globals.ResourceType.PARTS, -1)
-					location.add_infestation(BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					Globals.add_resource(Globals.ResourceType.PARTS, Globals.ENGI_SPECIAL_PARTS_USAGE)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.SCIENTIST:
@@ -187,9 +184,7 @@ func special(target: Dome):
 
 func fight(target: Dome):
 	if location && location == target:
-		if Globals.resources[Globals.ResourceType.FOOD] >= 1:
-			Globals.add_resource(Globals.ResourceType.FOOD, -1)
-			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
+		location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):

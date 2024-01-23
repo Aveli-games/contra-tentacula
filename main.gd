@@ -5,17 +5,8 @@ signal victory
 
 var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
-const DOME_REMAINING_LOSS_THRESHOLD = 5
 var remaining_domes = 15
 var cleanse_win_condition_unlocked = false
-
-var dome_type_limits = {
-	Globals.ResourceType.NONE: 0,
-	Globals.ResourceType.FOOD: 6,
-	Globals.ResourceType.FUEL: 3,
-	Globals.ResourceType.PARTS: 3,
-	Globals.ResourceType.RESEARCH: 3
-}
 
 func _ready():
 	Globals.research_win.connect(_on_victory)
@@ -44,15 +35,15 @@ func _ready():
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
-			dome_type_limits[Globals.ResourceType.FOOD] -= 1
+			Globals.DOME_TYPE_LIMITS[Globals.ResourceType.FOOD] -= 1
 		else:
 			var randome = 0
 			
 			# Get random available resource type for this child
-			while dome_type_limits[randome] == 0:
+			while Globals.DOME_TYPE_LIMITS[randome] == 0:
 				randome = randi_range(0, Globals.ResourceType.size() - 1)
 			child.set_resource_type(randome)
-			dome_type_limits[randome] -= 1
+			Globals.DOME_TYPE_LIMITS[randome] -= 1
 			
 			$UI.action_selected.connect(_on_action_selected)
 	
@@ -119,7 +110,7 @@ func _on_dome_lost(dome: Dome):
 	remaining_domes -= 1
 	
 	# If HQ lost, game over. If we hit the dome loss threshold, game over
-	if dome == $Domes/Dome || remaining_domes <= DOME_REMAINING_LOSS_THRESHOLD:
+	if dome == $Domes/Dome || remaining_domes <= Globals.DOME_REMAINING_LOSS_THRESHOLD:
 		game_over.emit()
 
 func _on_dome_cleanse_win_timer_timeout():
