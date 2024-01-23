@@ -24,6 +24,8 @@ var DOME_TYPE_LIMITS = { # 15 domes total or crash
 	Globals.ResourceType.RESEARCH: 4,
 }
 
+# resource management
+const RESOURCES_PER_SECOND = 0.5
 # squad
 var BASE_MOVE_SPEED = 50 
 var BASE_INFESTATION_FIGHT_RATE = -BASE_DOME_INFESTATION_RATE
@@ -35,7 +37,7 @@ var resources = {
 	ResourceType.RESEARCH: 0
 }
 
-func add_resource(type: ResourceType, change: int):
+func add_resource(type: ResourceType, change: float):
 	resources[type] += change
 	resource_updated.emit(type)
 	if type == ResourceType.RESEARCH && resources[type] >= RESEARCH_WIN_THRESHOLD:

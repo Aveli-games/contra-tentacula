@@ -133,7 +133,7 @@ func set_sprite(path: String):
 
 func generate_resource():
 	if resource_type && resource_type != Globals.ResourceType.NONE:
-		Globals.add_resource(resource_type, 1)
+		Globals.add_resource(resource_type, Globals.RESOURCES_PER_SECOND)
 		
 func toggle_research(is_enable: bool):
 	if resource_type == Globals.ResourceType.RESEARCH:
