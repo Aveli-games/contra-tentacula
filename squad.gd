@@ -70,6 +70,21 @@ func _on_input_event(viewport, event, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			selected.emit(self)
 
+func _input(event):
+	match squad_type:
+		Globals.SquadType.SCIENTIST:
+			if event.is_action_pressed("Squad1"):
+				selected.emit(self)
+		Globals.SquadType.PYRO:
+			if event.is_action_pressed("Squad2"):
+				selected.emit(self)
+		Globals.SquadType.BOTANIST:
+			if event.is_action_pressed("Squad3"):
+				selected.emit(self)
+		Globals.SquadType.ENGINEER:
+			if event.is_action_pressed("Squad4"):
+				selected.emit(self)
+
 func _physics_process(delta):
 	if target_position && global_position.distance_to(target_position) > 3:
 		var direction = (target_position - global_position).normalized()

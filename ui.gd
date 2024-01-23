@@ -39,6 +39,14 @@ func _on_fight_button_selected(button: TextureIcon):
 	Input.set_custom_mouse_cursor(button.get_icon())
 	action_selected.emit(Globals.ActionType.FIGHT)
 
+func _input(event):
+	if event.is_action_pressed("Move"):
+		_on_move_button_selected($RightSidebar/ControlsDisplay/SquadControls/MoveButton)
+	if event.is_action_pressed("Special"):
+		_on_special_button_selected($RightSidebar/ControlsDisplay/SquadControls/SpecialButton)
+	if event.is_action_pressed("Fight"):
+		_on_fight_button_selected($RightSidebar/ControlsDisplay/SquadControls/FightButton)
+
 func add_resource_producer(resource_type, change):
 	resource_producers[resource_type] += change
 	match resource_type:
