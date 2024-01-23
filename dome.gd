@@ -5,26 +5,40 @@ class_name Dome
 signal fully_infested
 signal infestation_removed
 signal targeted
+signal production_changed
+signal lost
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
 const INFESTATION_COUNTDOWN = 30
 
 var infestation_percentage: float = 0.0
-var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.UNINFESTED
+var infestation_stage: Globals.InfestationStage = Globals.InfestationStage.NONE
 var infestation_type: Globals.InfestationType = Globals.InfestationType.NONE
+var infestation_rate = Globals.BASE_DOME_INFESTATION_RATE
+var infestation_rate_modifiers = {}
 var infestation_chance = Globals.BASE_INFESTATION_CHANCE
 var infestation_chance_modifiers = {}
 @export var resource_type: Globals.ResourceType = Globals.ResourceType.NONE
 var is_hidden: bool = false
+var present_squads = []
+var researching: bool = false
+var producing: bool = false
 
 func _ready():
+	# Await timer as quick workaround to domes loading and singalling before game board is ready
+	await get_tree().create_timer(.5).timeout 
+	_check_infestation()
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
 	%PopupInfestation.value = 0
 
 func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
 	if infestation_percentage > 0:
-		add_infestation(Globals.BASE_DOME_INFESTATION_RATE * delta)
+		add_infestation((get_modified_infestation_rate())* delta)
+	else: 
+		var random_roll = randf()
+		if random_roll < get_modified_infestation_chance() * delta:
+			infestation_percentage += 0.01
 	
 	var progress_diff = infestation_percentage - %PopupInfestation.value/100
 	var progress_max_speed = 0.01
@@ -33,16 +47,18 @@ func _process(delta):
 		%PopupInfestation.value += progress_adjustment * 100
 		
 
-func _on_infestation_check_timer_timeout():
+func _check_infestation():
 	# determine infestation level
 	if infestation_percentage <= 0:
 		if infestation_stage != Globals.InfestationStage.UNINFESTED:
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
+			infestation_removed.emit()
+			DomeConnections.dome_stop_spread(self)
 			$ResourceGenerationTimer.start(1)
-		var random_roll = randf()
-		if random_roll < get_modified_infestation_chance():
-			infestation_percentage += 0.01
+			if not producing:
+				producing = true
+				production_changed.emit(self, producing)
 	elif infestation_percentage <= .50:
 		if infestation_stage != Globals.InfestationStage.MINOR:
 			infestation_stage = Globals.InfestationStage.MINOR
@@ -51,7 +67,6 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != Globals.InfestationStage.MODERATE:
 			infestation_stage = Globals.InfestationStage.MODERATE
 			$DomeStatus.text = "Moderate infestation!"
-			$ResourceGenerationTimer.stop()
 	elif infestation_percentage < 1:
 		if infestation_stage != Globals.InfestationStage.MAJOR:
 			infestation_stage = Globals.InfestationStage.MAJOR
@@ -59,6 +74,10 @@ func _on_infestation_check_timer_timeout():
 	elif infestation_percentage >= 1:
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
+			$ResourceGenerationTimer.stop()
+			if producing:
+				producing = false
+				production_changed.emit(self, producing)
 		if $DomeLostCountdownTimer.is_stopped():
 			$DomeStatus.text = "Fully infested: %s" % INFESTATION_COUNTDOWN
 			fully_infested.emit()
@@ -70,14 +89,27 @@ func _on_infestation_check_timer_timeout():
 
 func add_infestation(infestation_value: float):
 	if infestation_stage != Globals.InfestationStage.LOST:
-		var old_infestation_percentage = infestation_percentage
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
 		
-		# when the dome is cleansed
-		if old_infestation_percentage > 0 && infestation_value < 0 && infestation_percentage == 0:
-			infestation_removed.emit()
-			##TODO: use signal in DomeConnections instead?
-			DomeConnections.dome_stop_spread(self)
+		_check_infestation()
+
+func add_infestation_rate_modifier(modifier_id, rate):
+	# Replace/override current matching modifier, if present
+	if infestation_rate_modifiers.has(modifier_id):
+		remove_infestation_rate_modifier(modifier_id)
+	infestation_rate_modifiers[modifier_id] = rate
+
+func remove_infestation_rate_modifier(modifier_id):
+	if infestation_rate_modifiers.has(modifier_id):
+		infestation_rate_modifiers.erase(modifier_id)
+	else:
+		push_warning('Tried to remove missing rate modifier: ', modifier_id)
+
+func get_modified_infestation_rate():
+	if infestation_rate_modifiers.is_empty():
+		return Globals.BASE_DOME_INFESTATION_RATE
+	var total_modifiers = infestation_rate_modifiers.values().reduce(sum) 
+	return Globals.BASE_DOME_INFESTATION_RATE + total_modifiers
 
 func add_infestation_chance_modifier(modifier_id, chance):
 	if !infestation_chance_modifiers.has(modifier_id):
@@ -104,6 +136,10 @@ func set_sprite(path: String):
 func generate_resource():
 	if resource_type && resource_type != Globals.ResourceType.NONE:
 		Globals.add_resource(resource_type, 1)
+		
+func toggle_research(is_enable: bool):
+	if resource_type == Globals.ResourceType.RESEARCH:
+		researching = is_enable
 
 func set_resource_type(type: Globals.ResourceType):
 	resource_type = type
@@ -124,14 +160,14 @@ func _on_fully_infested():
 	DomeConnections.dome_start_spread(self)
 
 func _on_dome_lost_countdown_timer_timeout():
-	$InfestationCheckTimer.stop()
 	infestation_stage = Globals.InfestationStage.LOST
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
+	lost.emit(self)
 	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
-	if resource_type != Globals.ResourceType.RESEARCH:
+	if resource_type != Globals.ResourceType.RESEARCH || researching:
 		generate_resource()
 
 func _on_selection_area_input_event(viewport, event, shape_idx):

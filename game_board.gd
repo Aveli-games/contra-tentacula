@@ -1,7 +1,13 @@
 extends Node
 
+signal game_over
+signal victory
+
 var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
+const DOME_REMAINING_LOSS_THRESHOLD = 5
+var remaining_domes = 15
+var cleanse_win_condition_unlocked = false
 
 var dome_type_limits = {
 	Globals.ResourceType.NONE: 0,
@@ -12,14 +18,18 @@ var dome_type_limits = {
 }
 
 func _ready():
+	Globals.research_win.connect(_on_victory)
+	
 	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
 	$Squads/Pyros.set_type(Globals.SquadType.PYRO)
 	$Squads/Botanists.set_type(Globals.SquadType.BOTANIST)
 	$Squads/Engineers.set_type(Globals.SquadType.ENGINEER)
 	
 	for child in $Squads.get_children():
-		child.move($Domes/Dome)
+		child.command(Globals.ActionType.FIGHT, $Domes/Dome)
 		child.selected.connect(_on_squad_selected)
+		if child.squad_type == Globals.SquadType.SCIENTIST:
+			child.research_toggled.connect(_on_research_toggled)
 		for squad_button in $UI/RightSidebar/SquadDisplay.get_children():
 			squad_button.selected.connect(_on_control_selected)
 			if not squad_button.squad_link:
@@ -28,6 +38,9 @@ func _ready():
 	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
+		child.production_changed.connect(_on_dome_production_changed)
+		child.lost.connect(_on_dome_lost)
+		child.infestation_removed.connect(_on_dome_cleansed)
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
@@ -91,3 +104,37 @@ func _on_dome_targeted(target_dome: Dome):
 		
 		selected_action = Globals.ActionType.NONE
 		Input.set_custom_mouse_cursor(null)
+
+func _on_research_toggled(is_enabled: bool):
+	for dome in $Domes.get_children():
+		dome.toggle_research(is_enabled)
+
+func _on_dome_production_changed(dome: Dome, is_producing: bool):
+	if is_producing:
+		$UI.add_resource_producer(dome.resource_type, 1)
+	else:
+		$UI.add_resource_producer(dome.resource_type, -1)
+		
+func _on_dome_lost(dome: Dome):
+	remaining_domes -= 1
+	
+	# If HQ lost, game over. If we hit the dome loss threshold, game over
+	if dome == $Domes/Dome || remaining_domes <= DOME_REMAINING_LOSS_THRESHOLD:
+		game_over.emit()
+
+func _on_dome_cleanse_win_timer_timeout():
+	cleanse_win_condition_unlocked = true
+
+func _on_dome_cleansed():
+	# Check for cleanse win condition after 3 minutes
+	if cleanse_win_condition_unlocked:
+		for dome in $Domes.get_children():
+			if dome.infestation_stage > Globals.InfestationStage.UNINFESTED:
+				return
+		victory.emit()
+
+func _on_victory():
+	$WinLoseLabel.text = "You win!"
+
+func _on_game_over():
+	$WinLoseLabel.text = "You lose :("

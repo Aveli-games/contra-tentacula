@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhkl3g2uli04h"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_6j1u5"]
+[ext_resource type="PackedScene" uid="uid://dc3j5h50tp0m2" path="res://dome.tscn" id="1_o7dif"]
+[ext_resource type="Script" path="res://domes-toolscript.gd" id="2_b5cb1"]
+[ext_resource type="PackedScene" uid="uid://bj33uhw0gf724" path="res://squad.tscn" id="2_e070c"]
+[ext_resource type="Texture2D" uid="uid://bitcee4r05wwt" path="res://art/Background/SizedMarsLandscape.png" id="2_mx7vp"]
+[ext_resource type="PackedScene" uid="uid://1gp43cg7oef4" path="res://ui.tscn" id="4_6vko8"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_6j1u5")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_mx7vp")
+
+[node name="DomeCleanseWinTimer" type="Timer" parent="."]
+wait_time = 360.0
+one_shot = true
+autostart = true
+
+[node name="Domes" type="Node2D" parent="."]
+position = Vector2(-16, 112)
+script = ExtResource("2_b5cb1")
+metadata/_edit_group_ = true
+
+[node name="Dome" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(144, 109)
+
+[node name="Dome2" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(366, 203)
+
+[node name="Dome3" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(388, 70)
+
+[node name="Dome4" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(192, 248)
+
+[node name="Dome5" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(440, 344)
+
+[node name="Dome6" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(256, 400)
+
+[node name="Dome7" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(392, 512)
+
+[node name="Dome8" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(112, 520)
+
+[node name="Dome9" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(609, 143)
+
+[node name="Dome10" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(622, 292)
+
+[node name="Dome11" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(616, 416)
+
+[node name="Dome12" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(720, 520)
+
+[node name="Dome13" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(824, 96)
+
+[node name="Dome14" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(840, 272)
+
+[node name="Dome15" parent="Domes" instance=ExtResource("1_o7dif")]
+position = Vector2(888, 424)
+
+[node name="Squads" type="Node2D" parent="."]
+
+[node name="Scientists" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(120, 96)
+
+[node name="Pyros" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(128, 120)
+
+[node name="Botanists" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(168, 96)
+
+[node name="Engineers" parent="Squads" instance=ExtResource("2_e070c")]
+position = Vector2(160, 120)
+
+[node name="UI" parent="." instance=ExtResource("4_6vko8")]
+
+[node name="WinLoseLabel" type="Label" parent="."]
+offset_left = 456.0
+offset_top = 16.0
+offset_right = 714.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 64
+
+[connection signal="game_over" from="." to="." method="_on_game_over"]
+[connection signal="victory" from="." to="." method="_on_victory"]
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
+[connection signal="timeout" from="DomeCleanseWinTimer" to="." method="_on_dome_cleanse_win_timer_timeout"]

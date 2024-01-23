@@ -32,6 +32,9 @@ func get_icon():
 func set_tooltip(text: String):
 	$IconTexture.tooltip_text = text
 
+func set_hotkey(text: String):
+	$Hotkey/Label.text = text
+
 func _on_mouse_entered():
 	mouseover = true
 	set_highlight(true, is_selected)
