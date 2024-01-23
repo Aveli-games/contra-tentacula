@@ -59,7 +59,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_e7nfn"]
 resource_name = "generate_resource"
-length = 1.1
+length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -67,7 +67,7 @@ tracks/0/path = NodePath("DomeGeneration:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 1.1),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-10, -48), Vector2(-10, -125)]
@@ -79,7 +79,7 @@ tracks/1/path = NodePath("DomeGeneration:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6, 1.1),
+"times": PackedFloat32Array(0.3, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -91,10 +91,10 @@ tracks/2/path = NodePath("DomeGeneration:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ncrv"]
