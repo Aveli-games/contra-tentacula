@@ -32,6 +32,10 @@ func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
 	if infestation_percentage > 0:
 		add_infestation((get_modified_infestation_rate())* delta)
+	else: 
+		var random_roll = randf()
+		if random_roll < get_modified_infestation_chance() * delta:
+			infestation_percentage += 0.01
 	
 	var progress_diff = infestation_percentage - %PopupInfestation.value/100
 	var progress_max_speed = 0.01
@@ -40,20 +44,18 @@ func _process(delta):
 		%PopupInfestation.value += progress_adjustment * 100
 		
 
-func _on_infestation_check_timer_timeout():
+func _check_infestation():
 	# determine infestation level
 	if infestation_percentage <= 0:
 		if infestation_stage != Globals.InfestationStage.UNINFESTED:
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
 			infestation_removed.emit()
+			DomeConnections.dome_stop_spread(self)
 			$ResourceGenerationTimer.start(1)
 			if not producing:
 				producing = true
 				production_changed.emit(self, producing)
-		var random_roll = randf()
-		if random_roll < get_modified_infestation_chance():
-			infestation_percentage += 0.01
 	elif infestation_percentage <= .50:
 		if infestation_stage != Globals.InfestationStage.MINOR:
 			infestation_stage = Globals.InfestationStage.MINOR
@@ -84,13 +86,9 @@ func _on_infestation_check_timer_timeout():
 
 func add_infestation(infestation_value: float):
 	if infestation_stage != Globals.InfestationStage.LOST:
-		var old_infestation_percentage = infestation_percentage
 		infestation_percentage = clamp(infestation_percentage + infestation_value, 0, 1)
 		
-		# when the dome is cleansed
-		if old_infestation_percentage > 0 && infestation_value < 0 && infestation_percentage == 0:
-			##TODO: use signal in DomeConnections instead?
-			DomeConnections.dome_stop_spread(self)
+		_check_infestation()
 
 func add_infestation_rate_modifier(modifier_id, rate):
 	# Replace/override current matching modifier, if present
@@ -159,7 +157,6 @@ func _on_fully_infested():
 	DomeConnections.dome_start_spread(self)
 
 func _on_dome_lost_countdown_timer_timeout():
-	$InfestationCheckTimer.stop()
 	infestation_stage = Globals.InfestationStage.LOST
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
