@@ -56,7 +56,6 @@ func _check_infestation():
 			$DomeStatus.text = "Safe"
 			infestation_removed.emit()
 			DomeConnections.dome_stop_spread(self)
-			$ResourceGenerationTimer.start(1)
 			if not producing:
 				producing = true
 				production_changed.emit(self, producing)
