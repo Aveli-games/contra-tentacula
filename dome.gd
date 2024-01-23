@@ -6,6 +6,7 @@ signal fully_infested
 signal infestation_removed
 signal targeted
 signal production_changed
+signal lost
 
 const DOME_SPRITES_PATH = "res://art/dome_sprites"
 const INFESTATION_COUNTDOWN = 30
@@ -45,6 +46,7 @@ func _on_infestation_check_timer_timeout():
 		if infestation_stage != Globals.InfestationStage.UNINFESTED:
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
+			infestation_removed.emit()
 			$ResourceGenerationTimer.start(1)
 			if not producing:
 				producing = true
@@ -87,7 +89,6 @@ func add_infestation(infestation_value: float):
 		
 		# when the dome is cleansed
 		if old_infestation_percentage > 0 && infestation_value < 0 && infestation_percentage == 0:
-			infestation_removed.emit()
 			##TODO: use signal in DomeConnections instead?
 			DomeConnections.dome_stop_spread(self)
 
@@ -162,6 +163,7 @@ func _on_dome_lost_countdown_timer_timeout():
 	infestation_stage = Globals.InfestationStage.LOST
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
+	lost.emit(self)
 	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
