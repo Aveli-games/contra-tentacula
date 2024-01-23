@@ -123,9 +123,6 @@ offset_bottom = 57.0
 text = "Safe"
 horizontal_alignment = 1
 
-[node name="InfestationCheckTimer" type="Timer" parent="."]
-autostart = true
-
 [node name="DomeLostCountdownTimer" type="Timer" parent="."]
 wait_time = 30.0
 one_shot = true
@@ -202,5 +199,4 @@ text = "+1"
 [connection signal="mouse_entered" from="SelectionArea" to="." method="_on_selection_area_mouse_entered"]
 [connection signal="mouse_exited" from="SelectionArea" to="." method="_on_selection_area_mouse_exited"]
 [connection signal="timeout" from="ResourceGenerationTimer" to="." method="_on_resource_generation_timer_timeout"]
-[connection signal="timeout" from="InfestationCheckTimer" to="." method="_on_infestation_check_timer_timeout"]
 [connection signal="timeout" from="DomeLostCountdownTimer" to="." method="_on_dome_lost_countdown_timer_timeout"]
