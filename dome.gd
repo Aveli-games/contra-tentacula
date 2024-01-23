@@ -85,7 +85,7 @@ func add_infestation_chance_modifier(modifier_id, chance):
 	
 func remove_infestation_chance_modifier(modifier_id):
 	if infestation_chance_modifiers.has(modifier_id):
-		infestation_chance_modifiers.remove(modifier_id)
+		infestation_chance_modifiers.erase(modifier_id)
 	else:
 		push_warning('Tried to remove missing chance modifier: ', modifier_id)
 

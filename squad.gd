@@ -19,12 +19,33 @@ var is_selected: bool = false
 
 var target_position: Vector2
 var velocity: Vector2 = Vector2.ZERO
-var current_action: Globals.ActionType = Globals.ActionType.NONE
+var current_action = {'type': Globals.ActionType.NONE}
+var action_queue = []
 
 var moving: bool = false
 
 func _ready():
 	set_highlight(false)
+	
+# call when queue changes or action finished
+func _start_next_action():
+	var next_action = action_queue.pop_front()
+	if next_action:
+		print_debug(self.name, next_action)
+		current_action = next_action
+		if current_action.type == Globals.ActionType.MOVE:
+			set_target(current_action.target)
+		
+func _set_action_queue(new_queue):
+	action_queue = new_queue
+	print('action_queue: ', action_queue)
+	_start_next_action()
+	
+func _add_to_action_queue(new_action):
+	var queue_empty = action_queue.size() == 0
+	action_queue.append(new_action)
+	if queue_empty:
+		_start_next_action()
 
 func set_sprite(path: String):
 	$Sprite2D.texture = load(path)
@@ -62,6 +83,7 @@ func _on_movement_completed():
 	if target_location:
 		target_location.enter(self)
 		moving = false
+		_start_next_action()
 
 func _on_movement_started():
 	if location:
@@ -70,26 +92,41 @@ func _on_movement_started():
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
-	if not moving:
-		if location:
-			if location != target:
-				var location_connections = location.get_connections()
-				if location != target && location_connections.find(target) != -1:
-					global_position = location.global_position
-					if slot:
-						slot.empty(self)
-					set_target(target)
-					return true
-				else: # Target is not connected to current location
-					return false
-			else: # Target is current location
-				return true
-		else: # We don't have a current location, move to get one
-			set_target(target)
-			return true
-	else: # We are moving, no moving action allowed
+	if moving: # We are moving, no moving action allowed
 		return false
-
+	if !location: # We don't have a current location, move to get one
+		print_debug("We don't have a current location, move to target: ", target)
+		_set_action_queue([_create_action(Globals.ActionType.MOVE, target)])
+		return true
+	if location == target: # Target is current location ==> already there?
+		return true
+	
+	var pather = Pather.new()
+	var path_to_target = pather.find_path(location, target)
+	if path_to_target:
+		# dome/slot management
+		global_position = location.global_position
+		if slot:
+			slot.empty(self)
+			
+		# movement
+		# fill action queue with move actions
+		# first element is current location
+		path_to_target.pop_front()
+		print('PATH: ', path_to_target)
+		var move_actions = path_to_target.map(_create_move_action)
+		_set_action_queue(move_actions)
+		return true
+	else: # Target is not connected to current location
+		return false
+		
+func _create_action(type: Globals.ActionType, target: Dome):
+	print_debug('action created: ', {'type': type, 'target': target})
+	return {'type': type, 'target': target}
+	
+func _create_move_action(target: Dome):
+	return _create_action(Globals.ActionType.MOVE, target)
+	
 func special(target: Dome):
 	if location:
 		if Globals.resources[Globals.ResourceType.FOOD] >= 2:
@@ -104,9 +141,11 @@ func fight(target: Dome):
 			Globals.add_resource(Globals.ResourceType.FOOD, -1)
 			location.add_infestation(BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
 
+# called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
+	print_debug('command issued: ', action, target)
 	if move(target):
-		current_action = action
+		_add_to_action_queue(_create_action(action, target))
 		if display_link:
 			display_link.set_action(action)
 
@@ -142,7 +181,7 @@ func _on_mouse_exited():
 
 func _on_action_timer_timeout():
 	if target_location == location && location.infestation_percentage > 0 && location.infestation_stage != Globals.InfestationStage.LOST:
-		match current_action:
+		match current_action.type:
 			Globals.ActionType.SPECIAL:
 				special(target_location)
 			Globals.ActionType.FIGHT:
