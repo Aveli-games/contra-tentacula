@@ -20,6 +20,8 @@ func _ready():
 	for child in $Squads.get_children():
 		child.move($Domes/Dome)
 		child.selected.connect(_on_squad_selected)
+		if child.squad_type == Globals.SquadType.SCIENTIST:
+			child.research_toggled.connect(_on_research_toggled)
 		for squad_button in $UI/RightSidebar/SquadDisplay.get_children():
 			squad_button.selected.connect(_on_control_selected)
 			if not squad_button.squad_link:
@@ -28,6 +30,7 @@ func _ready():
 	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
+		child.production_changed.connect(_on_dome_production_changed)
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
@@ -91,3 +94,13 @@ func _on_dome_targeted(target_dome: Dome):
 		
 		selected_action = Globals.ActionType.NONE
 		Input.set_custom_mouse_cursor(null)
+
+func _on_research_toggled(is_enabled: bool):
+	for dome in $Domes.get_children():
+		dome.toggle_research(is_enabled)
+
+func _on_dome_production_changed(dome: Dome, is_producing: bool):
+	if is_producing:
+		$UI.add_resource_producer(dome.resource_type, 1)
+	else:
+		$UI.add_resource_producer(dome.resource_type, -1)
