@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dc3j5h50tp0m2"]
+[gd_scene load_steps=9 format=3 uid="uid://dc3j5h50tp0m2"]
 
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
-[ext_resource type="Texture2D" uid="uid://be0sefnhug70t" path="res://art/dome_sprites/Dome_base_96.png" id="2_s0vf2"]
 [ext_resource type="Shader" path="res://squad.gdshader" id="2_sn5md"]
 [ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="3_1jsn0"]
+[ext_resource type="Texture2D" uid="uid://4hr5ufqb61s6" path="res://art/dome_sprites/Dome_hq_96.png" id="3_xavjx"]
+[ext_resource type="Texture2D" uid="uid://bcwcq1tkcs0re" path="res://art/dome_sprites/flower_128.png" id="4_bqksm"]
 [ext_resource type="PackedScene" uid="uid://djyatif2t3g15" path="res://building_slot.tscn" id="4_vpp8u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ypw7x"]
@@ -19,7 +20,6 @@ shader_parameter/on = false
 [node name="Dome" type="Area2D"]
 position = Vector2(593, 342)
 script = ExtResource("1_n1lt3")
-resource_type = null
 
 [node name="SelectionArea" type="Area2D" parent="."]
 
@@ -50,7 +50,15 @@ one_shot = true
 material = SubResource("ShaderMaterial_o25pg")
 position = Vector2(0, -24)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("2_s0vf2")
+texture = ExtResource("3_xavjx")
+
+[node name="FlowerSprite" type="Sprite2D" parent="Building"]
+visible = false
+material = SubResource("ShaderMaterial_o25pg")
+position = Vector2(13, -58)
+rotation = 0.523599
+scale = Vector2(0.545625, 0.545625)
+texture = ExtResource("4_bqksm")
 
 [node name="InfestationProgress" type="TextureProgressBar" parent="Building"]
 offset_left = -47.0
@@ -77,6 +85,7 @@ position = Vector2(14, 0)
 position = Vector2(34, 0)
 
 [node name="CollisionPolygonHitBox" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(0, -24)
 scale = Vector2(0.9, 0.9)
 polygon = PackedVector2Array(31, 1.6, 42, 13.6, 42, 15.8, 47, 25.8, 47, 34, 45.7, 34, 44.7, 37, 42.4, 37, 37.4, 41, 34.2, 41, 28.2, 44, 23.2, 44, 11.1, 47, -1.9, 47, -11.1, 48, -12, 48, -12, 47, -22, 47, -22, 45.9, -36, 43.9, -36, 42.6, -46, 37.6, -46, 23, -44.7, 23, -41.7, 14, -40.7, 14, -39.7, 11, -38.5, 11, -32, 2.7, -32, 0, 31, 0)
