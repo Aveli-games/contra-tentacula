@@ -17,7 +17,7 @@ offset_bottom = 40.0
 texture = ExtResource("2_mx7vp")
 
 [node name="DomeCleanseWinTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 360.0
 one_shot = true
 autostart = true
 
