@@ -185,9 +185,7 @@ func special(target: Dome):
 
 func fight(target: Dome):
 	if location && location == target:
-		if Globals.resources[Globals.ResourceType.FOOD] >= 1:
-			Globals.add_resource(Globals.ResourceType.FOOD, -1)
-			location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
+		location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * $ActionTimer.wait_time)
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
