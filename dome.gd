@@ -25,6 +25,7 @@ var researching: bool = false
 var producing: bool = false
 
 func _ready():
+	$DomeGeneration.hide()
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
 	%PopupInfestation.value = 0
 
@@ -134,6 +135,7 @@ func set_sprite(path: String):
 
 func generate_resource():
 	if resource_type && resource_type != Globals.ResourceType.NONE:
+		$AnimationPlayer.play("generate_resource")
 		Globals.add_resource(resource_type, 1)
 		
 func toggle_research(is_enable: bool):
