@@ -25,6 +25,7 @@ var researching: bool = false
 var producing: bool = false
 
 func _ready():
+	$DomeGeneration.hide()
 	# Await timer as quick workaround to domes loading and singalling before game board is ready
 	await get_tree().create_timer(.5).timeout 
 	_check_infestation()
@@ -55,7 +56,6 @@ func _check_infestation():
 			$DomeStatus.text = "Safe"
 			infestation_removed.emit()
 			DomeConnections.dome_stop_spread(self)
-			$ResourceGenerationTimer.start(1)
 			if not producing:
 				producing = true
 				production_changed.emit(self, producing)
@@ -74,7 +74,6 @@ func _check_infestation():
 	elif infestation_percentage >= 1:
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
-			$ResourceGenerationTimer.stop()
 			if producing:
 				producing = false
 				production_changed.emit(self, producing)
@@ -135,6 +134,7 @@ func set_sprite(path: String):
 
 func generate_resource():
 	if resource_type && resource_type != Globals.ResourceType.NONE:
+		$AnimationPlayer.play("generate_resource")
 		Globals.add_resource(resource_type, 1)
 		
 func toggle_research(is_enable: bool):
@@ -167,8 +167,9 @@ func _on_dome_lost_countdown_timer_timeout():
 	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
-	if resource_type != Globals.ResourceType.RESEARCH || researching:
-		generate_resource()
+	if producing:
+		if resource_type != Globals.ResourceType.RESEARCH || researching:
+			generate_resource()
 
 func _on_selection_area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
