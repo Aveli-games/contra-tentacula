@@ -142,6 +142,8 @@ func toggle_research(is_enable: bool):
 func set_resource_type(type: Globals.ResourceType):
 	resource_type = type
 	match resource_type:
+		Globals.ResourceType.NONE:
+			set_sprite("res://art/dome_sprites/Dome_base_96.png")
 		Globals.ResourceType.FOOD:
 			set_sprite("res://art/dome_sprites/Dome_food_96.png")
 		Globals.ResourceType.FUEL:

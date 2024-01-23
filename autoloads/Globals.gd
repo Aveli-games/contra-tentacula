@@ -15,12 +15,12 @@ var BASE_INFESTATION_CHANCE = 0.012
 var RESEARCH_WIN_THRESHOLD = 500
 const DOME_REMAINING_LOSS_THRESHOLD = 5
 const INFESTATION_COUNTDOWN = 30
-const DOME_TYPE_LIMITS = {
-	Globals.ResourceType.NONE: 0,
-	Globals.ResourceType.FOOD: 6,
-	Globals.ResourceType.FUEL: 3,
-	Globals.ResourceType.PARTS: 3,
-	Globals.ResourceType.RESEARCH: 3
+var DOME_TYPE_LIMITS = { # 15 domes total or crash
+	Globals.ResourceType.NONE: 6,
+	Globals.ResourceType.FOOD: 3,
+	Globals.ResourceType.FUEL: 1,
+	Globals.ResourceType.PARTS: 1,
+	Globals.ResourceType.RESEARCH: 4,
 }
 
 # squad
