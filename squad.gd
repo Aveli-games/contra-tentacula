@@ -154,16 +154,16 @@ func special(target: Dome):
 				else:
 					fight(target)
 			Globals.SquadType.PYRO:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= 1:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= Globals.PYRO_SPECIAL_FUEL_USAGE:
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
-					Globals.add_resource(Globals.ResourceType.FUEL, -1)
+					Globals.add_resource(Globals.ResourceType.FUEL, Globals.PYRO_SPECIAL_FUEL_USAGE)
 					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.ENGINEER:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= 1:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= Globals.ENGI_SPECIAL_PARTS_USAGE:
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
-					Globals.add_resource(Globals.ResourceType.PARTS, -1)
+					Globals.add_resource(Globals.ResourceType.PARTS, Globals.ENGI_SPECIAL_PARTS_USAGE)
 					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
 				else:
 					fight(target)
