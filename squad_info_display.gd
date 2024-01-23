@@ -17,18 +17,22 @@ func set_squad(squad: Squad):
 			set_text("Sci")
 			set_tooltip("Scientists")
 			set_icon("res://art/squad_sprites/GasMaskScientist_128.png")
+			set_hotkey("1")
 		Globals.SquadType.PYRO:
 			set_text("Pyr")
 			set_tooltip("Pyros")
 			set_icon("res://art/squad_sprites/GasmaskPyro_128.png")
+			set_hotkey("2")
 		Globals.SquadType.BOTANIST:
 			set_text("Bot")
 			set_tooltip("Botanists")
 			set_icon("res://art/squad_sprites/GasmaskBot_128.png")
+			set_hotkey("3")
 		Globals.SquadType.ENGINEER:
 			set_text("Eng")
 			set_tooltip("Engineers")
 			set_icon("res://art/squad_sprites/GasmaskSanitation_128.png")
+			set_hotkey("4")
 
 func set_text(text: String):
 	$Details/SquadAbbreviation.text = text
@@ -38,6 +42,9 @@ func set_tooltip(text: String):
 
 func set_icon(path: String):
 	$TextureIcon.set_icon(path)
+	
+func set_hotkey(text: String):
+	$TextureIcon.set_hotkey(text)
 	
 func set_action(action: Globals.ActionType):
 	match action:
