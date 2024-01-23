@@ -25,6 +25,9 @@ var researching: bool = false
 var producing: bool = false
 
 func _ready():
+	# Await timer as quick workaround to domes loading and singalling before game board is ready
+	await get_tree().create_timer(.5).timeout 
+	_check_infestation()
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
 	%PopupInfestation.value = 0
 
