@@ -7,7 +7,3 @@ func _ready():
 	$AnimationPlayer.play("new_animation")
 	await $AnimationPlayer.animation_finished
 	get_tree().paused = false
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
