@@ -107,7 +107,7 @@ func get_modified_infestation_rate():
 	if infestation_rate_modifiers.is_empty():
 		return Globals.BASE_DOME_INFESTATION_RATE
 	var total_modifiers = infestation_rate_modifiers.values().reduce(sum) 
-	return Globals.BASE_DOME_INFESTATION_RATE + total_modifiers
+	return Globals.BASE_DOME_INFESTATION_RATE * (1 + total_modifiers)
 
 func add_infestation_chance_modifier(modifier_id, chance):
 	if !infestation_chance_modifiers.has(modifier_id):

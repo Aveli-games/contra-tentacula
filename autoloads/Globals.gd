@@ -17,8 +17,8 @@ var RESEARCH_WIN_THRESHOLD = 300
 const DOME_REMAINING_LOSS_THRESHOLD = 5
 const INFESTATION_COUNTDOWN = 60
 var DOME_TYPE_LIMITS = { # 15 domes total or crash
-	Globals.ResourceType.NONE: 6,
-	Globals.ResourceType.FOOD: 3,
+	Globals.ResourceType.NONE: 5,
+	Globals.ResourceType.FOOD: 4,
 	Globals.ResourceType.FUEL: 1,
 	Globals.ResourceType.PARTS: 1,
 	Globals.ResourceType.RESEARCH: 4,

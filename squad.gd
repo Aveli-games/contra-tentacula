@@ -7,8 +7,7 @@ signal movement_completed
 signal movement_started
 signal research_toggled
 
-var SCIENTIST_PASSIVE_RATE_MODIFIER = -.075
-
+var SCIENTIST_PASSIVE_RATE_MODIFIER = -.5
 var target_location: Dome
 var location: Dome
 var slot: BuildingSlot
