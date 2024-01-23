@@ -48,7 +48,6 @@ func _on_infestation_check_timer_timeout():
 			infestation_stage = Globals.InfestationStage.UNINFESTED
 			$DomeStatus.text = "Safe"
 			infestation_removed.emit()
-			$ResourceGenerationTimer.start(1)
 			if not producing:
 				producing = true
 				production_changed.emit(self, producing)
@@ -70,7 +69,6 @@ func _on_infestation_check_timer_timeout():
 	elif infestation_percentage >= 1:
 		if infestation_stage != Globals.InfestationStage.FULL:
 			infestation_stage = Globals.InfestationStage.FULL
-			$ResourceGenerationTimer.stop()
 			if producing:
 				producing = false
 				production_changed.emit(self, producing)
@@ -169,8 +167,9 @@ func _on_dome_lost_countdown_timer_timeout():
 	$Building/FlowerSprite.show()
 
 func _on_resource_generation_timer_timeout():
-	if resource_type != Globals.ResourceType.RESEARCH || researching:
-		generate_resource()
+	if producing:
+		if resource_type != Globals.ResourceType.RESEARCH || researching:
+			generate_resource()
 
 func _on_selection_area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
