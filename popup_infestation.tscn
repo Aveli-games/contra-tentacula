@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://nd76tx344ytx"]
+
+[ext_resource type="Script" path="res://popup_infestation.gd" id="1_wdla1"]
+[ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="2_ci6xi"]
+
+[node name="PopupInfestation" type="Polygon2D"]
+clip_children = 1
+polygon = PackedVector2Array(-42, 39, -65, -41, 69, -39, 51, 39)
+script = ExtResource("1_wdla1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+clip_children = 2
+texture = ExtResource("2_ci6xi")

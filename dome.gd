@@ -19,13 +19,19 @@ var is_hidden: bool = false
 
 func _ready():
 	$ResourceGenerationTimer.start(1) # TODO: Have timer start on game start, not dome spawn
+	%PopupInfestation.value = 0
 
 func _process(delta):
 	# Process infestation progression inependently in dome's infestation check
 	if infestation_percentage > 0:
 		add_infestation(Globals.BASE_DOME_INFESTATION_RATE * delta)
 	
-	$Building/InfestationProgress.value = infestation_percentage * 100
+	var progress_diff = infestation_percentage - %PopupInfestation.value/100
+	var progress_max_speed = 0.01
+	var progress_adjustment = clamp(-progress_max_speed, progress_diff, progress_max_speed)
+	if progress_adjustment != 0:
+		%PopupInfestation.value += progress_adjustment * 100
+		
 
 func _on_infestation_check_timer_timeout():
 	# determine infestation level
@@ -79,7 +85,7 @@ func add_infestation_chance_modifier(modifier_id, chance):
 	
 func remove_infestation_chance_modifier(modifier_id):
 	if infestation_chance_modifiers.has(modifier_id):
-		infestation_chance_modifiers.remove(modifier_id)
+		infestation_chance_modifiers.erase(modifier_id)
 	else:
 		push_warning('Tried to remove missing chance modifier: ', modifier_id)
 
