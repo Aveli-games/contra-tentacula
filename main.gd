@@ -111,7 +111,7 @@ func _on_dome_lost(dome: Dome):
 		Globals.remaining_research_domes -= 1
 	
 	# If HQ lost, game over. If we hit the dome loss threshold, game over
-	if dome == $Domes/Dome || Globals.remaining_research_domes == 0 || Globals.remaining_domes <= Globals.REMAINING_DOME_LOSS_THRESHOLD:
+	if dome == $Domes/Dome || Globals.remaining_research_domes == 0 || Globals.remaining_domes <= Globals.MIN_REMAINING_DOME_THRESHOLD:
 		game_over.emit()
 
 func _on_infestation_spawned():
