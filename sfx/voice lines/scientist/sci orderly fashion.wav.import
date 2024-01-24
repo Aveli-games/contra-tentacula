@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bk16lvk316674"
+path="res://.godot/imported/sci orderly fashion.wav-2a8aca0474bf8c6a01584bfd0224b145.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci orderly fashion.wav"
+dest_files=["res://.godot/imported/sci orderly fashion.wav-2a8aca0474bf8c6a01584bfd0224b145.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

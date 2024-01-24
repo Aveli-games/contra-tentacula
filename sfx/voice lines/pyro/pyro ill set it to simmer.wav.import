@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://vdsgw07taj7p"
+path="res://.godot/imported/pyro ill set it to simmer.wav-22ba03c46145443cda3813dee4074246.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/pyro/pyro ill set it to simmer.wav"
+dest_files=["res://.godot/imported/pyro ill set it to simmer.wav-22ba03c46145443cda3813dee4074246.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

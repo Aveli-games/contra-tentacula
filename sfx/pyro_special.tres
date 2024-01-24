@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://cvh8h8mvawpx3"]
+
+[ext_resource type="AudioStream" uid="uid://n28o7tvv1m8a" path="res://sfx/voice lines/pyro/pyro lets see if it burns.wav" id="1_kmynu"]
+[ext_resource type="AudioStream" uid="uid://vdsgw07taj7p" path="res://sfx/voice lines/pyro/pyro ill set it to simmer.wav" id="2_orixv"]
+[ext_resource type="AudioStream" uid="uid://r8ofhd0gw2va" path="res://sfx/voice lines/pyro/pyro vegan calimari.wav" id="3_e1jtj"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_kmynu")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_orixv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_e1jtj")
+stream_2/weight = 1.0
