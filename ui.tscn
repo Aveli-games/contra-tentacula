@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=15 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
 [ext_resource type="PackedScene" uid="uid://buvr472mrq05r" path="res://squad_info_display.tscn" id="2_oxt2f"]
+[ext_resource type="Script" path="res://progress_bar.gd" id="3_7nddf"]
 [ext_resource type="Script" path="res://global_controls.gd" id="4_dw5pm"]
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="5_35yct"]
 [ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
@@ -59,10 +60,10 @@ script = ExtResource("1_wssrf")
 
 [node name="RightSidebar" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 720)
-offset_left = 952.0
-offset_right = 1300.0
+offset_left = 941.0
+offset_right = 1281.0
 offset_bottom = 720.0
-theme_override_constants/separation = 32
+theme_override_constants/separation = 40
 
 [node name="ResourceDisplay" type="VBoxContainer" parent="RightSidebar"]
 layout_mode = 2
@@ -72,10 +73,6 @@ alignment = 1
 layout_mode = 2
 resource_type = 1
 
-[node name="ResearchInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
-layout_mode = 2
-resource_type = 4
-
 [node name="FuelInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
 resource_type = 2
@@ -83,6 +80,15 @@ resource_type = 2
 [node name="PartsInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
 resource_type = 3
+
+[node name="ResearchInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
+layout_mode = 2
+resource_type = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="RightSidebar/ResourceDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_7nddf")
 
 [node name="SquadDisplay" type="GridContainer" parent="RightSidebar"]
 layout_mode = 2
@@ -113,6 +119,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="GlobalControlLabel" type="Label" parent="RightSidebar/ControlsDisplay"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Global Controls
@@ -121,6 +128,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GlobalControls" type="HBoxContainer" parent="RightSidebar/ControlsDisplay"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1

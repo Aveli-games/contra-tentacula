@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcu0ky6il68xw"
+path="res://.godot/imported/pyro got carried away.wav-e547fee1fdd24a9ca887e46a11c725b1.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/pyro/pyro got carried away.wav"
+dest_files=["res://.godot/imported/pyro got carried away.wav-e547fee1fdd24a9ca887e46a11c725b1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

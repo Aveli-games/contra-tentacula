@@ -55,10 +55,22 @@ func set_type(type: Globals.SquadType):
 	match squad_type:
 		Globals.SquadType.SCIENTIST:
 			set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
+			$VoiceLines/MoveVoice.stream = load("res://sfx/scientist_voice.tres")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/scientist/sci blast off.wav")
+			$VoiceLines/FightVoice.stream = load("res://sfx/scientist_fight.tres")
+			$VoiceLines/SpecialVoice.stream = load("res://sfx/scientist_special.tres")
 		Globals.SquadType.PYRO:
 			set_sprite("res://art/squad_sprites/GasmaskPyro_128.png")
+			$VoiceLines/MoveVoice.stream = load("res://sfx/pyro_voice.tres")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/pyro/pyro gotta light.wav")
+			$VoiceLines/FightVoice.stream = load("res://sfx/pyro_fight.tres")
+			$VoiceLines/SpecialVoice.stream = load("res://sfx/pyro_special.tres")
 		Globals.SquadType.BOTANIST:
 			set_sprite("res://art/squad_sprites/GasmaskBot_128.png")
+			$VoiceLines/MoveVoice.stream = load("res://sfx/botanist_voice.tres")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/botanist/bot chop chop.wav")
+			$VoiceLines/FightVoice.stream = load("res://sfx/botanist_fight.tres")
+			$VoiceLines/SpecialVoice.stream = load("res://sfx/botanist_special.tres")
 		Globals.SquadType.ENGINEER:
 			set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
 
@@ -149,21 +161,21 @@ func special(target: Dome):
 			Globals.SquadType.NONE, Globals.SquadType.BOTANIST:
 				if Globals.resources[Globals.ResourceType.FOOD] >= 2:
 					Globals.add_resource(Globals.ResourceType.FOOD, -2)
-					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 4 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.PYRO:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= Globals.PYRO_SPECIAL_FUEL_USAGE:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.FUEL] >= abs(Globals.PYRO_SPECIAL_FUEL_USAGE):
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
 					Globals.add_resource(Globals.ResourceType.FUEL, Globals.PYRO_SPECIAL_FUEL_USAGE)
-					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 4 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.ENGINEER:
-				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= Globals.ENGI_SPECIAL_PARTS_USAGE:
+				if Globals.resources[Globals.ResourceType.FOOD] >= 1 &&  Globals.resources[Globals.ResourceType.PARTS] >= abs(Globals.ENGI_SPECIAL_PARTS_USAGE):
 					Globals.add_resource(Globals.ResourceType.FOOD, -1)
 					Globals.add_resource(Globals.ResourceType.PARTS, Globals.ENGI_SPECIAL_PARTS_USAGE)
-					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 2 * $ActionTimer.wait_time)
+					location.add_infestation(Globals.BASE_INFESTATION_FIGHT_RATE * 4 * $ActionTimer.wait_time)
 				else:
 					fight(target)
 			Globals.SquadType.SCIENTIST:
@@ -190,6 +202,13 @@ func fight(target: Dome):
 func command(action: Globals.ActionType, target: Dome):
 	print_debug('command issued: ', action, target)
 	if move(target):
+		match action:
+			Globals.ActionType.MOVE:
+				_talk($VoiceLines/MoveVoice)
+			Globals.ActionType.SPECIAL:
+				_talk($VoiceLines/SpecialVoice)
+			Globals.ActionType.FIGHT:
+				_talk($VoiceLines/FightVoice)
 		# Cancel current research toggle if not scientist special at current location
 		if squad_type == Globals.SquadType.SCIENTIST && (location != target || action != Globals.ActionType.SPECIAL):
 			toggle_research(false)
@@ -223,6 +242,8 @@ func set_highlight(is_enable: bool):
 	is_selected = is_enable
 	$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
 	$Sprite2D.material.set_shader_parameter("on", is_enable)
+	if is_selected:
+		_talk($VoiceLines/SelectVoice)
 	if display_link:
 		display_link.set_highlight(is_enable)
 
@@ -251,3 +272,12 @@ func _on_action_timer_timeout():
 				special(target_location)
 			Globals.ActionType.FIGHT:
 				fight(target_location)
+
+func _talk(audio: AudioStreamPlayer):
+	for player in $VoiceLines.get_children():
+		if player.get_playback_position() > 0:
+			await player.finished
+	if audio && not AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
+		audio.play()
+		
+	

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dyuqbneljhadu"
+path="res://.godot/imported/sci crunch the numbers.wav-50127af6c1fd58a098c2187024c6a75b.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci crunch the numbers.wav"
+dest_files=["res://.godot/imported/sci crunch the numbers.wav-50127af6c1fd58a098c2187024c6a75b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

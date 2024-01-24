@@ -5,8 +5,6 @@ signal victory
 
 var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
-var remaining_domes = 15
-var cleanse_win_condition_unlocked = false
 
 func _ready():
 	Globals.research_win.connect(_on_victory)
@@ -27,10 +25,13 @@ func _ready():
 				squad_button.set_squad(child)
 				break
 	
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
 		child.production_changed.connect(_on_dome_production_changed)
 		child.lost.connect(_on_dome_lost)
+		child.infestation_spawned.connect(_on_infestation_spawned)
 		child.infestation_removed.connect(_on_dome_cleansed)
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
@@ -107,22 +108,25 @@ func _on_dome_production_changed(dome: Dome, is_producing: bool):
 		$UI.add_resource_producer(dome.resource_type, -1)
 		
 func _on_dome_lost(dome: Dome):
-	remaining_domes -= 1
+	Globals.remaining_domes -= 1
+	if dome.resource_type == Globals.ResourceType.RESEARCH:
+		Globals.remaining_research_domes -= 1
 	
 	# If HQ lost, game over. If we hit the dome loss threshold, game over
-	if dome == $Domes/Dome || remaining_domes <= Globals.DOME_REMAINING_LOSS_THRESHOLD:
+	if dome == $Domes/Dome || Globals.remaining_research_domes == 0 || Globals.remaining_domes <= Globals.MIN_REMAINING_DOME_THRESHOLD:
 		game_over.emit()
 
-func _on_dome_cleanse_win_timer_timeout():
-	cleanse_win_condition_unlocked = true
+func _on_infestation_spawned():
+	Globals.infested_domes += 1
+	for dome in $Domes.get_children():
+		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE / 1.75 * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
 
 func _on_dome_cleansed():
-	# Check for cleanse win condition after 3 minutes
-	if cleanse_win_condition_unlocked:
-		for dome in $Domes.get_children():
-			if dome.infestation_stage > Globals.InfestationStage.UNINFESTED:
-				return
-		victory.emit()
+	if Globals.infested_domes > 0:
+		Globals.infested_domes -= 1
+	
+	for dome in $Domes.get_children():
+		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE / 1.75 * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
 
 func _on_victory():
 	$WinLoseLabel.text = "You win!"
