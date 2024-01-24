@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c0e202thqshjg"
+path="res://.godot/imported/pyro lets get a fire under our ass.wav-05bb94e1ec3b0e3f1b0faa99c91f26e5.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/pyro/pyro lets get a fire under our ass.wav"
+dest_files=["res://.godot/imported/pyro lets get a fire under our ass.wav-05bb94e1ec3b0e3f1b0faa99c91f26e5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://jhiyoj8xitc2"]
+
+[ext_resource type="AudioStream" uid="uid://cseq356hy401y" path="res://sfx/voice lines/scientist/sci be right there.wav" id="1_uwkii"]
+[ext_resource type="AudioStream" uid="uid://bk16lvk316674" path="res://sfx/voice lines/scientist/sci orderly fashion.wav" id="2_iv764"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_uwkii")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_iv764")
+stream_1/weight = 1.0

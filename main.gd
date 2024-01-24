@@ -25,6 +25,8 @@ func _ready():
 				squad_button.set_squad(child)
 				break
 	
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
+	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
 		child.production_changed.connect(_on_dome_production_changed)

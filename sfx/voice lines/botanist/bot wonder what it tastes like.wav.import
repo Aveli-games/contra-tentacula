@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://tqro7us7ssvs"
+path="res://.godot/imported/bot wonder what it tastes like.wav-6284b4b6a6fc1c3aafe989898e0d43a9.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/botanist/bot wonder what it tastes like.wav"
+dest_files=["res://.godot/imported/bot wonder what it tastes like.wav-6284b4b6a6fc1c3aafe989898e0d43a9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

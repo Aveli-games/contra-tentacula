@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://mvt72u8lp0ws"
+path="res://.godot/imported/sci blast off.wav-af52947d04b9e7fb6b7fb517db0a11f2.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci blast off.wav"
+dest_files=["res://.godot/imported/sci blast off.wav-af52947d04b9e7fb6b7fb517db0a11f2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
