@@ -7,6 +7,7 @@ var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 func _ready():
+	$DomeCleanseWinCountdown/HBoxContainer/RemainingTime.text = time_to_minutes_secs($DomeCleanseWinTimer.time_left)
 	Globals.research_win.connect(_on_victory)
 	
 	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
@@ -133,3 +134,15 @@ func _on_victory():
 
 func _on_game_over():
 	$WinLoseLabel.text = "You lose :("
+
+func _on_timer_timeout():
+	$DomeCleanseWinCountdown/HBoxContainer/RemainingTime.text = time_to_minutes_secs($DomeCleanseWinTimer.time_left)
+	
+func time_to_minutes_secs(time : float):
+	var mins = int(time) / 60
+	time -= mins * 60
+	var secs = int(time)
+	if secs < 10:
+		return str(mins) + ":0" + str(secs)
+	else:
+		return str(mins) + ":" + str(secs)
