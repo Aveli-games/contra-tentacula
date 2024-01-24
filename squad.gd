@@ -25,7 +25,10 @@ var action_queue = []
 var moving: bool = false
 
 func _ready():
+	# Await timer as quick workaround to squads loading and singalling before game board is ready
+	await get_tree().create_timer(.1).timeout 
 	set_highlight(false)
+	$Sprite2D.material.set_shader_parameter("on", true)
 	
 # call when queue changes or action finished
 func _start_next_action():
@@ -221,8 +224,19 @@ func set_target(target: Dome):
 
 func set_highlight(is_enable: bool):
 	is_selected = is_enable
-	$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
-	$Sprite2D.material.set_shader_parameter("on", is_enable)
+	if is_enable:
+		$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
+		#$Sprite2D.material.set_shader_parameter("on", is_enable)
+	else:
+		match squad_type:
+			Globals.SquadType.PYRO:
+				$Sprite2D.material.set_shader_parameter("line_color", Color.RED)
+			Globals.SquadType.ENGINEER:
+				$Sprite2D.material.set_shader_parameter("line_color", Color.BLUE)
+			Globals.SquadType.SCIENTIST:
+				$Sprite2D.material.set_shader_parameter("line_color", Color.WHITE)
+			Globals.SquadType.BOTANIST:
+				$Sprite2D.material.set_shader_parameter("line_color", Color.MAGENTA)
 	if display_link:
 		display_link.set_highlight(is_enable)
 
@@ -230,11 +244,9 @@ func set_mouseover():
 	if mouseover && not is_selected:
 		$Sprite2D.material.set_shader_parameter("line_color", Color.CYAN)
 		$Sprite2D.material.set_shader_parameter("on", mouseover)
-	elif is_selected:
-		$Sprite2D.material.set_shader_parameter("line_color", Color.YELLOW)
-		$Sprite2D.material.set_shader_parameter("on", true)
-	else:
-		$Sprite2D.material.set_shader_parameter("on", mouseover)
+		return
+	
+	set_highlight(is_selected)
 	
 func _on_mouse_entered():
 	mouseover = true
