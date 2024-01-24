@@ -275,7 +275,8 @@ func _on_action_timer_timeout():
 
 func _talk(audio: AudioStreamPlayer):
 	for player in $VoiceLines.get_children():
-		player.stop()
+		if player.get_playback_position() > 0:
+			await player.finished
 	if audio && not AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")):
 		audio.play()
 		
