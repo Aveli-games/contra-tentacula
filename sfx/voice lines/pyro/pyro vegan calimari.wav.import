@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://r8ofhd0gw2va"
+path="res://.godot/imported/pyro vegan calimari.wav-5b903f5391bb8c1d617803edbe254717.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/pyro/pyro vegan calimari.wav"
+dest_files=["res://.godot/imported/pyro vegan calimari.wav-5b903f5391bb8c1d617803edbe254717.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

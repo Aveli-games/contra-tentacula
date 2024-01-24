@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ns5b4cdr2r5"
+path="res://.godot/imported/bot get on now.wav-b9ce9a63b02405cfbb56d67fa8674833.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/botanist/bot get on now.wav"
+dest_files=["res://.godot/imported/bot get on now.wav-b9ce9a63b02405cfbb56d67fa8674833.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

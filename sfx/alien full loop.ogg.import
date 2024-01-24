@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b543jo1qd45k8"
+path="res://.godot/imported/alien full loop.ogg-d6ddd5aea1bf12b05a6f2f77300e5605.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/alien full loop.ogg"
+dest_files=["res://.godot/imported/alien full loop.ogg-d6ddd5aea1bf12b05a6f2f77300e5605.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

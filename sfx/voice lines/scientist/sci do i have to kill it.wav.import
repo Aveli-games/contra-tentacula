@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://y3ut085ijgy2"
+path="res://.godot/imported/sci do i have to kill it.wav-c8f2dd888a7af4baf8cab662d5d02088.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci do i have to kill it.wav"
+dest_files=["res://.godot/imported/sci do i have to kill it.wav-c8f2dd888a7af4baf8cab662d5d02088.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

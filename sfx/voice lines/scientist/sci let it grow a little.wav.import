@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ded6g4vyg8u6k"
+path="res://.godot/imported/sci let it grow a little.wav-fe686dde1da8fab6dac203a8d65e9e2e.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci let it grow a little.wav"
+dest_files=["res://.godot/imported/sci let it grow a little.wav-fe686dde1da8fab6dac203a8d65e9e2e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

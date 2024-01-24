@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://c6nr6rp4dk0ns"]
+
+[ext_resource type="AudioStream" uid="uid://b0ifsu18lav0p" path="res://sfx/voice lines/botanist/bot wranglin.wav" id="1_k4ij3"]
+[ext_resource type="AudioStream" uid="uid://368qjgn1s3c1" path="res://sfx/voice lines/botanist/bot fern or fungus.wav" id="2_r0ggc"]
+[ext_resource type="AudioStream" uid="uid://ns5b4cdr2r5" path="res://sfx/voice lines/botanist/bot get on now.wav" id="3_ypf2l"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_k4ij3")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_r0ggc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_ypf2l")
+stream_2/weight = 1.0
