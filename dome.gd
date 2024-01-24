@@ -4,6 +4,7 @@ class_name Dome
 
 signal fully_infested
 signal infestation_removed
+signal infestation_spawned
 signal targeted
 signal production_changed
 signal lost
@@ -39,6 +40,7 @@ func _process(delta):
 		var random_roll = randf()
 		if random_roll < get_modified_infestation_chance() * delta:
 			infestation_percentage += 0.01
+			infestation_spawned.emit()
 	
 	var progress_diff = infestation_percentage - %PopupInfestation.value/100
 	var progress_max_speed = 0.01
@@ -110,8 +112,8 @@ func get_modified_infestation_rate():
 	return Globals.BASE_DOME_INFESTATION_RATE * (1 + total_modifiers)
 
 func add_infestation_chance_modifier(modifier_id, chance):
-	if !infestation_chance_modifiers.has(modifier_id):
-		infestation_chance_modifiers[modifier_id] = chance
+	remove_infestation_chance_modifier(modifier_id)
+	infestation_chance_modifiers[modifier_id] = chance
 	
 func remove_infestation_chance_modifier(modifier_id):
 	if infestation_chance_modifiers.has(modifier_id):
@@ -120,10 +122,13 @@ func remove_infestation_chance_modifier(modifier_id):
 		push_warning('Tried to remove missing chance modifier: ', modifier_id)
 
 func get_modified_infestation_chance():
+	if Globals.cleanse_win_condition_unlocked:
+		return 0
 	if infestation_chance_modifiers.is_empty():
 		return infestation_chance
-	var total_modifiers = infestation_chance_modifiers.values().reduce(sum) 
-	return infestation_chance + total_modifiers
+	var total_modifiers = infestation_chance_modifiers.values().reduce(sum)
+	
+	return (infestation_chance + total_modifiers)
 
 func sum(accum, number):
 	return accum + number

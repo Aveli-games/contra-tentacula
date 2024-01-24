@@ -11,7 +11,7 @@ enum ActionType {NONE, MOVE, SPECIAL, FIGHT}
 
 var BASE_DOME_INFESTATION_RATE = .05
 var BASE_CONNECTOR_INFESTATION_RATE = 0.075
-var BASE_INFESTATION_CHANCE = 0.008
+var BASE_INFESTATION_CHANCE = 0.0125
 const ROOTED_INFESTATION_CHANCE_MODIFIER = 0.13
 var RESEARCH_WIN_THRESHOLD = 300
 const DOME_REMAINING_LOSS_THRESHOLD = 5
@@ -40,6 +40,10 @@ var resources = {
 	ResourceType.PARTS: 0,
 	ResourceType.RESEARCH: 0
 }
+
+var remaining_domes = 15
+var infested_domes = 0
+var cleanse_win_condition_unlocked = false
 
 func add_resource(type: ResourceType, change: float):
 	resources[type] += change
