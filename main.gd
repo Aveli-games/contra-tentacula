@@ -118,7 +118,7 @@ func _on_dome_cleanse_win_timer_timeout():
 func _on_infestation_spawned():
 	Globals.infested_domes += 1
 	for dome in $Domes.get_children():
-		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
+		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE / 1.75 * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
 
 func _on_dome_cleansed():
 	if Globals.infested_domes > 0:
