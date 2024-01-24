@@ -6,13 +6,12 @@
 default_font_size = 24
 
 [node name="ResourceInfoDisplay" type="HBoxContainer"]
-offset_left = 408.0
+offset_left = 176.0
 offset_top = 168.0
-offset_right = 519.0
+offset_right = 669.0
 offset_bottom = 208.0
 theme = SubResource("Theme_5uy0m")
 theme_override_constants/separation = 14
-alignment = 1
 script = ExtResource("1_2dqr8")
 
 [node name="ResourceName" type="Label" parent="."]
