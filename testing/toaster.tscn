@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceche5fynr6bs"]
+
+[ext_resource type="Script" path="res://testing/toaster.gd" id="1_8pimy"]
+[ext_resource type="Texture2D" uid="uid://wu2hvnkh20a3" path="res://art/dome_sprites/infestation_test_96.png" id="1_s62fi"]
+
+[node name="Toaster" type="Node2D"]
+position = Vector2(80, 48)
+script = ExtResource("1_8pimy")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+clip_children = 1
+polygon = PackedVector2Array(55, 39, 52, -36, -43, -39, -53, 41)
+
+[node name="Sprite2D" type="Sprite2D" parent="Polygon2D"]
+clip_children = 2
+texture = ExtResource("1_s62fi")

@@ -21,6 +21,11 @@ layout_mode = 2
 text = "RESOURCE
 "
 
+[node name="ProducingDomes" type="Label" parent="."]
+layout_mode = 2
+text = "(x0)"
+
 [node name="ResourceAmount" type="Label" parent="."]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "0"

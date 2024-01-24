@@ -13,4 +13,4 @@ func set_amount(num: int):
 
 func _on_resource_updated(type: Globals.ResourceType):
 	if resource_type && resource_type == type:
-		$ResourceAmount.text = str(Globals.resources[type])
+		$ResourceAmount.text = str(floor(Globals.resources[type]))
