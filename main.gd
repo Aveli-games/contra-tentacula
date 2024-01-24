@@ -7,7 +7,6 @@ var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 func _ready():
-	$DomeCleanseWinCountdown/HBoxContainer/RemainingTime.text = time_to_minutes_secs($DomeCleanseWinTimer.time_left)
 	Globals.research_win.connect(_on_victory)
 	
 	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
@@ -108,13 +107,12 @@ func _on_dome_production_changed(dome: Dome, is_producing: bool):
 		
 func _on_dome_lost(dome: Dome):
 	Globals.remaining_domes -= 1
+	if dome.resource_type == Globals.ResourceType.RESEARCH:
+		Globals.remaining_research_domes -= 1
 	
 	# If HQ lost, game over. If we hit the dome loss threshold, game over
-	if dome == $Domes/Dome || Globals.remaining_domes <= Globals.DOME_REMAINING_LOSS_THRESHOLD:
+	if dome == $Domes/Dome || Globals.remaining_research_domes == 0 || Globals.remaining_domes <= Globals.MIN_REMAINING_DOME_THRESHOLD:
 		game_over.emit()
-
-func _on_dome_cleanse_win_timer_timeout():
-	Globals.cleanse_win_condition_unlocked = true
 
 func _on_infestation_spawned():
 	Globals.infested_domes += 1
@@ -125,24 +123,11 @@ func _on_dome_cleansed():
 	if Globals.infested_domes > 0:
 		Globals.infested_domes -= 1
 	
-	# Check for cleanse win condition after cleanse win condition timeout
-	if Globals.cleanse_win_condition_unlocked && Globals.infested_domes == 0:
-		victory.emit()
+	for dome in $Domes.get_children():
+		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE / 1.75 * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
 
 func _on_victory():
 	$WinLoseLabel.text = "You win!"
 
 func _on_game_over():
 	$WinLoseLabel.text = "You lose :("
-
-func _on_timer_timeout():
-	$DomeCleanseWinCountdown/HBoxContainer/RemainingTime.text = time_to_minutes_secs($DomeCleanseWinTimer.time_left)
-	
-func time_to_minutes_secs(time : float):
-	var mins = int(time) / 60
-	time -= mins * 60
-	var secs = int(time)
-	if secs < 10:
-		return str(mins) + ":0" + str(secs)
-	else:
-		return str(mins) + ":" + str(secs)

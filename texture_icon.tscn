@@ -14,9 +14,9 @@ shader_parameter/on = null
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iirww"]
 resource_local_to_scene = true
 shader = ExtResource("2_f7ed0")
-shader_parameter/line_color = Color(1, 1, 0, 1)
+shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 4.924
-shader_parameter/on = false
+shader_parameter/on = true
 
 [node name="TextureIcon" type="Control"]
 material = SubResource("ShaderMaterial_cle1f")
