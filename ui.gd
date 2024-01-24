@@ -28,15 +28,15 @@ func _ready():
 	$RightSidebar/ResourceDisplay/PartsInfo.set_amount(Globals.resources[Globals.ResourceType.PARTS])
 
 func _on_move_button_selected(button: TextureIcon):
-	Input.set_custom_mouse_cursor(button.get_icon())
+	Input.set_custom_mouse_cursor(button.get_icon(), 0, Vector2(24, 12))
 	action_selected.emit(Globals.ActionType.MOVE)
 
 func _on_special_button_selected(button: TextureIcon):
-	Input.set_custom_mouse_cursor(button.get_icon())
+	Input.set_custom_mouse_cursor(button.get_icon(), 0, Vector2(12, 12))
 	action_selected.emit(Globals.ActionType.SPECIAL)
 
 func _on_fight_button_selected(button: TextureIcon):
-	Input.set_custom_mouse_cursor(button.get_icon())
+	Input.set_custom_mouse_cursor(button.get_icon(), 0, Vector2(12, 12))
 	action_selected.emit(Globals.ActionType.FIGHT)
 
 func _input(event):

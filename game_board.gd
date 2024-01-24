@@ -7,7 +7,7 @@ var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 func _ready():
-	Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"))
+	Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"), 0, Vector2(12, 12))
 	Globals.research_win.connect(_on_victory)
 	
 	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
@@ -96,7 +96,7 @@ func _on_dome_targeted(target_dome: Dome):
 		selected_squad.command(selected_action, target_dome)
 		
 		selected_action = Globals.ActionType.NONE
-		Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"))
+	Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"), 0, Vector2(12, 12))
 
 func _on_research_toggled(is_enabled: bool):
 	for dome in $Domes.get_children():
