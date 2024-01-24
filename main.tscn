@@ -94,7 +94,32 @@ offset_right = 714.0
 offset_bottom = 104.0
 theme_override_font_sizes/font_size = 64
 
+[node name="DomeCleanseWinCountdown" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 944.0
+offset_top = 144.0
+offset_right = 984.0
+offset_bottom = 184.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DomeCleanseWinCountdown"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="DomeCleanseWinCountdown/HBoxContainer"]
+layout_mode = 2
+text = "Cleanse unlock countdown:"
+
+[node name="RemainingTime" type="Label" parent="DomeCleanseWinCountdown/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Timer" type="Timer" parent="DomeCleanseWinCountdown"]
+autostart = true
+
 [connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="victory" from="." to="." method="_on_victory"]
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="timeout" from="DomeCleanseWinTimer" to="." method="_on_dome_cleanse_win_timer_timeout"]
+[connection signal="timeout" from="DomeCleanseWinCountdown/Timer" to="." method="_on_timer_timeout"]

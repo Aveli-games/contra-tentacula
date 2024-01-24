@@ -13,7 +13,7 @@ var BASE_DOME_INFESTATION_RATE = .05
 var BASE_CONNECTOR_INFESTATION_RATE = 0.075
 var BASE_INFESTATION_CHANCE = 0.008
 const ROOTED_INFESTATION_CHANCE_MODIFIER = 0.13
-var RESEARCH_WIN_THRESHOLD = 300
+var RESEARCH_WIN_THRESHOLD = 200
 const DOME_REMAINING_LOSS_THRESHOLD = 5
 const INFESTATION_COUNTDOWN = 60
 var DOME_TYPE_LIMITS = { # 15 domes total or crash
@@ -31,8 +31,8 @@ const RESOUCE_TIMER_DURATION = 1/_RESOURCES_PER_SECOND
 # squad
 var BASE_MOVE_SPEED = 50 
 var BASE_INFESTATION_FIGHT_RATE = -BASE_DOME_INFESTATION_RATE
-var PYRO_SPECIAL_FUEL_USAGE = 3
-var ENGI_SPECIAL_PARTS_USAGE = 3
+var PYRO_SPECIAL_FUEL_USAGE = -2
+var ENGI_SPECIAL_PARTS_USAGE = -2
 
 var resources = {
 	ResourceType.FOOD: 0,
@@ -40,6 +40,10 @@ var resources = {
 	ResourceType.PARTS: 0,
 	ResourceType.RESEARCH: 0
 }
+
+var remaining_domes = 15
+var infested_domes = 0
+var cleanse_win_condition_unlocked = false
 
 func add_resource(type: ResourceType, change: float):
 	resources[type] += change
