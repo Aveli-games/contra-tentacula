@@ -121,12 +121,12 @@ func remove_infestation_chance_modifier(modifier_id):
 	else:
 		push_warning('Tried to remove missing chance modifier: ', modifier_id)
 
+# Infestation can pop up anywhere until cleanse win condition unlocked,
+#	then only domes that have an external modifier applied (allows systematic extermination)
 func get_modified_infestation_chance():
+	var total_modifiers = infestation_chance_modifiers.values().reduce(sum, 0)
 	if Globals.cleanse_win_condition_unlocked:
-		return 0
-	if infestation_chance_modifiers.is_empty():
-		return infestation_chance
-	var total_modifiers = infestation_chance_modifiers.values().reduce(sum)
+		return total_modifiers
 	
 	return (infestation_chance + total_modifiers)
 
