@@ -55,8 +55,8 @@ script = ExtResource("1_wssrf")
 
 [node name="RightSidebar" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 720)
-offset_left = 952.0
-offset_right = 1300.0
+offset_left = 941.0
+offset_right = 1281.0
 offset_bottom = 720.0
 theme_override_constants/separation = 32
 
@@ -71,6 +71,10 @@ resource_type = 1
 [node name="ResearchInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
 resource_type = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="RightSidebar/ResourceDisplay/ResearchInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="FuelInfo" parent="RightSidebar/ResourceDisplay" instance=ExtResource("1_xef0o")]
 layout_mode = 2
