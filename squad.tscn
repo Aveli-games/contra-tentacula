@@ -8,7 +8,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_oc457")
 shader_parameter/line_color = Color(0.992157, 1, 0, 1)
-shader_parameter/line_thickness = 4.0
+shader_parameter/line_thickness = 6.0
 shader_parameter/on = false
 
 [node name="Squad" type="Area2D"]
