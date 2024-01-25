@@ -124,6 +124,8 @@ func move(target: Dome):
 	if moving: # We are moving
 		# find paths starting with current movement segment and its reverse
 		if current_action.has('from') && current_action.has('target'):
+			if current_action.from == null:
+				print(current_action)
 			pather_args.start_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
 		else:
 			return false
@@ -140,10 +142,9 @@ func move(target: Dome):
 	var path_to_target = pather.find_path(target, pather_args)
 	if path_to_target:
 		# dome/slot management
-		if location:
+		if slot && location:
 			global_position = location.global_position
-			if slot:
-				slot.empty(self)
+			slot.empty(self)
 			
 		# movement
 		# fill action queue with move actions
@@ -161,8 +162,13 @@ func move(target: Dome):
 		return false
 		
 func _create_action(type: Globals.ActionType, target: Dome = null, from: Dome = null):
-	print_debug('action created: ', {'type': type, 'target': target, 'from': from})
-	return {'type': type, 'target': target, 'from': from}
+	var new_action = {'type': type}
+	if target:
+		new_action.target = target
+	if from:
+		new_action.from = from
+	print_debug('action created: ', new_action)
+	return new_action
 	
 func _create_move_action(target: Dome, from: Dome):
 	return _create_action(Globals.ActionType.MOVE, target, from)
