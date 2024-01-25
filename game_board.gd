@@ -2,6 +2,7 @@ extends Node
 
 signal game_over
 signal victory
+signal main_menu_selected
 
 var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
@@ -134,3 +135,6 @@ func _on_victory():
 
 func _on_game_over():
 	$WinLoseLabel.text = "You lose :("
+
+func _on_ui_main_menu_selected():
+	main_menu_selected.emit()

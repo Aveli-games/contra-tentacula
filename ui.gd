@@ -1,6 +1,7 @@
 extends Control
 
 signal action_selected
+signal main_menu_selected
 
 # Setting up the UI is a bit static at this point. I think UI work is where I could
 #    use the most improvement, but will leave polish on it for if we have time
@@ -46,6 +47,8 @@ func _input(event):
 		_on_special_button_selected($RightSidebar/ControlsDisplay/SquadControls/SpecialButton)
 	if event.is_action_pressed("Fight"):
 		_on_fight_button_selected($RightSidebar/ControlsDisplay/SquadControls/FightButton)
+	if event.is_action_pressed("Menu"):
+		main_menu_selected.emit()
 
 func add_resource_producer(resource_type, change):
 	if resource_type == Globals.ResourceType.NONE:
@@ -60,4 +63,6 @@ func add_resource_producer(resource_type, change):
 			$RightSidebar/ResourceDisplay/PartsInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
 		Globals.ResourceType.RESEARCH:
 			$RightSidebar/ResourceDisplay/ResearchInfo/ProducingDomes.text = "(x%s)" % resource_producers[resource_type]
-		
+
+func _on_main_menu_button_selected(button: TextureIcon):
+	main_menu_selected.emit()

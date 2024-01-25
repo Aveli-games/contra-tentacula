@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=16 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
@@ -8,30 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ba0a03ibw3jqe" path="res://texture_icon.tscn" id="5_35yct"]
 [ext_resource type="Script" path="res://squad_controls.gd" id="5_613uf"]
 [ext_resource type="Shader" path="res://squad.gdshader" id="6_mlemw"]
-[ext_resource type="Script" path="res://main_menu.gd" id="8_6vtd7"]
-[ext_resource type="Texture2D" uid="uid://bsqp4wpjgrl2o" path="res://art/Contra_Tentacula_Cover_Art.png" id="9_rnwqd"]
 [ext_resource type="Script" path="res://PauseText.gd" id="11_0tgb2"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w124o"]
-resource_local_to_scene = true
-shader = ExtResource("6_mlemw")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 4.567
-shader_parameter/on = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r74e1"]
-resource_local_to_scene = true
-shader = ExtResource("6_mlemw")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 4.567
-shader_parameter/on = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nynn"]
-resource_local_to_scene = true
-shader = ExtResource("6_mlemw")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 4.567
-shader_parameter/on = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bykak"]
 resource_local_to_scene = true
@@ -54,6 +31,27 @@ shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 4.567
 shader_parameter/on = null
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w124o"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r74e1"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nynn"]
+resource_local_to_scene = true
+shader = ExtResource("6_mlemw")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 4.567
+shader_parameter/on = null
+
 [node name="UI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -65,7 +63,7 @@ layout_mode = 0
 offset_left = 941.0
 offset_right = 1281.0
 offset_bottom = 720.0
-theme_override_constants/separation = 40
+theme_override_constants/separation = 15
 
 [node name="ResourceDisplay" type="VBoxContainer" parent="RightSidebar"]
 layout_mode = 2
@@ -97,7 +95,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 30
+theme_override_constants/v_separation = 25
 columns = 2
 
 [node name="Scientists" parent="RightSidebar/SquadDisplay" instance=ExtResource("2_oxt2f")]
@@ -119,37 +117,6 @@ alignment = 1
 [node name="ControlsDisplay" type="VBoxContainer" parent="RightSidebar"]
 layout_mode = 2
 theme_override_constants/separation = 15
-
-[node name="GlobalControlLabel" type="Label" parent="RightSidebar/ControlsDisplay"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Global Controls
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GlobalControls" type="HBoxContainer" parent="RightSidebar/ControlsDisplay"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-script = ExtResource("4_dw5pm")
-
-[node name="ResearchMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
-material = SubResource("ShaderMaterial_w124o")
-layout_mode = 2
-tooltip_text = "Research"
-
-[node name="PlayPauseButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
-material = SubResource("ShaderMaterial_r74e1")
-layout_mode = 2
-tooltip_text = "Pause"
-
-[node name="MainMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
-material = SubResource("ShaderMaterial_4nynn")
-layout_mode = 2
-tooltip_text = "Main Menu"
 
 [node name="SquadControlsLabel" type="Label" parent="RightSidebar/ControlsDisplay"]
 layout_mode = 2
@@ -177,25 +144,36 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_621vm")
 layout_mode = 2
 
-[node name="MainMenu" type="TextureProgressBar" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-scale = Vector2(0.667, 0.667)
-fill_mode = 2
-texture_progress = ExtResource("9_rnwqd")
-script = ExtResource("8_6vtd7")
+[node name="GlobalControlLabel" type="Label" parent="RightSidebar/ControlsDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Global Controls
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="MainMenu"]
+[node name="GlobalControls" type="HBoxContainer" parent="RightSidebar/ControlsDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+script = ExtResource("4_dw5pm")
+
+[node name="ResearchMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
 visible = false
-layout_mode = 0
-offset_left = 815.592
-offset_top = 803.598
-offset_right = 1111.59
-offset_bottom = 939.598
-theme_override_font_sizes/font_size = 64
-text = "Start"
+material = SubResource("ShaderMaterial_w124o")
+layout_mode = 2
+tooltip_text = "Research"
+
+[node name="PlayPauseButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
+process_mode = 3
+material = SubResource("ShaderMaterial_r74e1")
+layout_mode = 2
+tooltip_text = "Pause"
+
+[node name="MainMenuButton" parent="RightSidebar/ControlsDisplay/GlobalControls" instance=ExtResource("5_35yct")]
+material = SubResource("ShaderMaterial_4nynn")
+layout_mode = 2
+tooltip_text = "Main Menu"
 
 [node name="PauseText" type="Label" parent="."]
 process_mode = 3
@@ -214,4 +192,5 @@ script = ExtResource("11_0tgb2")
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_selected"]
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_selected"]
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/FightButton" to="." method="_on_fight_button_selected"]
-[connection signal="pressed" from="MainMenu/Button" to="MainMenu" method="_on_button_pressed"]
+[connection signal="selected" from="RightSidebar/ControlsDisplay/GlobalControls/PlayPauseButton" to="PauseText" method="_on_play_pause_button_selected"]
+[connection signal="selected" from="RightSidebar/ControlsDisplay/GlobalControls/MainMenuButton" to="." method="_on_main_menu_button_selected"]
