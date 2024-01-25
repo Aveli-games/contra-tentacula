@@ -120,17 +120,24 @@ func _on_movement_started():
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
-	if moving: # We are moving, no moving action allowed
-		return false
-	if !location: # We don't have a current location, move to get one
+	var pather_args = {}
+	if moving: # We are moving
+		# find paths starting with current movement segment and its reverse
+		if current_action.has('from') && current_action.has('to'):
+			pather_args.start_paths = [[current_action.from, current_action.to],[current_action.to, current_action.from]]
+		else:
+			return false
+	elif !location: # We don't have a current location, move to get one
 		print_debug("We don't have a current location, move to target: ", target)
 		_set_action_queue([_create_action(Globals.ActionType.MOVE, target)])
 		return true
-	if location == target: # Target is current location ==> already there?
+	elif location == target: # Target is current location ==> already there?
 		return true
+	else:
+		pather_args['start_dome'] = location
 	
 	var pather = Pather.new()
-	var path_to_target = pather.find_path(location, target)
+	var path_to_target = pather.find_path(target, pather_args)
 	if path_to_target:
 		# dome/slot management
 		global_position = location.global_position

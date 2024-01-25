@@ -25,6 +25,7 @@ func find_path(finish: Dome, params = {}):
 
 	while working_paths.size() > 0:
 		var path_base = working_paths.pop_front()
+		print('working path: ', path_base)
 		# check connections, extend paths
 		var dome_from = path_base[-1]
 		var connections = DomeConnections.get_dome_connections(dome_from)
@@ -33,6 +34,7 @@ func find_path(finish: Dome, params = {}):
 			var connected_dome = connection.dome_b
 			var continued_path = path_base.duplicate(true)
 			continued_path.append(connected_dome)
+			print('continued path: ', continued_path)
 			
 			# path complete
 			if connected_dome == finish:
@@ -40,11 +42,11 @@ func find_path(finish: Dome, params = {}):
 			
 			# check for backtrack
 			if connected_dome in path_base:
-				#print('backtrack path: ', continued_path)
+				print('backtrack path')
 				continue
 			
 			if connected_dome.name in visited.keys():
-				#print('already visited dome: ', continued_path)
+				print('already visited dome:', connected_dome.name)
 				continue
 			
 			visited[connected_dome.name] = 1
