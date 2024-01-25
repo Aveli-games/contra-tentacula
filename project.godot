@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Contra Tentacula"
-run/main_scene="res://main.tscn"
+run/main_scene="res://screen_manager.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://JamSmall.png"
+boot_splash/fullsize=false
+config/icon="res://art/squad_sprites/GasMaskScientist_128.png"
+boot_splash/minimum_display_time=3000
 
 [autoload]
 
@@ -25,6 +29,10 @@ DomeConnections="*res://autoloads/dome_connections.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom="res://font_theme.tres"
 
 [input]
 

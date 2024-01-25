@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ck1m2yyf0pdae"
+path="res://.godot/imported/sci more extractions.wav-504a485654402b99e9459033aaa63f42.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/scientist/sci more extractions.wav"
+dest_files=["res://.godot/imported/sci more extractions.wav-504a485654402b99e9459033aaa63f42.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

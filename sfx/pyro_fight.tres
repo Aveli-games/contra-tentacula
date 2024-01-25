@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://bafpn4e1yvj4a"]
+
+[ext_resource type="AudioStream" uid="uid://b6nlujrgexfs2" path="res://sfx/voice lines/pyro/pyro ill give it a shot.wav" id="1_7dtvg"]
+[ext_resource type="AudioStream" uid="uid://do4q4xjy4ee44" path="res://sfx/voice lines/pyro/pyro not my specialty.wav" id="2_8d6ad"]
+[ext_resource type="AudioStream" uid="uid://j4q2nptv5v8e" path="res://sfx/voice lines/pyro/pyro lets see what it takes.wav" id="3_ppxp6"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_7dtvg")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_8d6ad")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_ppxp6")
+stream_2/weight = 1.0

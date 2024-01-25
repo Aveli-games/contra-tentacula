@@ -28,6 +28,20 @@ polygon = PackedVector2Array(15, -62.9, 15, -61.7, 30, -56.7, 30, -55.4, 39, -44
 [node name="ActionTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="VoiceLines" type="Node" parent="."]
+
+[node name="SelectVoice" type="AudioStreamPlayer" parent="VoiceLines"]
+bus = &"SFX"
+
+[node name="MoveVoice" type="AudioStreamPlayer" parent="VoiceLines"]
+bus = &"SFX"
+
+[node name="SpecialVoice" type="AudioStreamPlayer" parent="VoiceLines"]
+bus = &"SFX"
+
+[node name="FightVoice" type="AudioStreamPlayer" parent="VoiceLines"]
+bus = &"SFX"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
