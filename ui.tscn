@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1gp43cg7oef4"]
+[gd_scene load_steps=18 format=3 uid="uid://1gp43cg7oef4"]
 
 [ext_resource type="Script" path="res://ui.gd" id="1_wssrf"]
 [ext_resource type="PackedScene" uid="uid://ce1jmy6wn14ce" path="res://resource_info_display.tscn" id="1_xef0o"]
@@ -10,6 +10,7 @@
 [ext_resource type="Shader" path="res://squad.gdshader" id="6_mlemw"]
 [ext_resource type="Script" path="res://main_menu.gd" id="8_6vtd7"]
 [ext_resource type="Texture2D" uid="uid://bsqp4wpjgrl2o" path="res://art/Contra_Tentacula_Cover_Art.png" id="9_rnwqd"]
+[ext_resource type="Script" path="res://PauseText.gd" id="11_0tgb2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w124o"]
 resource_local_to_scene = true
@@ -195,6 +196,20 @@ offset_right = 1111.59
 offset_bottom = 939.598
 theme_override_font_sizes/font_size = 64
 text = "Start"
+
+[node name="PauseText" type="Label" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 0
+offset_left = 315.0
+offset_top = 257.0
+offset_right = 729.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 36
+text = "Paused
+Press Space to continue"
+horizontal_alignment = 1
+script = ExtResource("11_0tgb2")
 
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/MoveButton" to="." method="_on_move_button_selected"]
 [connection signal="selected" from="RightSidebar/ControlsDisplay/SquadControls/SpecialButton" to="." method="_on_special_button_selected"]
