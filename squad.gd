@@ -140,20 +140,24 @@ func move(target: Dome):
 		# movement
 		# fill action queue with move actions
 		# first element is current location
-		path_to_target.pop_front()
 		print('PATH: ', path_to_target)
-		var move_actions = path_to_target.map(_create_move_action)
+		var move_actions = []
+		for i in path_to_target.size() - 1:
+			var from: Dome = path_to_target[i]
+			var to: Dome = path_to_target[i+1]
+			move_actions.append(_create_move_action(to, from))
+				
 		_set_action_queue(move_actions)
 		return true
 	else: # Target is not connected to current location
 		return false
 		
-func _create_action(type: Globals.ActionType, target: Dome):
-	print_debug('action created: ', {'type': type, 'target': target})
-	return {'type': type, 'target': target}
+func _create_action(type: Globals.ActionType, target: Dome = null, from: Dome = null):
+	print_debug('action created: ', {'type': type, 'target': target, 'from': from})
+	return {'type': type, 'target': target, 'from': from}
 	
-func _create_move_action(target: Dome):
-	return _create_action(Globals.ActionType.MOVE, target)
+func _create_move_action(target: Dome, from: Dome):
+	return _create_action(Globals.ActionType.MOVE, target, from)
 	
 func special(target: Dome):
 	if location && location == target:
