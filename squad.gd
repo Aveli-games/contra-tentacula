@@ -123,8 +123,8 @@ func move(target: Dome):
 	var pather_args = {}
 	if moving: # We are moving
 		# find paths starting with current movement segment and its reverse
-		if current_action.has('from') && current_action.has('to'):
-			pather_args.start_paths = [[current_action.from, current_action.to],[current_action.to, current_action.from]]
+		if current_action.has('from') && current_action.has('target'):
+			pather_args.start_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
 		else:
 			return false
 	elif !location: # We don't have a current location, move to get one
@@ -140,9 +140,10 @@ func move(target: Dome):
 	var path_to_target = pather.find_path(target, pather_args)
 	if path_to_target:
 		# dome/slot management
-		global_position = location.global_position
-		if slot:
-			slot.empty(self)
+		if location:
+			global_position = location.global_position
+			if slot:
+				slot.empty(self)
 			
 		# movement
 		# fill action queue with move actions
