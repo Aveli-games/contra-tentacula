@@ -25,6 +25,9 @@ var researching: bool = false
 var producing: bool = false
 
 func _ready():
+	# allows clicking domes when paused
+	$SelectionArea.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	$DomeGeneration.hide()
 	# Await timer as quick workaround to domes loading and singalling before game board is ready
 	await get_tree().create_timer(.5).timeout 

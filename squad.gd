@@ -25,6 +25,10 @@ var action_queue = []
 var moving: bool = false
 
 func _ready():
+	# allow selection & action during pause
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	# don't run actiontimer during pause
+	$ActionTimer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	set_highlight(false)
 	
 func _process(_delta):
@@ -101,6 +105,9 @@ func _input(event):
 				selected.emit(self)
 
 func _physics_process(delta):
+	# don't run when paused, while allowing the rest of the node to run
+	if get_tree().paused:
+		return
 	if target_position == Vector2(176,360):
 		print('targeting dome 4')
 		print('   current pos: ',global_position, target_position && global_position.distance_to(target_position) > 3)
