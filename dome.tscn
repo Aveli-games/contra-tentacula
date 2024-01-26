@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dc3j5h50tp0m2"]
+[gd_scene load_steps=14 format=3 uid="uid://dc3j5h50tp0m2"]
 
 [ext_resource type="Script" path="res://dome.gd" id="1_n1lt3"]
 [ext_resource type="Shader" path="res://squad.gdshader" id="2_sn5md"]
@@ -56,6 +56,58 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Building/FlowerSprite:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Building/FlowerSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, -70)]
+}
+
+[sub_resource type="Animation" id="Animation_kvq2w"]
+resource_name = "flower_bloom"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Building/FlowerSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.666239, 0.666239)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Building/FlowerSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7, -46), Vector2(15, -70)]
+}
 
 [sub_resource type="Animation" id="Animation_e7nfn"]
 resource_name = "generate_resource"
@@ -100,6 +152,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ncrv"]
 _data = {
 "RESET": SubResource("Animation_m308b"),
+"flower_bloom": SubResource("Animation_kvq2w"),
 "generate_resource": SubResource("Animation_e7nfn")
 }
 
@@ -136,11 +189,10 @@ scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_xavjx")
 
 [node name="FlowerSprite" type="Sprite2D" parent="Building"]
-visible = false
 material = SubResource("ShaderMaterial_o25pg")
-position = Vector2(13, -58)
+position = Vector2(15, -70)
 rotation = 0.523599
-scale = Vector2(0.545625, 0.545625)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_bqksm")
 
 [node name="PopupInfestation" type="Polygon2D" parent="Building"]
