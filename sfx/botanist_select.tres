@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://rnypisyajs58"]
+
+[ext_resource type="AudioStream" uid="uid://cwhclkmqpt35h" path="res://sfx/voice lines/botanist/bot chop chop.wav" id="1_y53gm"]
+[ext_resource type="AudioStream" uid="uid://beank7urrt8lx" path="res://sfx/voice lines/botanist/bot whatever man.wav" id="2_mgke1"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_y53gm")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_mgke1")
+stream_1/weight = 1.0

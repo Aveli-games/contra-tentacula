@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj33uhw0gf724"]
+[gd_scene load_steps=5 format=3 uid="uid://bj33uhw0gf724"]
 
 [ext_resource type="Script" path="res://squad.gd" id="1_e8qmi"]
 [ext_resource type="Texture2D" uid="uid://cuioydky40jyu" path="res://art/misc_assets/Gasmask_128.png" id="2_c7ugt"]
 [ext_resource type="Shader" path="res://squad.gdshader" id="2_oc457"]
-[ext_resource type="AudioStream" uid="uid://drv0lin1x1ukt" path="res://sfx/engineer_voice.tres" id="4_h23dq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t3y1b"]
 resource_local_to_scene = true
@@ -32,7 +31,6 @@ autostart = true
 [node name="VoiceLines" type="Node" parent="."]
 
 [node name="SelectVoice" type="AudioStreamPlayer" parent="VoiceLines"]
-stream = ExtResource("4_h23dq")
 bus = &"SFX"
 
 [node name="MoveVoice" type="AudioStreamPlayer" parent="VoiceLines"]
