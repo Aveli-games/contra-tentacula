@@ -134,8 +134,15 @@ func move(target: Dome):
 		# find paths starting with current movement segment and its reverse
 		if current_action.has('from') && current_action.has('target'):
 			if current_action.from == null:
-				print(current_action)
-			pather_args.start_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
+				print_debug('no "from" provided: ', current_action)
+			
+			var pather_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
+			# provide closer path first, so it gets checked first
+			# are we closer to where we came from? => reverse
+			if _is_domeA_closer(current_action.from, current_action.target):
+				pather_paths.reverse()
+			
+			pather_args.start_paths = pather_paths
 		else:
 			print_debug('rejected while moving with action: ', current_action)
 			return false
@@ -170,6 +177,11 @@ func move(target: Dome):
 		return true
 	else: # Target is not connected to current location
 		return false
+		
+func _is_domeA_closer(domeA: Dome, domeB: Dome):
+	var distance_from_A = (domeA.global_position - self.global_position).length()
+	var distance_from_B = (domeB.global_position - self.global_position).length()
+	return distance_from_A < distance_from_B
 		
 func _create_action(type: Globals.ActionType, target: Dome = null, from: Dome = null):
 	var new_action = {'type': type}
@@ -228,7 +240,17 @@ func fight(target: Dome):
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
-	print_debug('command issued: ', action, target, location)
+	print_debug('command issued: action, target, location: ', action, target, location)
+	print_debug('command issued: current action: ', current_action)
+	
+	# track where we came from if no location
+	var new_from = location
+	if !location && current_action.has('from'):
+		if current_action.from == target:
+			new_from = current_action.target
+		else:
+			new_from = current_action.from
+	var new_action = _create_action(action, target, new_from)
 	var move_return = move(target)
 	print_debug('movement', move_return)
 	if move_return:
@@ -242,8 +264,7 @@ func command(action: Globals.ActionType, target: Dome):
 		# Cancel current research toggle if not scientist special at current location
 		if squad_type == Globals.SquadType.SCIENTIST && (location != target || action != Globals.ActionType.SPECIAL):
 			toggle_research(false)
-		print_debug('NO LOCATION WHEN THERE SHOULD BE')
-		_add_to_action_queue(_create_action(action, target, location))
+		_add_to_action_queue(new_action)
 		if display_link:
 			display_link.set_action(action)
 			

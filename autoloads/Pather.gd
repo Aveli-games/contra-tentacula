@@ -20,6 +20,9 @@ func find_path(finish: Dome, params = {}):
 
 	# treat all provided domes as visited for algorithm
 	for path in working_paths:
+		# if the provided path gets us there, return early
+		if path[-1] == finish:
+			return path
 		for dome in path:
 			visited[dome.get_name()] = 1
 
