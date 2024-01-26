@@ -93,3 +93,4 @@ theme_override_font_sizes/font_size = 64
 [connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="victory" from="." to="." method="_on_victory"]
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
+[connection signal="main_menu_selected" from="UI" to="." method="_on_ui_main_menu_selected"]
