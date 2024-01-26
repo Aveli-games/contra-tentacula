@@ -138,3 +138,6 @@ func _on_dome_cleansed():
 
 func _on_ui_main_menu_selected():
 	main_menu_selected.emit()
+	
+func toggle_pause():
+	$UI.toggle_pause()
