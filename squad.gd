@@ -230,7 +230,8 @@ func command(action: Globals.ActionType, target: Dome):
 		# Cancel current research toggle if not scientist special at current location
 		if squad_type == Globals.SquadType.SCIENTIST && (location != target || action != Globals.ActionType.SPECIAL):
 			toggle_research(false)
-		_add_to_action_queue(_create_action(action, target))
+		push_error('NO LOCATION WHEN THERE SHOULD BE')
+		_add_to_action_queue(_create_action(action, target, location))
 		if display_link:
 			display_link.set_action(action)
 			
