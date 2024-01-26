@@ -95,6 +95,9 @@ func _input(event):
 				selected.emit(self)
 
 func _physics_process(delta):
+	if target_position == Vector2(176,360):
+		print('targeting dome 4')
+		print('   current pos: ',global_position, target_position && global_position.distance_to(target_position) > 3)
 	if target_position && global_position.distance_to(target_position) > 3:
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * Globals.BASE_MOVE_SPEED
@@ -128,6 +131,7 @@ func move(target: Dome):
 				print(current_action)
 			pather_args.start_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
 		else:
+			print_debug('rejected while moving with action: ', current_action)
 			return false
 	elif !location: # We don't have a current location, move to get one
 		print_debug("We don't have a current location, move to target: ", target)
@@ -218,8 +222,10 @@ func fight(target: Dome):
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
-	print_debug('command issued: ', action, target)
-	if move(target):
+	print_debug('command issued: ', action, target, location)
+	var move_return = move(target)
+	print_debug('movement', move_return)
+	if move_return:
 		match action:
 			Globals.ActionType.MOVE:
 				_talk($VoiceLines/MoveVoice)
@@ -253,7 +259,9 @@ func toggle_research(is_enable: bool):
 		research_toggled.emit(researching)
 
 func set_target(target: Dome):
+	print_debug('old target pos:', target_position)
 	target_position = target.global_position
+	print_debug('new target pos:', target_position)
 	target_location = target
 	movement_started.emit()
 
