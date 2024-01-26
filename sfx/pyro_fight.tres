@@ -6,9 +6,9 @@
 
 [resource]
 streams_count = 3
-stream_0/stream = ExtResource("1_7dtvg")
+stream_0/stream = ExtResource("2_8d6ad")
 stream_0/weight = 1.0
-stream_1/stream = ExtResource("2_8d6ad")
+stream_1/stream = ExtResource("3_ppxp6")
 stream_1/weight = 1.0
-stream_2/stream = ExtResource("3_ppxp6")
+stream_2/stream = ExtResource("1_7dtvg")
 stream_2/weight = 1.0

@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://ydjfhf1lxym1"]
+
+[ext_resource type="AudioStream" uid="uid://v7pvp3ivqb26" path="res://sfx/voice lines/engineer/eng gonna need my big tools.wav" id="1_53hou"]
+[ext_resource type="AudioStream" uid="uid://cwalpc8xlul5n" path="res://sfx/voice lines/engineer/eng i better get overtime.wav" id="2_3ebhw"]
+[ext_resource type="AudioStream" uid="uid://bva3p1arynu87" path="res://sfx/voice lines/engineer/eng ill put a dent.wav" id="3_le8b8"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_53hou")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_3ebhw")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_le8b8")
+stream_2/weight = 1.0

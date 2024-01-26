@@ -66,23 +66,27 @@ func set_type(type: Globals.SquadType):
 		Globals.SquadType.SCIENTIST:
 			set_sprite("res://art/squad_sprites/GasMaskScientist_128.png")
 			$VoiceLines/MoveVoice.stream = load("res://sfx/scientist_voice.tres")
-			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/scientist/sci blast off.wav")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/scientist_select.tres")
 			$VoiceLines/FightVoice.stream = load("res://sfx/scientist_fight.tres")
 			$VoiceLines/SpecialVoice.stream = load("res://sfx/scientist_special.tres")
 		Globals.SquadType.PYRO:
 			set_sprite("res://art/squad_sprites/GasmaskPyro_128.png")
 			$VoiceLines/MoveVoice.stream = load("res://sfx/pyro_voice.tres")
-			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/pyro/pyro gotta light.wav")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/pyro_select.tres")
 			$VoiceLines/FightVoice.stream = load("res://sfx/pyro_fight.tres")
 			$VoiceLines/SpecialVoice.stream = load("res://sfx/pyro_special.tres")
 		Globals.SquadType.BOTANIST:
 			set_sprite("res://art/squad_sprites/GasmaskBot_128.png")
 			$VoiceLines/MoveVoice.stream = load("res://sfx/botanist_voice.tres")
-			$VoiceLines/SelectVoice.stream = load("res://sfx/voice lines/botanist/bot chop chop.wav")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/botanist_select.tres")
 			$VoiceLines/FightVoice.stream = load("res://sfx/botanist_fight.tres")
 			$VoiceLines/SpecialVoice.stream = load("res://sfx/botanist_special.tres")
 		Globals.SquadType.ENGINEER:
 			set_sprite("res://art/squad_sprites/GasmaskSanitation_128.png")
+			$VoiceLines/MoveVoice.stream = load("res://sfx/engineer_voice.tres")
+			$VoiceLines/SelectVoice.stream = load("res://sfx/engineer_select.tres")
+			$VoiceLines/FightVoice.stream = load("res://sfx/engineer_fight.tres")
+			$VoiceLines/SpecialVoice.stream = load("res://sfx/engineer_special.tres")
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:

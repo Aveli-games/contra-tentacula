@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://v7pvp3ivqb26"
+path="res://.godot/imported/eng gonna need my big tools.wav-b4c7e36b2fd54b5dcad89b5b910d8175.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/engineer/eng gonna need my big tools.wav"
+dest_files=["res://.godot/imported/eng gonna need my big tools.wav-b4c7e36b2fd54b5dcad89b5b910d8175.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

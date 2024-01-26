@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://b0ifsu18lav0p" path="res://sfx/voice lines/botanist/bot wranglin.wav" id="1_k4ij3"]
 [ext_resource type="AudioStream" uid="uid://368qjgn1s3c1" path="res://sfx/voice lines/botanist/bot fern or fungus.wav" id="2_r0ggc"]
-[ext_resource type="AudioStream" uid="uid://ns5b4cdr2r5" path="res://sfx/voice lines/botanist/bot get on now.wav" id="3_ypf2l"]
+[ext_resource type="AudioStream" uid="uid://fdt3m50rmgor" path="res://sfx/voice lines/botanist/bot keep a clipping.wav" id="3_q0ig1"]
 
 [resource]
 streams_count = 3
@@ -10,5 +10,5 @@ stream_0/stream = ExtResource("1_k4ij3")
 stream_0/weight = 1.0
 stream_1/stream = ExtResource("2_r0ggc")
 stream_1/weight = 1.0
-stream_2/stream = ExtResource("3_ypf2l")
+stream_2/stream = ExtResource("3_q0ig1")
 stream_2/weight = 1.0

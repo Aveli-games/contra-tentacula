@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://y3ut085ijgy2" path="res://sfx/voice lines/scientist/sci do i have to kill it.wav" id="2_y88b4"]
 [ext_resource type="AudioStream" uid="uid://bo3dbilo7apkl" path="res://sfx/voice lines/scientist/sci pacifist.wav" id="3_d75ct"]
-[ext_resource type="AudioStream" uid="uid://dlbnkd663myp4" path="res://sfx/voice lines/scientist/sci for a plant.wav" id="3_svggh"]
+[ext_resource type="AudioStream" uid="uid://rlc8d5lapt1r" path="res://sfx/voice lines/scientist/for the domes.wav" id="3_jgkj8"]
 
 [resource]
 streams_count = 3
@@ -10,5 +10,5 @@ stream_0/stream = ExtResource("2_y88b4")
 stream_0/weight = 1.0
 stream_1/stream = ExtResource("3_d75ct")
 stream_1/weight = 1.0
-stream_2/stream = ExtResource("3_svggh")
+stream_2/stream = ExtResource("3_jgkj8")
 stream_2/weight = 1.0

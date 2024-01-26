@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bva3p1arynu87"
+path="res://.godot/imported/eng ill put a dent.wav-9262694f1953afda0745891d62931a54.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/engineer/eng ill put a dent.wav"
+dest_files=["res://.godot/imported/eng ill put a dent.wav-9262694f1953afda0745891d62931a54.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

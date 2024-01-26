@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bnedbvldw5p4e"
+path="res://.godot/imported/eng whatcha need.wav-bbf4f0ccffc690cd4db0e98050074fe2.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/engineer/eng whatcha need.wav"
+dest_files=["res://.godot/imported/eng whatcha need.wav-bbf4f0ccffc690cd4db0e98050074fe2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

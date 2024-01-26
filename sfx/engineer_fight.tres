@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://dghxjgu6rww28"]
+
+[ext_resource type="AudioStream" uid="uid://mriux2ykld8v" path="res://sfx/voice lines/engineer/eng work work.wav" id="1_mblsq"]
+[ext_resource type="AudioStream" uid="uid://cyabbtyq3q0x3" path="res://sfx/voice lines/engineer/eng ill do it myself.wav" id="2_88qxm"]
+[ext_resource type="AudioStream" uid="uid://k37i5124uulc" path="res://sfx/voice lines/engineer/eng hammer.wav" id="3_5ph5a"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_mblsq")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_88qxm")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_5ph5a")
+stream_2/weight = 1.0
