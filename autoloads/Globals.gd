@@ -8,6 +8,7 @@ enum InfestationStage {NONE, UNINFESTED, MINOR, MODERATE, MAJOR, FULL, LOST}
 enum ResourceType {NONE, FOOD, FUEL, PARTS, RESEARCH}
 enum SquadType {NONE, SCIENTIST, PYRO, BOTANIST, ENGINEER}
 enum ActionType {NONE, MOVE, SPECIAL, FIGHT}
+enum DifficultyLevel {EASY, NORMAL, HARD}
 
 var BASE_DOME_INFESTATION_RATE = .05
 var BASE_CONNECTOR_INFESTATION_RATE = 0.075
@@ -69,3 +70,12 @@ func reset():
 		ResourceType.PARTS: 0,
 		ResourceType.RESEARCH: 0
 	}
+	
+func set_difficulty(difficulty: DifficultyLevel):
+	match difficulty:
+		DifficultyLevel.EASY:
+			BASE_DOME_INFESTATION_RATE = .025
+		DifficultyLevel.NORMAL:
+			BASE_DOME_INFESTATION_RATE = .05
+		DifficultyLevel.HARD:
+			BASE_DOME_INFESTATION_RATE = .075
