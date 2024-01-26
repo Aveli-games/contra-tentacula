@@ -68,3 +68,6 @@ func add_resource_producer(resource_type, change):
 
 func _on_main_menu_button_selected(button: TextureIcon):
 	main_menu_selected.emit()
+
+func toggle_pause():
+	$PauseText.toggle_pause()

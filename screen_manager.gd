@@ -13,7 +13,8 @@ func _on_start_button_pressed():
 	$ButtonBox.hide()
 	$AnimationPlayer.play("main_menu_fade_out")
 	await $AnimationPlayer.animation_finished
-	get_tree().paused = false
+	if get_tree().paused == true:
+		current_board.toggle_pause()
 
 func _on_game_board_main_menu_selected():
 	get_tree().paused = true
@@ -46,7 +47,8 @@ func resume():
 	$ButtonBox.hide()
 	$AnimationPlayer.play("main_menu_slide_out")
 	await $AnimationPlayer.animation_finished
-	get_tree().paused = false
+	if get_tree().paused == true:
+		current_board.toggle_pause()
 
 func _on_game_over_loss():
 	if not $GameEndLoss.visible && not $GameEndWin.visible:
