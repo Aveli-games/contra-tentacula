@@ -29,24 +29,30 @@ func _ready():
 	
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), false)
 	
+	# create resource type pool
+	var resource_type_array = []
+	for key in Globals.DOME_TYPE_LIMITS.keys():
+		var number_of_resource = Globals.DOME_TYPE_LIMITS[key]
+		var to_add = []
+		to_add.resize(number_of_resource)
+		to_add.fill(key)
+		resource_type_array.append_array(to_add)
+	resource_type_array.shuffle()
+	
 	for child in $Domes.get_children():
 		child.targeted.connect(_on_dome_targeted)
 		child.production_changed.connect(_on_dome_production_changed)
 		child.lost.connect(_on_dome_lost)
 		child.infestation_spawned.connect(_on_infestation_spawned)
 		child.infestation_removed.connect(_on_dome_cleansed)
+		
 		if child == $Domes/Dome:
 			child.set_resource_type(Globals.ResourceType.FOOD)
 			child.set_sprite("res://art/dome_sprites/Dome_hq_96.png")
-			Globals.DOME_TYPE_LIMITS[Globals.ResourceType.FOOD] -= 1
+			resource_type_array.erase(Globals.ResourceType.FOOD)
 		else:
-			var randome = 0
-			
-			# Get random available resource type for this child
-			while Globals.DOME_TYPE_LIMITS[randome] == 0:
-				randome = randi_range(0, Globals.ResourceType.size() - 1)
-			child.set_resource_type(randome)
-			Globals.DOME_TYPE_LIMITS[randome] -= 1
+			var random_resource_type = resource_type_array.pop_front()
+			child.set_resource_type(random_resource_type)
 			
 			$UI.action_selected.connect(_on_action_selected)
 	
