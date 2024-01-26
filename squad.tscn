@@ -43,6 +43,7 @@ bus = &"SFX"
 bus = &"SFX"
 
 [node name="LocationDebug" type="Label" parent="."]
+visible = false
 offset_left = 18.0
 offset_top = -11.0
 offset_right = 58.0
