@@ -27,6 +27,12 @@ var moving: bool = false
 func _ready():
 	set_highlight(false)
 	
+func _process(_delta):
+	if location:
+		$LocationDebug.text = location.get_name()
+	else:
+		$LocationDebug.text = 'null'
+	
 # call when queue changes or action finished
 func _start_next_action():
 	var next_action = action_queue.pop_front()
@@ -236,7 +242,7 @@ func command(action: Globals.ActionType, target: Dome):
 		# Cancel current research toggle if not scientist special at current location
 		if squad_type == Globals.SquadType.SCIENTIST && (location != target || action != Globals.ActionType.SPECIAL):
 			toggle_research(false)
-		push_error('NO LOCATION WHEN THERE SHOULD BE')
+		print_debug('NO LOCATION WHEN THERE SHOULD BE')
 		_add_to_action_queue(_create_action(action, target, location))
 		if display_link:
 			display_link.set_action(action)
