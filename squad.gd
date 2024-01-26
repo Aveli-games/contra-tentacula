@@ -27,6 +27,12 @@ var moving: bool = false
 func _ready():
 	set_highlight(false)
 	
+func _process(_delta):
+	if location:
+		$LocationDebug.text = location.get_name()
+	else:
+		$LocationDebug.text = 'null'
+	
 # call when queue changes or action finished
 func _start_next_action():
 	var next_action = action_queue.pop_front()
@@ -95,6 +101,9 @@ func _input(event):
 				selected.emit(self)
 
 func _physics_process(delta):
+	if target_position == Vector2(176,360):
+		print('targeting dome 4')
+		print('   current pos: ',global_position, target_position && global_position.distance_to(target_position) > 3)
 	if target_position && global_position.distance_to(target_position) > 3:
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * Globals.BASE_MOVE_SPEED
@@ -122,41 +131,72 @@ func _on_movement_started():
 	
 # Returns true if valid move target, false if not
 func move(target: Dome):
-	if moving: # We are moving, no moving action allowed
-		return false
-	if !location: # We don't have a current location, move to get one
+	var pather_args = {}
+	if moving: # We are moving
+		# find paths starting with current movement segment and its reverse
+		if current_action.has('from') && current_action.has('target'):
+			if current_action.from == null:
+				print_debug('no "from" provided: ', current_action)
+			
+			var pather_paths = [[current_action.from, current_action.target],[current_action.target, current_action.from]]
+			# provide closer path first, so it gets checked first
+			# are we closer to where we came from? => reverse
+			if _is_domeA_closer(current_action.from, current_action.target):
+				pather_paths.reverse()
+			
+			pather_args.start_paths = pather_paths
+		else:
+			print_debug('rejected while moving with action: ', current_action)
+			return false
+	elif !location: # We don't have a current location, move to get one
 		print_debug("We don't have a current location, move to target: ", target)
 		_set_action_queue([_create_action(Globals.ActionType.MOVE, target)])
 		return true
-	if location == target: # Target is current location ==> already there?
+	elif location == target: # Target is current location ==> already there?
 		return true
+	else:
+		pather_args['start_dome'] = location
 	
 	var pather = Pather.new()
-	var path_to_target = pather.find_path(location, target)
+	var path_to_target = pather.find_path(target, pather_args)
 	if path_to_target:
 		# dome/slot management
-		global_position = location.global_position
+		if slot && location:
+			global_position = location.global_position
 		# this slot empty might be redundant
-		if slot:
 			slot.empty(self)
 			
 		# movement
 		# fill action queue with move actions
 		# first element is current location
-		path_to_target.pop_front()
 		print('PATH: ', path_to_target)
-		var move_actions = path_to_target.map(_create_move_action)
+		var move_actions = []
+		for i in path_to_target.size() - 1:
+			var from: Dome = path_to_target[i]
+			var to: Dome = path_to_target[i+1]
+			move_actions.append(_create_move_action(to, from))
+				
 		_set_action_queue(move_actions)
 		return true
 	else: # Target is not connected to current location
 		return false
 		
-func _create_action(type: Globals.ActionType, target: Dome):
-	print_debug('action created: ', {'type': type, 'target': target})
-	return {'type': type, 'target': target}
+func _is_domeA_closer(domeA: Dome, domeB: Dome):
+	var distance_from_A = (domeA.global_position - self.global_position).length()
+	var distance_from_B = (domeB.global_position - self.global_position).length()
+	return distance_from_A < distance_from_B
+		
+func _create_action(type: Globals.ActionType, target: Dome = null, from: Dome = null):
+	var new_action = {'type': type}
+	if target:
+		new_action.target = target
+	if from:
+		new_action.from = from
+	print_debug('action created: ', new_action)
+	return new_action
 	
-func _create_move_action(target: Dome):
-	return _create_action(Globals.ActionType.MOVE, target)
+func _create_move_action(target: Dome, from: Dome):
+	return _create_action(Globals.ActionType.MOVE, target, from)
 	
 func special(target: Dome):
 	if location && location == target:
@@ -203,8 +243,20 @@ func fight(target: Dome):
 
 # called on right-click from main.gd
 func command(action: Globals.ActionType, target: Dome):
-	print_debug('command issued: ', action, target)
-	if move(target):
+	print_debug('command issued: action, target, location: ', action, target, location)
+	print_debug('command issued: current action: ', current_action)
+	
+	# track where we came from if no location
+	var new_from = location
+	if !location && current_action.has('from'):
+		if current_action.from == target:
+			new_from = current_action.target
+		else:
+			new_from = current_action.from
+	var new_action = _create_action(action, target, new_from)
+	var move_return = move(target)
+	print_debug('movement', move_return)
+	if move_return:
 		match action:
 			Globals.ActionType.MOVE:
 				_talk($VoiceLines/MoveVoice)
@@ -215,7 +267,7 @@ func command(action: Globals.ActionType, target: Dome):
 		# Cancel current research toggle if not scientist special at current location
 		if squad_type == Globals.SquadType.SCIENTIST && (location != target || action != Globals.ActionType.SPECIAL):
 			toggle_research(false)
-		_add_to_action_queue(_create_action(action, target))
+		_add_to_action_queue(new_action)
 		if display_link:
 			display_link.set_action(action)
 			
@@ -237,7 +289,9 @@ func toggle_research(is_enable: bool):
 		research_toggled.emit(researching)
 
 func set_target(target: Dome):
+	print_debug('old target pos:', target_position)
 	target_position = target.global_position
+	print_debug('new target pos:', target_position)
 	target_location = target
 	movement_started.emit()
 

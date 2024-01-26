@@ -13,7 +13,7 @@ func _ready():
 	DomeConnections.instantiate_network(dome_connections, self)
 		
 	var pather = Pather.new()
-	print(pather.find_path($Dome3, $Dome6))
+	print(pather.find_path($Dome3, {'start_paths': [[$Dome, $Dome4], [$Dome4, $Dome]]}))
 	
 	#DomeConnections.dome_start_spread($Dome5)
 	$Dome5.add_infestation(0.9)
