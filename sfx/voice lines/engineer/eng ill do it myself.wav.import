@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cyabbtyq3q0x3"
+path="res://.godot/imported/eng ill do it myself.wav-35b8672de343970f4aa52182fbfd64a9.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/engineer/eng ill do it myself.wav"
+dest_files=["res://.godot/imported/eng ill do it myself.wav-35b8672de343970f4aa52182fbfd64a9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cwalpc8xlul5n"
+path="res://.godot/imported/eng i better get overtime.wav-a7c56789a299ad821d87dd537e628f2b.sample"
+
+[deps]
+
+source_file="res://sfx/voice lines/engineer/eng i better get overtime.wav"
+dest_files=["res://.godot/imported/eng i better get overtime.wav-a7c56789a299ad821d87dd537e628f2b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

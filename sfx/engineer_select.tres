@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://d15v88ip36668"]
+
+[ext_resource type="AudioStream" uid="uid://3q8nnalinakk" path="res://sfx/voice lines/engineer/eng yeah.wav" id="1_g1tmk"]
+[ext_resource type="AudioStream" uid="uid://dlhp3hbv4swma" path="res://sfx/voice lines/engineer/eng what needs fixing.wav" id="2_oddyf"]
+[ext_resource type="AudioStream" uid="uid://bnedbvldw5p4e" path="res://sfx/voice lines/engineer/eng whatcha need.wav" id="3_188mw"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_g1tmk")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_oddyf")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_188mw")
+stream_2/weight = 1.0
