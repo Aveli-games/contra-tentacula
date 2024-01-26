@@ -79,4 +79,3 @@ func set_difficulty(difficulty: DifficultyLevel):
 			BASE_DOME_INFESTATION_RATE = .05
 		DifficultyLevel.HARD:
 			BASE_DOME_INFESTATION_RATE = .075
-	BASE_INFESTATION_FIGHT_RATE = -BASE_DOME_INFESTATION_RATE
