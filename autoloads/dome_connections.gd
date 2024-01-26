@@ -92,3 +92,7 @@ func dome_start_spread(dome: Dome, infestation_type = null):
 	for c in connected:
 		c.infestation_progress = max(Globals.BASE_CONNECTOR_INFESTATION_RATE, c.infestation_progress)
 		c.infestation_type = infestation_type  # TODO: use infestation types https://github.com/Aveli-games/infestation/issues/17
+
+func reset():
+	connections = []
+	line_nodes = []

@@ -51,3 +51,21 @@ func add_resource(type: ResourceType, change: float):
 	resource_updated.emit(type)
 	if type == ResourceType.RESEARCH && resources[type] >= RESEARCH_WIN_THRESHOLD:
 		research_win.emit()
+
+func reset():
+	infested_domes = 0
+	remaining_domes = 15
+	remaining_research_domes = RESEARCH_DOME_LOSS_MAX_THRESHOLD
+	DOME_TYPE_LIMITS = { # 15 domes total or crash
+		Globals.ResourceType.NONE: 5,
+		Globals.ResourceType.FOOD: 4,
+		Globals.ResourceType.FUEL: 1,
+		Globals.ResourceType.PARTS: 1,
+		Globals.ResourceType.RESEARCH: RESEARCH_DOME_LOSS_MAX_THRESHOLD,
+	}
+	resources = {
+		ResourceType.FOOD: 0,
+		ResourceType.FUEL: 0,
+		ResourceType.PARTS: 0,
+		ResourceType.RESEARCH: 0
+	}

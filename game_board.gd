@@ -8,6 +8,7 @@ var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 func _ready():
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
 	Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"), 0, Vector2(12, 12))
 	Globals.research_win.connect(_on_victory)
 	
