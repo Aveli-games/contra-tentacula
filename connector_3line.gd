@@ -11,6 +11,9 @@ const REMOVE_ANIMATION_SPEED = 1.5 * ADD_ANIMATION_SPEED
 
 func _ready():
 	if not Engine.is_editor_hint():
+		forward_progress=0
+		reverse_progress=0
+		_set_forward_length(0)
 		set_forward_progress(0)
 		_set_reverse_length(0)
 		set_reverse_progress(0)
