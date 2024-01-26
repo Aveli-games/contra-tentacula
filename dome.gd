@@ -167,7 +167,7 @@ func _on_dome_lost_countdown_timer_timeout():
 	$DomeStatus.text = "Lost"
 	$Building/BuildingSprite.modulate = Color.DIM_GRAY
 	lost.emit(self)
-	$Building/FlowerSprite.show()
+	$AnimationPlayer.play("flower_bloom")
 
 func _on_resource_generation_timer_timeout():
 	if producing:
