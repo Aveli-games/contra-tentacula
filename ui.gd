@@ -18,6 +18,8 @@ var resource_producers = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# Set up resource display
 	$RightSidebar/ResourceDisplay/FoodInfo.set_text("Food")
 	$RightSidebar/ResourceDisplay/FoodInfo.set_amount(Globals.resources[Globals.ResourceType.FOOD])
