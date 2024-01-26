@@ -114,6 +114,8 @@ func _on_movement_completed():
 
 func _on_movement_started():
 	if location:
+		if slot:
+			slot.empty(self)
 		remove_passive(location)
 		location = null
 		moving = true
@@ -134,6 +136,7 @@ func move(target: Dome):
 	if path_to_target:
 		# dome/slot management
 		global_position = location.global_position
+		# this slot empty might be redundant
 		if slot:
 			slot.empty(self)
 			

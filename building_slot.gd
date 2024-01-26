@@ -9,9 +9,11 @@ func fill(body: Squad):
 	unit = body
 	body.slot = self
 	if body.location.present_squads.find(body) == -1:
+		$SquadDebug.text = str(body.get_instance_id())
 		body.location.present_squads.append(body)
 
 func empty(body: Squad):
 	unit = null
 	body.slot = null
 	body.location.present_squads.erase(body)
+	$SquadDebug.text = ""
