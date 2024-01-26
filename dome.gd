@@ -60,6 +60,7 @@ func _check_infestation():
 			$DomeStatus.text = "Safe"
 			infestation_removed.emit()
 			DomeConnections.dome_stop_spread(self)
+			$Building/BuildingSprite.modulate = Color.WHITE
 			if not producing:
 				producing = true
 				production_changed.emit(self, producing)
@@ -161,6 +162,7 @@ func set_resource_type(type: Globals.ResourceType):
 
 # Only called when becomes fully infested
 func _on_fully_infested():
+	$Building/BuildingSprite.modulate = Color.DIM_GRAY
 	$DomeLostCountdownTimer.start(Globals.INFESTATION_COUNTDOWN)
 	##TODO: use signal in DomeConnections instead?
 	DomeConnections.dome_start_spread(self)
@@ -168,7 +170,6 @@ func _on_fully_infested():
 func _on_dome_lost_countdown_timer_timeout():
 	infestation_stage = Globals.InfestationStage.LOST
 	$DomeStatus.text = "Lost"
-	$Building/BuildingSprite.modulate = Color.DIM_GRAY
 	lost.emit(self)
 	$AnimationPlayer.play("flower_bloom")
 
