@@ -34,14 +34,28 @@ func _reset_game_board():
 		var new_game_board = game_board_scene.instantiate()
 		$GameBoardGroup.add_child(new_game_board)
 		new_game_board.main_menu_selected.connect(_on_game_board_main_menu_selected)
+		new_game_board.game_over.connect(_on_game_over_loss)
 		current_board = new_game_board
-	resume()
 
 func _on_reset_button_pressed():
 	_reset_game_board()
+	resume()
 
 func resume():
 	$ButtonBox.hide()
 	$AnimationPlayer.play("main_menu_slide_out")
 	await $AnimationPlayer.animation_finished
 	get_tree().paused = false
+
+func _on_game_over_loss():
+	$GameEndLoss.show_game_over()
+
+func _on_game_end_loss_main_menu():
+	get_tree().paused = true
+	$AnimationPlayer.play_backwards("main_menu_fade_out")
+	await $AnimationPlayer.animation_finished
+	_reset_game_board()
+	$ButtonBox/ResumeButton.hide()
+	$ButtonBox/ResetButton.hide()
+	$ButtonBox/StartButton.show()
+	$ButtonBox.show()

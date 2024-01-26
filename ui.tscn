@@ -185,7 +185,7 @@ offset_right = 729.0
 offset_bottom = 360.0
 theme_override_font_sizes/font_size = 36
 text = "Paused
-Press Space to continue"
+Press [P] to continue"
 horizontal_alignment = 1
 script = ExtResource("11_0tgb2")
 
