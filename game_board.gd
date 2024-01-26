@@ -8,8 +8,8 @@ var selected_squad: Squad
 var selected_action: Globals.ActionType = Globals.ActionType.NONE
 
 func _ready():
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
 	Input.set_custom_mouse_cursor(load("res://art/command_sprites/fight_sprite_placeholder.png"), 0, Vector2(12, 12))
-	Globals.research_win.connect(_on_victory)
 	
 	$Squads/Scientists.set_type(Globals.SquadType.SCIENTIST)
 	$Squads/Pyros.set_type(Globals.SquadType.PYRO)
@@ -129,12 +129,6 @@ func _on_dome_cleansed():
 	
 	for dome in $Domes.get_children():
 		dome.add_infestation_chance_modifier(self, (Globals.BASE_INFESTATION_CHANCE / 1.75 * (1 - float(Globals.infested_domes) / Globals.remaining_domes)))
-
-func _on_victory():
-	$WinLoseLabel.text = "You win!"
-
-func _on_game_over():
-	$WinLoseLabel.text = "You lose :("
 
 func _on_ui_main_menu_selected():
 	main_menu_selected.emit()
