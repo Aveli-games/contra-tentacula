@@ -7,6 +7,7 @@ var current_board
 func _ready():
 	current_board = $GameBoardGroup.find_child("GameBoard")
 	get_tree().paused = true
+	Globals.research_win.connect(_on_victory)
 
 func _on_start_button_pressed():
 	$ButtonBox.hide()
@@ -48,7 +49,8 @@ func resume():
 	get_tree().paused = false
 
 func _on_game_over_loss():
-	$GameEndLoss.show_game_over()
+	if not $GameEndLoss.visible && not $GameEndWin.visible:
+		$GameEndLoss.show_game_over()
 
 func _on_game_end_loss_main_menu():
 	get_tree().paused = true
@@ -59,3 +61,7 @@ func _on_game_end_loss_main_menu():
 	$ButtonBox/ResetButton.hide()
 	$ButtonBox/StartButton.show()
 	$ButtonBox.show()
+
+func _on_victory():
+	if not $GameEndLoss.visible && not $GameEndWin.visible:
+		$GameEndWin.show_victory()
