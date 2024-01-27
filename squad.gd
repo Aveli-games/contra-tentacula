@@ -112,9 +112,6 @@ func _physics_process(delta):
 	# don't run when paused, while allowing the rest of the node to run
 	if get_tree().paused:
 		return
-	if target_position == Vector2(176,360):
-		print('targeting dome 4')
-		print('   current pos: ',global_position, target_position && global_position.distance_to(target_position) > 3)
 	if target_position && global_position.distance_to(target_position) > 3:
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * Globals.BASE_MOVE_SPEED

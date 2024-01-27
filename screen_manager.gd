@@ -17,6 +17,9 @@ func _on_start_button_pressed():
 		current_board.toggle_pause()
 
 func _on_game_board_main_menu_selected():
+	if $ButtonBox.visible:
+		resume()
+		return
 	get_tree().paused = true
 	$AnimationPlayer.play("main_menu_slide_in")
 	await $AnimationPlayer.animation_finished
